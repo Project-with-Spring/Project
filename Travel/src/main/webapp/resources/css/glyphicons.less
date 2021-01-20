@@ -1,0 +1,306 @@
+//
+// Glyphicons for Bootstrap
+//
+// Since icons are fonts, they can be placed anywhere text is placed and are
+// thus automatically sized to match the surrounding child. To use, create an
+// inline element with the appropriate classes, like so:
+//
+// <a href="#"><span class="glyphicon glyphicon-star"></span> Star</a>
+
+// Import the fonts
+@font-face {
+    font-family: 'Glyphicons Halflings';
+    src: url('@{icon-font-path}@{icon-font-name}.eot');
+    src: url('@{icon-font-path}@{icon-font-name}.eot?#iefix') format('embedded-opentype'),
+         url('@{icon-font-path}@{icon-font-name}.woff2') format('woff2'),
+         url('@{icon-font-path}@{icon-font-name}.woff') format('woff'),
+         url('@{icon-font-path}@{icon-font-name}.ttf') format('truetype'),
+         url('@{icon-font-path}@{icon-font-name}.svg#@{icon-font-svg-id}') format('svg');
+  }
+  
+  // Catchall baseclass
+  .glyphicon {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  // Individual icons
+  .glyphicon-asterisk               { &:before { content: "\002a"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-plus                   { &:before { content: "\002b"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-euro,
+  .glyphicon-eur                    { &:before { content: "\20ac"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-minus                  { &:before { content: "\2212"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-cloud                  { &:before { content: "\2601"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-envelope               { &:before { content: "\2709"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-pencil                 { &:before { content: "\270f"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-glass                  { &:before { content: "\e001"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-music                  { &:before { content: "\e002"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-search                 { &:before { content: "\e003"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-heart                  { &:before { content: "\e005"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-star                   { &:before { content: "\e006"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-star-empty             { &:before { content: "\e007"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-user                   { &:before { content: "\e008"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-film                   { &:before { content: "\e009"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-th-large               { &:before { content: "\e010"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-th                     { &:before { content: "\e011"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-th-list                { &:before { content: "\e012"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-ok                     { &:before { content: "\e013"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-remove                 { &:before { content: "\e014"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-zoom-in                { &:before { content: "\e015"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-zoom-out               { &:before { content: "\e016"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-off                    { &:before { content: "\e017"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-signal                 { &:before { content: "\e018"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-cog                    { &:before { content: "\e019"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-trash                  { &:before { content: "\e020"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-home                   { &:before { content: "\e021"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-file                   { &:before { content: "\e022"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-time                   { &:before { content: "\e023"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-road                   { &:before { content: "\e024"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-download-alt           { &:before { content: "\e025"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-download               { &:before { content: "\e026"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-upload                 { &:before { content: "\e027"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-inbox                  { &:before { content: "\e028"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-play-circle            { &:before { content: "\e029"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-repeat                 { &:before { content: "\e030"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-refresh                { &:before { content: "\e031"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-list-alt               { &:before { content: "\e032"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-lock                   { &:before { content: "\e033"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-flag                   { &:before { content: "\e034"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-headphones             { &:before { content: "\e035"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-volume-off             { &:before { content: "\e036"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-volume-down            { &:before { content: "\e037"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-volume-up              { &:before { content: "\e038"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-qrcode                 { &:before { content: "\e039"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-barcode                { &:before { content: "\e040"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-tag                    { &:before { content: "\e041"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-tags                   { &:before { content: "\e042"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-book                   { &:before { content: "\e043"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-bookmark               { &:before { content: "\e044"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-print                  { &:before { content: "\e045"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-camera                 { &:before { content: "\e046"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-font                   { &:before { content: "\e047"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-bold                   { &:before { content: "\e048"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-italic                 { &:before { content: "\e049"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-text-height            { &:before { content: "\e050"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-text-width             { &:before { content: "\e051"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-align-left             { &:before { content: "\e052"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-align-center           { &:before { content: "\e053"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-align-right            { &:before { content: "\e054"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-align-justify          { &:before { content: "\e055"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-list                   { &:before { content: "\e056"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-indent-left            { &:before { content: "\e057"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-indent-right           { &:before { content: "\e058"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-facetime-video         { &:before { content: "\e059"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-picture                { &:before { content: "\e060"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-map-marker             { &:before { content: "\e062"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-adjust                 { &:before { content: "\e063"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-tint                   { &:before { content: "\e064"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-edit                   { &:before { content: "\e065"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-share                  { &:before { content: "\e066"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-check                  { &:before { content: "\e067"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-move                   { &:before { content: "\e068"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-step-backward          { &:before { content: "\e069"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-fast-backward          { &:before { content: "\e070"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-backward               { &:before { content: "\e071"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-play                   { &:before { content: "\e072"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-pause                  { &:before { content: "\e073"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-stop                   { &:before { content: "\e074"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-forward                { &:before { content: "\e075"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-fast-forward           { &:before { content: "\e076"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-step-forward           { &:before { content: "\e077"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-eject                  { &:before { content: "\e078"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-chevron-left           { &:before { content: "\e079"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-chevron-right          { &:before { content: "\e080"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-plus-sign              { &:before { content: "\e081"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-minus-sign             { &:before { content: "\e082"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-remove-sign            { &:before { content: "\e083"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-ok-sign                { &:before { content: "\e084"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-question-sign          { &:before { content: "\e085"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-info-sign              { &:before { content: "\e086"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-screenshot             { &:before { content: "\e087"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-remove-circle          { &:before { content: "\e088"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-ok-circle              { &:before { content: "\e089"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-ban-circle             { &:before { content: "\e090"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-arrow-left             { &:before { content: "\e091"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-arrow-right            { &:before { content: "\e092"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-arrow-up               { &:before { content: "\e093"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-arrow-down             { &:before { content: "\e094"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-share-alt              { &:before { content: "\e095"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-resize-full            { &:before { content: "\e096"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-resize-small           { &:before { content: "\e097"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-exclamation-sign       { &:before { content: "\e101"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-gift                   { &:before { content: "\e102"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-leaf                   { &:before { content: "\e103"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-fire                   { &:before { content: "\e104"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-eye-open               { &:before { content: "\e105"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-eye-close              { &:before { content: "\e106"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-warning-sign           { &:before { content: "\e107"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-plane                  { &:before { content: "\e108"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-calendar               { &:before { content: "\e109"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-random                 { &:before { content: "\e110"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-comment                { &:before { content: "\e111"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-magnet                 { &:before { content: "\e112"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-chevron-up             { &:before { content: "\e113"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-chevron-down           { &:before { content: "\e114"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-retweet                { &:before { content: "\e115"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-shopping-cart          { &:before { content: "\e116"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-folder-close           { &:before { content: "\e117"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-folder-open            { &:before { content: "\e118"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-resize-vertical        { &:before { content: "\e119"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-resize-horizontal      { &:before { content: "\e120"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-hdd                    { &:before { content: "\e121"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-bullhorn               { &:before { content: "\e122"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-bell                   { &:before { content: "\e123"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-certificate            { &:before { content: "\e124"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-thumbs-up              { &:before { content: "\e125"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-thumbs-down            { &:before { content: "\e126"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-hand-right             { &:before { content: "\e127"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-hand-left              { &:before { content: "\e128"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-hand-up                { &:before { content: "\e129"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-hand-down              { &:before { content: "\e130"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-circle-arrow-right     { &:before { content: "\e131"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-circle-arrow-left      { &:before { content: "\e132"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-circle-arrow-up        { &:before { content: "\e133"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-circle-arrow-down      { &:before { content: "\e134"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-globe                  { &:before { content: "\e135"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-wrench                 { &:before { content: "\e136"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-tasks                  { &:before { content: "\e137"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-filter                 { &:before { content: "\e138"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-briefcase              { &:before { content: "\e139"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-fullscreen             { &:before { content: "\e140"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-dashboard              { &:before { content: "\e141"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-paperclip              { &:before { content: "\e142"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-heart-empty            { &:before { content: "\e143"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-link                   { &:before { content: "\e144"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-phone                  { &:before { content: "\e145"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-pushpin                { &:before { content: "\e146"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-usd                    { &:before { content: "\e148"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-gbp                    { &:before { content: "\e149"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-sort                   { &:before { content: "\e150"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-sort-by-alphabet       { &:before { content: "\e151"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-sort-by-alphabet-alt   { &:before { content: "\e152"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-sort-by-order          { &:before { content: "\e153"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-sort-by-order-alt      { &:before { content: "\e154"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-sort-by-attributes     { &:before { content: "\e155"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-sort-by-attributes-alt { &:before { content: "\e156"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-unchecked              { &:before { content: "\e157"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-expand                 { &:before { content: "\e158"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-collapse-down          { &:before { content: "\e159"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-collapse-up            { &:before { content: "\e160"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-log-in                 { &:before { content: "\e161"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-flash                  { &:before { content: "\e162"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-log-out                { &:before { content: "\e163"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-new-window             { &:before { content: "\e164"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-record                 { &:before { content: "\e165"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-save                   { &:before { content: "\e166"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-open                   { &:before { content: "\e167"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-saved                  { &:before { content: "\e168"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-import                 { &:before { content: "\e169"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-export                 { &:before { content: "\e170"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-send                   { &:before { content: "\e171"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-floppy-disk            { &:before { content: "\e172"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-floppy-saved           { &:before { content: "\e173"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-floppy-remove          { &:before { content: "\e174"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-floppy-save            { &:before { content: "\e175"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-floppy-open            { &:before { content: "\e176"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-credit-card            { &:before { content: "\e177"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-transfer               { &:before { content: "\e178"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-cutlery                { &:before { content: "\e179"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-header                 { &:before { content: "\e180"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-compressed             { &:before { content: "\e181"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-earphone               { &:before { content: "\e182"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-phone-alt              { &:before { content: "\e183"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-tower                  { &:before { content: "\e184"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-stats                  { &:before { content: "\e185"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-sd-video               { &:before { content: "\e186"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-hd-video               { &:before { content: "\e187"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-subtitles              { &:before { content: "\e188"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-sound-stereo           { &:before { content: "\e189"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-sound-dolby            { &:before { content: "\e190"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-sound-5-1              { &:before { content: "\e191"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-sound-6-1              { &:before { content: "\e192"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-sound-7-1              { &:before { content: "\e193"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-copyright-mark         { &:before { content: "\e194"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-registration-mark      { &:before { content: "\e195"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-cloud-download         { &:before { content: "\e197"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-cloud-upload           { &:before { content: "\e198"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-tree-conifer           { &:before { content: "\e199"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-tree-deciduous         { &:before { content: "\e200"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-cd                     { &:before { content: "\e201"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-save-file              { &:before { content: "\e202"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-open-file              { &:before { content: "\e203"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-level-up               { &:before { content: "\e204"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-copy                   { &:before { content: "\e205"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-paste                  { &:before { content: "\e206"; font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  // The following 2 Glyphicons are omitted for the time being because
+  // they currently use Unicode codepoints that are outside the
+  // Basic Multilingual Plane (BMP). Older buggy versions of WebKit can't handle
+  // non-BMP codepoints in CSS string escapes, and thus can't display these two icons.
+  // Notably, the bug affects some older versions of the Android Browser.
+  // More info: https://github.com/twbs/bootstrap/issues/10106
+  // .glyphicon-door                   { &:before { content: "\1f6aa"; } }
+  // .glyphicon-key                    { &:before { content: "\1f511"; } }
+  .glyphicon-alert                  { &:before { content: "\e209";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-equalizer              { &:before { content: "\e210";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-king                   { &:before { content: "\e211";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-queen                  { &:before { content: "\e212";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-pawn                   { &:before { content: "\e213";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-bishop                 { &:before { content: "\e214";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-knight                 { &:before { content: "\e215";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-baby-formula           { &:before { content: "\e216";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-tent                   { &:before { content: "\26fa";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-blackboard             { &:before { content: "\e218";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-bed                    { &:before { content: "\e219";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-apple                  { &:before { content: "\f8ff";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-erase                  { &:before { content: "\e221";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-hourglass              { &:before { content: "\231b";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-lamp                   { &:before { content: "\e223";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-duplicate              { &:before { content: "\e224";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-piggy-bank             { &:before { content: "\e225";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-scissors               { &:before { content: "\e226";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-bitcoin                { &:before { content: "\e227";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-btc                    { &:before { content: "\e227";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-xbt                    { &:before { content: "\e227";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-yen                    { &:before { content: "\00a5";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-jpy                    { &:before { content: "\00a5";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-ruble                  { &:before { content: "\20bd";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-rub                    { &:before { content: "\20bd";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-scale                  { &:before { content: "\e230";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-ice-lolly              { &:before { content: "\e231";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-ice-lolly-tasted       { &:before { content: "\e232";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-education              { &:before { content: "\e233";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-option-horizontal      { &:before { content: "\e234";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-option-vertical        { &:before { content: "\e235";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-menu-hamburger         { &:before { content: "\e236";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-modal-window           { &:before { content: "\e237";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-oil                    { &:before { content: "\e238";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-grain                  { &:before { content: "\e239";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-sunglasses             { &:before { content: "\e240";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-text-size              { &:before { content: "\e241";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-text-color             { &:before { content: "\e242";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-text-background        { &:before { content: "\e243";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-object-align-top       { &:before { content: "\e244";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-object-align-bottom    { &:before { content: "\e245";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-object-align-horizontal{ &:before { content: "\e246";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-object-align-left      { &:before { content: "\e247";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-object-align-vertical  { &:before { content: "\e248";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-object-align-right     { &:before { content: "\e249";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-triangle-right         { &:before { content: "\e250";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-triangle-left          { &:before { content: "\e251";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-triangle-bottom        { &:before { content: "\e252";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-triangle-top           { &:before { content: "\e253";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-console                { &:before { content: "\e254";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-superscript            { &:before { content: "\e255";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-subscript              { &:before { content: "\e256";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-menu-left              { &:before { content: "\e257";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-menu-right             { &:before { content: "\e258";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-menu-down              { &:before { content: "\e259";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  .glyphicon-menu-up                { &:before { content: "\e260";  font-family: "Font Awesome 5 Free"; font-weight: 800;} }
+  
