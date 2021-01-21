@@ -16,6 +16,17 @@
 			<div class="row">
 				<div class="col-md-6 col-sm-6">
 					<div class="main_grid_table" style="min-height: 575px; max-height: 575px; margin-bottom: 5px; overflow: hidden scroll;">
+					<div class="manu_list">
+					<c:forEach var="ctg" items="${ctgList }">
+					<input type="button" value="${ctg.ctg_name}" onclick="location.href = 'sale?ctg_id=${ctg.ctg_id}'">
+					</c:forEach>
+					</div>
+					<div class="product_list">
+					<c:forEach var="pdt" items="${pdtList }">
+					<input type="button" value="${pdt.pdt_name}(${pdt.pdt_cost}원)">
+					</c:forEach>
+					</div>
+					
 																	</div>
 					<div class="col-md-9 hidden-xs">
 						<div class="table-responsive" style="border:solid 1px #CCC;padding:5px;">
