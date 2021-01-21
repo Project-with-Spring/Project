@@ -10,9 +10,9 @@
     <!-- jdbc 자원을 bean으로 선언하고 접속 환경을 구성 -->
 	<bean id="driverManagerDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/travel" />
+		<property name="url" value="jdbc:mysql://localhost:3306/pos" />
 		<property name="username" value="root" />
-		<property name="password" value="1234" />
+		<property name="password" value="rateyes9003" />
 	</bean>
 	
 	<!-- Mybatis 사용을 위한 Bean 설정으로 pom.xml에서 dependency 설정을 이미 했기에 가능 -->

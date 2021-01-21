@@ -23,5 +23,18 @@ public class MainController {
 		return "main/login";
 	}
 	
+	//http://localhost:8080/go/header　　
+	@RequestMapping(value = "/header", method = RequestMethod.GET)
+	public String header() {
+//		/WEB-INF/views/main/include/header.jsp
+		return "include/header";
+	}
+	
+	//http://localhost:8080/go/footer　　
+	@RequestMapping(value = "/footer", method = RequestMethod.GET)
+	public String footer() {
+//		/WEB-INF/views/main/include/footer.jsp
+		return "include/footer";
+	}
 	
 }

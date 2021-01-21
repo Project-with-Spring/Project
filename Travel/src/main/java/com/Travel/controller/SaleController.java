@@ -14,4 +14,10 @@ public class SaleController {
 		return "sub1/sale";
 	}
 	
+	//http://localhost:8080/go/sale　　
+	@RequestMapping(value = "/salesHistory", method = RequestMethod.GET)
+	public String saleHistory() {
+//		/WEB-INF/views/main/login.jsp
+		return "sub1/salesHistory";
+	}
 }
