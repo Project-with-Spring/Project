@@ -9,6 +9,6 @@ public interface SaleDAO {
 
 	List<CategoryBean> getCategoryList(String ctg_type);
 
-	List<ProductBean> getProductList(String ctg_id);
+	List<ProductBean> getProductList();
 
 }

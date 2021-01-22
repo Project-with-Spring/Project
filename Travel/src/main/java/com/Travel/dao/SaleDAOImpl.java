@@ -22,8 +22,8 @@ public class SaleDAOImpl implements SaleDAO {
 			return sqlSession.selectList(namespace+".getCategoryList",ctg_type);
 		}
 		@Override
-		public List<ProductBean> getProductList(String ctg_id) {
-			return sqlSession.selectList(namespace+".getProductList",ctg_id);
+		public List<ProductBean> getProductList() {
+			return sqlSession.selectList(namespace+".getProductList");
 		}
 
 }
