@@ -74,6 +74,7 @@
 						<script>
 				$('#ctg_type').on('click', function() {
 					var type = $('#ctg_type').val();
+					var html = '';
 					if(type == 1) {
 						$('#pdt_insert').css('display', 'block');
 						$('#stc_insert').css('display', 'none');
@@ -81,6 +82,19 @@
 						// 입력된 내용 초기화
 						$('input:text[name=pdt_name]').prop('value', '');
 						$('input:text[name=pdt_cost]').prop('value', '');
+
+
+						// 아래 category에 들어갈 내용 넣어주기
+						<c:forEach var="ctg" items="${ctgList}">
+// 							<c:choose>
+								<c:when test="${ctg.ctg_type eq " + type + " }">
+									html = '<option value=' + "${ctg.ctg_id}" + '>' + "${ctg.ctg_name}" + '</option>';
+								</c:when>
+// 							</c:choose>
+							$('#category').html(html);
+						</c:forEach>
+						
+						
 					} else if(type == 2) {
 						$('#pdt_insert').css('display', 'none');
 						$('#stc_insert').css('display', 'block');
@@ -104,19 +118,11 @@
 							<div class="col-md-4">
 								<select name="category" id="category" class="form-control">
 									<option value="0">카테고리를 선택하세요</option>
-									<c:forEach var="ctg" items="${ctgList}">
-										<c:choose>
-											<c:when test="${ctg.ctg_type eq 1 }">
-												<option value="${ctg.ctg_id}">${ctg.ctg_name}</option>
-											</c:when>
-											<c:when test="${ctg.ctg_type eq 2 }">
-												<option value="${ctg.ctg_id}">${ctg.ctg_name}</option>
-											</c:when>
-										</c:choose>
-									</c:forEach>
+									
 								</select>
 							</div>
 						</div>
+						
 				</div>
 
 				<!-- 상품 입력 -->
