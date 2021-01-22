@@ -79,7 +79,7 @@
   				</thead>
 								<tr>
 					<td colspan="11">
-						판매내역이 없습니다.				</td>
+						판매내역이 없습니다				</td>
 				</tr>
 				              </table>
              </div>
