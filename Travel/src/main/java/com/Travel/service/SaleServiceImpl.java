@@ -21,9 +21,9 @@ public class SaleServiceImpl implements SaleService {
 	}
 
 	@Override
-	public List<ProductBean> getProductList(String ctg_id) {
+	public List<ProductBean> getProductList() {
 		// TODO Auto-generated method stub
-		return saleDAO.getProductList(ctg_id);
+		return saleDAO.getProductList();
 	}
 
 }

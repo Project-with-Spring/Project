@@ -24,16 +24,12 @@ public class SaleController {
 	@RequestMapping(value = "/sale", method = RequestMethod.GET)
 	public String sale(Model model, HttpServletRequest request) {
 		String ctg_type = request.getParameter("ctg_type");
-		String ctg_id = request.getParameter("ctg_id");
 		if(ctg_type == null) {
 			ctg_type ="1";
 		}
-		if(ctg_id == null) {
-			ctg_id ="1";
-		}
 		
 		List<CategoryBean> ctgList = saleService.getCategoryList(ctg_type);
-		List<ProductBean> pdtList = saleService.getProductList(ctg_id);
+		List<ProductBean> pdtList = saleService.getProductList();
 		
 		model.addAttribute("ctgList",ctgList);
 		model.addAttribute("pdtList",pdtList);

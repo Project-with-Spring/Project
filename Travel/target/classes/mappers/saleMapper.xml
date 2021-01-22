@@ -10,6 +10,6 @@
 	</select>
 	
 	<select id="getProductList" resultType="com.Travel.domain.ProductBean">
-		select * from product where ctg_id=#{ctg_id}
+		select * from product 
 	</select>
 </mapper>

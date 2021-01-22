@@ -2,7 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ include file="../include/header.jsp" %>
-
+<link rel="stylesheet" href="<c:url value='/resources/css/sale.css'/>">
+<script src="<c:url value="/resources/js/sale.js"/>"></script>
 <div class="content-wrapper" style="min-height: 805px;">
     <!-- Main content -->
     <section class="content">
@@ -17,15 +18,45 @@
 				<div class="col-md-6 col-sm-6">
 					<div class="main_grid_table" style="min-height: 575px; max-height: 575px; margin-bottom: 5px; overflow: hidden scroll;">
 					<div class="manu_list">
-					<c:forEach var="ctg" items="${ctgList }">
-					<input type="button" value="${ctg.ctg_name}" onclick="location.href = 'sale?ctg_id=${ctg.ctg_id}'">
+					<ul class="manu_title">
+					<c:forEach var="ctg" items="${ctgList }" varStatus="vs">
+					<c:if test="${vs.index==0}">
+					<li class="on" data-tab="ctg${ctg.ctg_id}">
+					${ctg.ctg_name}
+					</li>
+					</c:if>
+					<c:if test="${vs.index!=0}">
+					<li data-tab="ctg${ctg.ctg_id}">
+					${ctg.ctg_name}
+					</li>
+					</c:if>
 					</c:forEach>
+					</ul>
 					</div>
-					<div class="product_list">
+					<c:forEach var="ctg" items="${ctgList }" varStatus="vs">
+					<c:if test="${vs.index==0}">
+					<div id="ctg${ctg.ctg_id}" class="pdt on">
+					<ul class ="manu.sel">
 					<c:forEach var="pdt" items="${pdtList }">
-					<input type="button" value="${pdt.pdt_name}(${pdt.pdt_cost}원)">
+					<c:if test="${ctg.ctg_id==pdt.ctg_id }">
+					<li>${pdt.pdt_name}<br>(${pdt.pdt_cost })원</li>
+					</c:if>
 					</c:forEach>
+					</ul>
 					</div>
+					</c:if>
+					<c:if test="${vs.index!=0}">
+					<div id="ctg${ctg.ctg_id}" class="pdt">
+					<ul>
+					<c:forEach var="pdt" items="${pdtList }">
+					<c:if test="${ctg.ctg_id==pdt.ctg_id }">
+					<li>${pdt.pdt_name}<br>(${pdt.pdt_cost })원</li>
+					</c:if>
+					</c:forEach>
+					</ul>
+					</div>
+					</c:if>
+					</c:forEach>
 					
 																	</div>
 					<div class="col-md-9 hidden-xs">
@@ -70,7 +101,21 @@
 								<td><a href="#" class="btn btn-danger btn-xs btnDelete"><span class="glyphicon glyphicon-remove"></span></a></td>
 							</tr>-->
 							
-						<tbody><tr id="1"><td><input type="hidden" name="item_id_1" id="item_id_1" value="3642"><input type="hidden" name="item_name_1" id="item_name_1" value="Americano"><input type="hidden" name="item_code_1" id="item_code_1" value="coffee01"><input type="hidden" name="item_atrr_1" id="item_atrr_1" value=""><input type="hidden" name="is_group_1" id="is_group_1" value="No"><div style="font-weight:bold;">Americano</div><div"></div"></td><td><input type="text" name="qty_1" id="qty_1" value="1" class="form-control" onkeyup="cals(1);"></td><td><input type="text" name="prate_1" id="prate_1" value="0.00" class="form-control" onkeyup="cals(1);"></td><td><input type="text" name="dist_1" id="dist_1" value="0" class="form-control" onkeyup="cals(1);"></td><td><input type="text" name="total_1" id="total_1" value="" class="form-control" readonly="Yes"></td><td><a href="#" class="btn btn-danger btn-xs btnDelete"><span class="glyphicon glyphicon-remove"></span></a></td></tr></tbody></table>
+						<tbody>
+						<tr id="1"><td><input type="hidden" name="item_id_1" id="item_id_1" value="3642">
+						<input type="hidden" name="item_name_1" id="item_name_1" value="Americano">
+						<input type="hidden" name="item_code_1" id="item_code_1" value="coffee01">
+						<input type="hidden" name="item_atrr_1" id="item_atrr_1" value="">
+						<input type="hidden" name="is_group_1" id="is_group_1" value="No">
+						<div style="font-weight:bold;">Americano</div>
+						</td><td><input type="text" name="qty_1" id="qty_1" value="1" class="form-control" onkeyup="cals(1);"></td>
+						<td><input type="text" name="prate_1" id="prate_1" value="0.00" class="form-control" onkeyup="cals(1);"></td>
+						<td><input type="text" name="dist_1" id="dist_1" value="0" class="form-control" onkeyup="cals(1);"></td>
+						<td><input type="text" name="total_1" id="total_1" value="" class="form-control" readonly="Yes"></td>
+						<td><a href="#" class="btn btn-danger btn-xs btnDelete"><span class="glyphicon glyphicon-remove"></span></a></td></tr>
+						</tbody>
+						
+						</table>
 					</div>
 					<div style="display:block;padding:5px;">
 						<div style="display:none;border:solid 1px #CCC;padding:5px;height:100px;" id="load_submit">

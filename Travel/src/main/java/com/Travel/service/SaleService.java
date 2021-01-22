@@ -8,6 +8,6 @@ import com.Travel.domain.ProductBean;
 public interface SaleService {
 	public List<CategoryBean> getCategoryList(String ctg_type);
 	
-	public List<ProductBean> getProductList(String ctg_id);
+	public List<ProductBean> getProductList();
 	
 }
