@@ -6,11 +6,11 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>enter</title>
+	<title>POS</title>
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>">
 	<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css"/>">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"> -->
 	<link rel="stylesheet" href="<c:url value="/resources/css/select2.min.css"/>">
 	<link rel="stylesheet" href="<c:url value="/resources/css/AdminLTE.min.css"/>">
 	<link rel="stylesheet" href="<c:url value="/resources/css/_all-skins.min.css"/>">
@@ -27,6 +27,7 @@
 	<script src="<c:url value="/resources/js/select2.full.min.js"/>"></script>
 	<script src="<c:url value="/resources/js/raphael-min.js"/>"></script>
 	<script src="<c:url value="/resources/js/morris.min.js"/>"></script>
+	<script src="https://kit.fontawesome.com/b8ea9520a2.js" crossorigin="anonymous"></script>
   <style>
   .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9{
   	padding-left:10px;
@@ -266,8 +267,8 @@
 
   <header class="main-header">
         <a href="https://activepos.net/active/index.php" class="logo">
-         <span class="logo-mini"><b>E</b>RP</span>
-          <span class="logo-lg"><b>enter</b></span>
+         <span class="logo-mini"><b>POS</span>
+          <span class="logo-lg"><b>POS</b></span>
         </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -280,10 +281,6 @@
       </a>
 	  <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
-          <li class="dropdown tasks-menu">
-		  				<a href="https://activepos.net/active/package.php" class="dropdown-toggle" style="background: rgba(0,0,0,0.3);">
-              STARTER: 16-Feb-2021            </a>
-					  </li>
 		  <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -298,8 +295,8 @@
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left"><a href="#" class="btn btn-default btn-flat">Profile</a></div>
-                <div class="pull-right"><a href="https://activepos.net/active/logout.php" class="btn btn-default btn-flat">Sign out</a></div>
+                <div class="pull-left"><a href="<c:url value='commute'/>" class="btn btn-default btn-flat">마이페이지 </a></div>
+                <div class="pull-right"><a href="<c:url value='login'/>" class="btn btn-default btn-flat">로그아웃</a></div>
               </li>
             </ul>
           </li>
@@ -315,73 +312,72 @@
   <aside class="main-sidebar">
     <section class="sidebar">
       <ul class="sidebar-menu">
-        <li class="header">MAIN NAVIGATION</li>
-		        <li><a href="https://activepos.net/active/index.php"><i class="fa fa-angle-right text-yellow"></i> <span>Home / Dashboard</span></a></li>
+        <li class="header">메뉴</li>
+		        <li><a href="<c:url value='main'/>"><i class="fa fa-angle-right text-yellow"></i> <span>home</span></a></li>
 		       	        <li class="treeview">
           <a href="#"><i class="fa fa-table"></i>
-          <span>Sales Management</span>
+          <span>판매/판매내역</span>
           <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
           </a>
 		  <ul class="treeview-menu" style="display: none;">
-		  				<li><a href="https://activepos.net/active/sales/new_sale.php"><i class="fa fa-angle-right"></i> New Sale</a></li>
-						            <li><a href="https://activepos.net/active/sales/sales.php"><i class="fa fa-angle-right"></i> Sales History</a></li>
-						          </ul>
+			<li><a href="<c:url value='sale'/>"><i class="fa fa-angle-right"></i> 판매</a></li>
+            <li><a href="<c:url value='salehistort'/>"><i class="fa fa-angle-right"></i> 판매내역</a></li>
+          </ul>
         </li>
-				        <li class="treeview">
+        <li class="treeview">
           <a href="#"><i class="fa fa-table"></i>
-          <span>Customers</span>
+          <span>회원</span>
           <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
           </a>
 		  <ul class="treeview-menu">
-		  	            <li><a href="https://activepos.net/active/customers/customer_categories.php"><i class="fa fa-angle-right"></i> Customers Categories</a></li>
-						            <li><a href="https://activepos.net/active/customers/customers.php"><i class="fa fa-angle-right"></i> Customers List</a></li>
-						            <li><a href="https://activepos.net/active/customers/cust_deposit.php"><i class="fa fa-angle-right"></i> Customer Deposit</a></li>
-						            <li><a href="https://activepos.net/active/customers/cust_ledger.php"><i class="fa fa-angle-right"></i> Customer Ledger</a></li>
-			          </ul>
+            <li><a href="https://activepos.net/active/customers/customer_categories.php"><i class="fa fa-angle-right"></i> Customers Categories</a></li>
+            <li><a href="<c:url value='customers'/>"><i class="fa fa-angle-right"></i> 회원리스트 </a></li>
+            <li><a href="https://activepos.net/active/customers/cust_deposit.php"><i class="fa fa-angle-right"></i> Customer Deposit</a></li>
+            <li><a href="https://activepos.net/active/customers/cust_ledger.php"><i class="fa fa-angle-right"></i> Customer Ledger</a></li>
+          </ul>
         </li>
-				        <li class="treeview">
+        <li class="treeview">
           <a href="#"><i class="fa fa-table"></i>
-          <span>Products / Items</span>
+          <span>상품/재고</span>
           <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
           </a>
 		  <ul class="treeview-menu">
-		  				<li><a href="https://activepos.net/active/products/categories.php"><i class="fa fa-angle-right"></i> Product Categories</a></li>
-						            <li><a href="https://activepos.net/active/products/items.php"><i class="fa fa-angle-right"></i> Products / Items</a></li>
-						            <li><a href="https://activepos.net/active/products/group_items.php"><i class="fa fa-angle-right"></i> Group Items</a></li>
-			          </ul>
+			<li><a href="https://activepos.net/active/products/categories.php"><i class="fa fa-angle-right"></i> Product Categories</a></li>
+            <li><a href="https://activepos.net/active/products/items.php"><i class="fa fa-angle-right"></i> Products / Items</a></li>
+            <li><a href="https://activepos.net/active/products/group_items.php"><i class="fa fa-angle-right"></i> Group Items</a></li>
+         </ul>
         </li>
-				        <li class="treeview">
+        <li class="treeview">
           <a href="#"><i class="fa fa-table"></i>
           <span>Stock Control</span>
           <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
           </a>
 		  <ul class="treeview-menu">
-		  				<li><a href="https://activepos.net/active/stock/suppliers.php"><i class="fa fa-angle-right"></i> Suppliers</a></li>
-						            <li><a href="https://activepos.net/active/stock/purchase_orders.php"><i class="fa fa-angle-right"></i> Purchase Orders</a></li>
-									<li><a href="https://activepos.net/active/stock/received.php"><i class="fa fa-angle-right"></i> GRN / PO Received</a></li>
-						            <li><a href="https://activepos.net/active/stock/stock_take.php"><i class="fa fa-angle-right"></i> Direct Stock Take</a></li>
-						            <li><a href="https://activepos.net/active/stock/stock_return.php"><i class="fa fa-angle-right"></i> Stock Return</a></li>
-									            <li><a href="https://activepos.net/active/stock/stock_adjustment.php"><i class="fa fa-angle-right"></i> Stock Adjustment</a></li>
-									<li><a href="https://activepos.net/active/stock/supplier_advance.php"><i class="fa fa-angle-right"></i> Supplier Advance</a></li>
-									<li><a href="https://activepos.net/active/stock/supplier_billing.php"><i class="fa fa-angle-right"></i> Supplier Billing</a></li>
-						            <li><a href="https://activepos.net/active/stock/stock_history.php"><i class="fa fa-angle-right"></i> Stock History Report</a></li>
-						            <li><a href="https://activepos.net/active/stock/stock_valuation.php"><i class="fa fa-angle-right"></i> Stock Valuation</a></li>
-						
+			<li><a href="https://activepos.net/active/stock/suppliers.php"><i class="fa fa-angle-right"></i> Suppliers</a></li>
+            <li><a href="https://activepos.net/active/stock/purchase_orders.php"><i class="fa fa-angle-right"></i> Purchase Orders</a></li>
+			<li><a href="https://activepos.net/active/stock/received.php"><i class="fa fa-angle-right"></i> GRN / PO Received</a></li>
+            <li><a href="https://activepos.net/active/stock/stock_take.php"><i class="fa fa-angle-right"></i> Direct Stock Take</a></li>
+            <li><a href="https://activepos.net/active/stock/stock_return.php"><i class="fa fa-angle-right"></i> Stock Return</a></li>
+			            <li><a href="https://activepos.net/active/stock/stock_adjustment.php"><i class="fa fa-angle-right"></i> Stock Adjustment</a></li>
+			<li><a href="https://activepos.net/active/stock/supplier_advance.php"><i class="fa fa-angle-right"></i> Supplier Advance</a></li>
+			<li><a href="https://activepos.net/active/stock/supplier_billing.php"><i class="fa fa-angle-right"></i> Supplier Billing</a></li>
+            <li><a href="https://activepos.net/active/stock/stock_history.php"><i class="fa fa-angle-right"></i> Stock History Report</a></li>
+            <li><a href="https://activepos.net/active/stock/stock_valuation.php"><i class="fa fa-angle-right"></i> Stock Valuation</a></li>
           </ul>
         </li>
-				        <li class="treeview">
+        <li class="treeview">
           <a href="#"><i class="fa fa-table"></i>
           <span>Expenses</span>
           <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
           </a>
 		  <ul class="treeview-menu">
-		  				<li><a href="https://activepos.net/active/expenses/categories.php"><i class="fa fa-angle-right"></i> Expense Categories</a></li>
-						<li><a href="https://activepos.net/active/expenses/expenses.php"><i class="fa fa-angle-right"></i> Manage Expenses</a></li>			<li><a href="https://activepos.net/active/expenses/profit.php"><i class="fa fa-angle-right"></i> Sales / Expense Report</a></li>          </ul>
+			<li><a href="https://activepos.net/active/expenses/categories.php"><i class="fa fa-angle-right"></i> Expense Categories</a></li>
+			<li><a href="https://activepos.net/active/expenses/expenses.php"><i class="fa fa-angle-right"></i> Manage Expenses</a></li>			<li><a href="https://activepos.net/active/expenses/profit.php"><i class="fa fa-angle-right"></i> Sales / Expense Report</a></li>          </ul>
         </li>
-				        <li><a href="https://activepos.net/active/locations.php"><i class="fa fa-angle-right text-yellow"></i> <span>Stores / Locations</span></a></li>
-				        <li><a href="https://activepos.net/active/users.php"><i class="fa fa-angle-right text-yellow"></i> <span>Manage Users</span></a></li>
-				        <li><a href="https://activepos.net/active/setting.php"><i class="fa fa-angle-right text-yellow"></i> <span>Settings</span></a></li>
-		      </ul>
+        <li><a href="https://activepos.net/active/locations.php"><i class="fa fa-angle-right text-yellow"></i> <span>Stores / Locations</span></a></li>
+        <li><a href="https://activepos.net/active/users.php"><i class="fa fa-angle-right text-yellow"></i> <span>Manage Users</span></a></li>
+        <li><a href="https://activepos.net/active/setting.php"><i class="fa fa-angle-right text-yellow"></i> <span>Settings</span></a></li>
+     </ul>
     </section>
     <!-- /.sidebar -->
   </aside>
