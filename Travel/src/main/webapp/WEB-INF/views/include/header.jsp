@@ -335,7 +335,7 @@
             <li><a href="<c:url value='staffRegist'/>"><i class="fa fa-angle-right"></i> 직원등록</a></li>
             <li><a href="<c:url value='staffCommute'/>"><i class="fa fa-angle-right"></i>출퇴근등록</a></li>
             <li><a href="<c:url value='staffCommuteList'/>"><i class="fa fa-angle-right"></i> 근태관리</a></li>
-            <li><a href="<c:url value='positionmanage'/>"><i class="fa fa-angle-right"></i> 직급관리</a></li>
+            <li><a href="<c:url value='positionList'/>"><i class="fa fa-angle-right"></i> 직급관리</a></li>
           </ul>
         </li>
         <li class="treeview">

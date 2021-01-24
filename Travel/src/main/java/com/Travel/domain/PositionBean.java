@@ -11,5 +11,5 @@ public class PositionBean {
 	
 	private String pst_id;
 	private String pst_name;
-	
+	private String pst_id_old;
 }
