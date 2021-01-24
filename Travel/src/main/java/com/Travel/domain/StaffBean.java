@@ -14,5 +14,6 @@ public class StaffBean {
 	private String stf_name;
 	private String stf_phone;
 	private String pst_id;
+	private String pst_name;
 	
 }

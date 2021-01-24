@@ -14,8 +14,9 @@
 	<link rel="stylesheet" href="<c:url value="/resources/css/select2.min.css"/>">
 	<link rel="stylesheet" href="<c:url value="/resources/css/AdminLTE.min.css"/>">
 	<link rel="stylesheet" href="<c:url value="/resources/css/_all-skins.min.css"/>">
+	<link rel="stylesheet" href="<c:url value="/resources/css/common.css"/>">
 	<link rel="stylesheet" href="<c:url value="/resources/css/common2.css"/>">
-	<link rel="stylesheet" href="<c:url value="/resources/js/jquery-ui.css"/>">	
+	<link rel="stylesheet" href="<c:url value="/resources/css/jquery-ui.css"/>">	
     <link rel="stylesheet" href="<c:url value="/resources/css/morris.css"/>">
 	<script src="<c:url value="/resources/js/jquery-2.2.3.min.js"/>"></script>
 	<script src="<c:url value="/resources/js/jquery-ui.js"/>"></script>

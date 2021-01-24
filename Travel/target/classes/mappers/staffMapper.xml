@@ -5,8 +5,8 @@
   
 <mapper namespace="com.Travel.mapper.StaffMapper">
 	
-<!-- 	<select id="getCategoryList" resultType="com.Travel.domain.CategoryBean">
-		select * from category where ctg_type=#{ctg_type}
-	</select> -->
+	<select id="getStaffList" parameterType="String" resultType="com.Travel.domain.StaffBean">
+		select st.*, ps.pst_name pst_name from staff st join position ps on st.pst_id = ps.pst_id where st.stf_name like CONCAT(‘%’,#{stf_name},‘%’)
+	</select>
 
 </mapper>

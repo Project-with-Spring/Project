@@ -2688,7 +2688,6 @@ table td[class*=col-],table th[class*=col-] {
 }
 .table-responsive {
 	min-height:.01%;
-	overflow-x:auto
 }
 @media screen and (max-width:767px) {
 	.table-responsive {
@@ -3441,6 +3440,9 @@ a.btn.disabled,fieldset[disabled] a.btn {
 	font-size:12px;
 	line-height:1.5;
 	border-radius:3px;
+}
+.btn-xxs {
+    padding: 1px 0;
 }
 .btn-block {
 	display:block;
