@@ -321,19 +321,20 @@
           </a>
 		  <ul class="treeview-menu" style="display: none;">
 			<li><a href="<c:url value='sale'/>"><i class="fa fa-angle-right"></i> 판매</a></li>
-            <li><a href="<c:url value='salehistort'/>"><i class="fa fa-angle-right"></i> 판매내역</a></li>
+            <li><a href="<c:url value='salesHistory'/>"><i class="fa fa-angle-right"></i> 판매내역</a></li>
           </ul>
         </li>
         <li class="treeview">
           <a href="#"><i class="fa fa-table"></i>
-          <span>회원</span>
+          <span>직원</span>
           <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
           </a>
 		  <ul class="treeview-menu">
-            <li><a href="https://activepos.net/active/customers/customer_categories.php"><i class="fa fa-angle-right"></i> Customers Categories</a></li>
-            <li><a href="<c:url value='customers'/>"><i class="fa fa-angle-right"></i> 회원리스트 </a></li>
-            <li><a href="https://activepos.net/active/customers/cust_deposit.php"><i class="fa fa-angle-right"></i> Customer Deposit</a></li>
-            <li><a href="https://activepos.net/active/customers/cust_ledger.php"><i class="fa fa-angle-right"></i> Customer Ledger</a></li>
+            <li><a href="<c:url value='staffList'/>"><i class="fa fa-angle-right"></i> 직원리스트 </a></li>
+            <li><a href="<c:url value='staffRegist'/>"><i class="fa fa-angle-right"></i> 직원등록</a></li>
+            <li><a href="<c:url value='staffCommute'/>"><i class="fa fa-angle-right"></i>출퇴근등록</a></li>
+            <li><a href="<c:url value='staffCommuteList'/>"><i class="fa fa-angle-right"></i> 근태관리</a></li>
+            <li><a href="<c:url value='positionmanage'/>"><i class="fa fa-angle-right"></i> 직급관리</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -342,9 +343,9 @@
           <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
           </a>
 		  <ul class="treeview-menu">
-			<li><a href="https://activepos.net/active/products/categories.php"><i class="fa fa-angle-right"></i> Product Categories</a></li>
-            <li><a href="https://activepos.net/active/products/items.php"><i class="fa fa-angle-right"></i> Products / Items</a></li>
-            <li><a href="https://activepos.net/active/products/group_items.php"><i class="fa fa-angle-right"></i> Group Items</a></li>
+			<li><a href="<c:url value='list'/>"><i class="fa fa-angle-right"></i> 상품관리</a></li>
+            <li><a href="<c:url value='list'/>"><i class="fa fa-angle-right"></i> 재고관리</a></li>
+            <li><a href="<c:url value='list'/>"><i class="fa fa-angle-right"></i> 카테고리관리</a></li>
          </ul>
         </li>
         <li class="treeview">
