@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.Travel.mapper.StaffMapper">
+	
+	<select id="getStaffList" parameterType="String" resultType="com.Travel.domain.StaffBean">
+		select st.*, ps.pst_name pst_name from staff st join position ps on st.pst_id = ps.pst_id where st.stf_name like CONCAT(‘%’,#{stf_name},‘%’)
+	</select>
+
+</mapper>

@@ -18,7 +18,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 
 	@Override
 	public List<CategoryBean> getCtgList() {
-		return sqlSession.selectList(namespace);
+		return sqlSession.selectList(namespace + ".selectCategoryList");
 	}
 	
 
