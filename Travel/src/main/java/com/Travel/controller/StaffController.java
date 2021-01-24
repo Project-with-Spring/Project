@@ -21,15 +21,15 @@ public class StaffController {
 	@Inject
 	private StaffService staffService ;
 	
-	//http://localhost:8080/go/sale　　
+	
+	//직업리스트
+	//http://localhost:8080/go/staffList　　
 	@RequestMapping(value = "/staffList", method = RequestMethod.GET)
-	public String saleHistory(Model model, HttpServletRequest request) {
+	public String staffList(Model model, HttpServletRequest request) {
 		try {
 			request.setCharacterEncoding("utf-8");
-			System.out.println(request.getParameter("stf_name"));
-			
-			String stf_name = "";
-			stf_name = request.getParameter("stf_name")==null ? "" : request.getParameter("stf_name");
+			System.out.println(request.getParameter("stf_name"));			
+			String stf_name = request.getParameter("stf_name")==null ? "" : request.getParameter("stf_name");
 			System.out.println(stf_name);
 			List<StaffBean> staffList = staffService.getStaffList(stf_name);
 			model.addAttribute("staffList",staffList);
@@ -37,7 +37,10 @@ public class StaffController {
 			
 			e.printStackTrace();
 		}
-//		/WEB-INF/views/main/login.jsp
+		// /WEB-INF/views/sub3/staffList.jsp
 		return "sub3/staffList";
 	}
+	
+	
+	
 }
