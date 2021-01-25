@@ -38,7 +38,6 @@ public class PositionController {
 	@RequestMapping(value = "/positionList", method = RequestMethod.GET)
 	public String positionList(Model model, HttpServletRequest request) {
 		try {
-			request.setCharacterEncoding("utf-8");
 			List<PositionBean> positionList = positionService.getPositionList();
 			model.addAttribute("positionList",positionList);
 		} catch (Exception e) {
@@ -64,10 +63,7 @@ public class PositionController {
 	//직급등록
 	//http://localhost:8080/go/positionModify　　
 	@RequestMapping(value = "/positionRegist", method = RequestMethod.POST)
-	public String insertPosition(HttpServletRequest request,HttpServletResponse response) throws IOException{		
-		PositionBean pb = new PositionBean();
-		pb.setPst_id(request.getParameter("pst_id"));
-		pb.setPst_name(request.getParameter("pst_name"));
+	public String insertPosition(PositionBean pb,HttpServletResponse response) throws IOException{		
 		int chkPst_id = positionService.chkPostion(pb.getPst_id());
 		if(chkPst_id == 0) {
 			positionService.insertPostion(pb);
@@ -89,14 +85,8 @@ public class PositionController {
 	//직급수정 
 	//http://localhost:8080/go/positionModify　　
 	@RequestMapping(value = "/positionModifyPro", method = RequestMethod.POST)
-	public String positionModifyPro(HttpServletRequest request,HttpServletResponse response){
-		
-		PositionBean pb = new PositionBean();
-		pb.setPst_id_old(request.getParameter("pst_id_old"));
-		pb.setPst_id(request.getParameter("pst_id"));
-		pb.setPst_name(request.getParameter("pst_name"));
+	public String positionModifyPro(PositionBean pb ){	
 		positionService.updatePostion(pb);
-//		model.addAttribute("pb",pb);		
 		// /WEB-INF/views/sub3/positionModify.jsp
 		return "redirect:positionList";
 	}
@@ -104,8 +94,7 @@ public class PositionController {
 	//직급삭제 
 	//http://localhost:8080/go/positionDelete　　
 	@RequestMapping(value = "/positionDelete", method = RequestMethod.GET)
-	public String deletePosition(HttpServletRequest request,HttpServletResponse response) throws IOException{		
-		PositionBean pb = new PositionBean();
+	public String deletePosition(PositionBean pb ,HttpServletRequest request,HttpServletResponse response) throws IOException{		
 		String pst_id= request.getParameter("pst_id");
 		int chkPst_id = positionService.chkPostion(pst_id);
 		if(chkPst_id != 0) {

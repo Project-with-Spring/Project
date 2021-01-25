@@ -5,8 +5,30 @@
   
 <mapper namespace="com.Travel.mapper.StaffMapper">
 	
-	<select id="getStaffList" parameterType="string" resultType="com.Travel.domain.StaffBean">
+	<select id="getStaffList" parameterType="string" resultType="staffBean">
 		select st.*, ps.pst_name pst_name from staff st join position ps on st.pst_id = ps.pst_id where st.stf_name like CONCAT('%',#{stf_name},'%')
 	</select>
+	
+		
+	<select id="getStaff" parameterType="int" resultType="staffBean">
+		select * from staff where stf_id=#{stf_id}
+	</select>
+	
 
+	<insert id="insertStaff"  parameterType="staffBean">
+		insert into staff (pst_id,stf_name,stf_phone) values (#{pst_id},#{stf_name},#{stf_phone})
+	</insert>
+	
+	<update id="updateStaff" parameterType="staffBean">
+		update staff set stf_name=#{stf_name}, stf_phone=#{stf_phone},pst_id=#{pst_id} where stf_id=#{stf_id}
+	</update>
+	
+		
+	<delete id="deleteStaff" parameterType="int">
+		delete from staff where stf_id=#{stf_id}
+	</delete>
+	
+	<select id="chkStaff" parameterType="int" resultType="int">
+		select count(*) from staff where stf_id=#{stf_id}
+	</select>
 </mapper>

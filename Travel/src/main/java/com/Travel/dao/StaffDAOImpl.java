@@ -19,7 +19,32 @@ public class StaffDAOImpl implements StaffDAO{
 		
 		@Override
 		public List<StaffBean> getStaffList(String stf_name) {
-			// TODO Auto-generated method stub
 			return sqlSession.selectList(namespace+".getStaffList",stf_name);
+		}
+
+		@Override
+		public void insertStaff(StaffBean sf) {
+			sqlSession.insert(namespace+".insertStaff",sf);
+		}
+
+		@Override
+		public int chkStf(int stf_id) {
+			return sqlSession.selectOne(namespace+".chkStaff",stf_id);
+		}
+
+		@Override
+		public void deleteStaff(int stf_id) {
+			sqlSession.delete(namespace+".deleteStaff",stf_id);
+		}
+
+		@Override
+		public StaffBean getStaff(int stf_id) {
+			return sqlSession.selectOne(namespace+".getStaff",stf_id);
+		}
+
+		@Override
+		public void updateStaff(StaffBean sb) {
+			sqlSession.update(namespace+".updateStaff",sb);
+			
 		}
 }
