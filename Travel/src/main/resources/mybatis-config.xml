@@ -4,5 +4,20 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
  
  <configuration>
- 
+ 	<typeAliases>
+ 		<!-- 카테고리 -->
+ 		<typeAlias alias="category" type="com.Travel.domain.CategoryBean"/>
+ 		<!-- 상품 -->
+ 		<typeAlias alias="product" type="com.Travel.domain.ProductBean"/>
+ 		<!-- 재고 -->
+ 		<typeAlias alias="stock" type="com.Travel.domain.StockBean"/>
+ 		 		
+ 		<!-- 직원 -->
+ 		<typeAlias alias="staffBean" type="com.Travel.domain.StaffBean"/>
+ 		<!-- 직급 -->
+ 		<typeAlias alias="positionBean" type="com.Travel.domain.PositionBean"/>
+ 		<!-- 근태 -->
+ 		<typeAlias alias="commuteBean" type="com.Travel.domain.CommuteBean"/>
+ 		
+ 	</typeAliases>
  </configuration> 

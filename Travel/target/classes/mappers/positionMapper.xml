@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.Travel.mapper.PositionMapper">
+
+ 
+
+	<select id="getPositionList" resultType="positionBean">
+		select * from position
+	</select>
+	
+	<select id="getPosition" parameterType="string" resultType="positionBean">
+		select * from position where pst_id=#{pst_id}
+	</select>
+	
+	
+	<select id="chkPosition" parameterType="string" resultType="int">
+		select count(*) from position where pst_id=#{pst_id}
+	</select>
+		
+	<insert id="insertPosition" parameterType="positionBean">
+		insert into position (pst_id,pst_name) values (#{pst_id},#{pst_name}) 
+	</insert>
+	
+	
+	<update id="updatePosition" parameterType="positionBean">
+		update position set pst_name=#{pst_name} where pst_id=#{pst_id}
+	</update>
+	
+	<delete id="deletePosition" parameterType="String">
+		delete from position where pst_id=#{pst_id}
+	</delete>
+	
+</mapper>
