@@ -18,7 +18,7 @@
       <div class="box">
 	  	<div class="box-header with-border">
           <h3 class="box-title"></h3>
-          <div class="box-tools pull-right"><a href="javascript:print_opt();" class="btn btn-success btn-sm">CSV 내보내기</a> <a href="new_sale.php" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> 주문받기</a></div>
+          <div class="box-tools pull-right"><a href="javascript:print_opt();" class="btn btn-success btn-sm">CSV 내보내기</a> <a href="<c:url value="sales"/>" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> 주문받기</a></div>
         </div>
 		<script>
 		function print_opt()
@@ -61,26 +61,52 @@
         </form>
 		
         <div class="table-responsive no-padding">
-          <table class="table table-striped table-responsive tbl_narrow">
+          <table id="historyTable" class="table table-striped table-responsive tbl_narrow table-bordered">
             <thead>
-                <tr>
-                  <th>#</th>
-                    <th>판매번호</th>
-                    <th>판매날짜</th>
-					<th>판매자</th>
-					<th>판매금액</th>
-					<th>할인타입</th>
-					<th>할인량</th>
-					<th>고객전화번호</th>
-					<th>상태</th>
-                    <th>상세보기</th>
+                <tr id="tr_top">
+                  <th width="5%">#</th>
+                    <th width="10%">판매날짜</th>
+					<th width="10%">판매자</th>
+					<th width="10%">판매금액</th>
+					<th width="10%">할인타입</th>
+					<th width="10%">할인량</th>
+					<th width="10%">고객전화번호</th>
+					<th width="10%">상태</th>
+                    <th width="10%">상세보기</th>
                     <th class="text-right" width="10%">메모</th>
                 </tr>
   				</thead>
-								<tr>
-					<td colspan="11">
-						판매내역이 없습니다				</td>
+  				<tbody>
+<!-- 				<tr> -->
+<!-- 					<td colspan="11"> -->
+<!-- 						판매내역이 없습니다				 -->
+<!-- 					</td> -->
+<!-- 				</tr> -->
+				<tr>
+				<td>1</td>
+				<td>2021-01-24</td>
+				<td>박진훈</td>
+				<td>50500</td>
+				<td>포인트</td>
+				<td>2000</td>
+				<td>010-4003-3892</td>
+				<td>판매완료</td>
+				<td>상세보기</td>
+				<td class="text-right" width="10%">없음</td>
 				</tr>
+				<tr>
+				<td>2</td>
+				<td>2021-01-25</td>
+				<td>한재욱</td>
+				<td>55000</td>
+				<td>포인트</td>
+				<td>5000</td>
+				<td>010-8483-7521</td>
+				<td>판매완료</td>
+				<td>상세보기</td>
+				<td class="text-right" width="10%">없음</td>
+				</tr>
+  				</tbody>
 				              </table>
              </div>
           </div>
@@ -97,5 +123,22 @@
         <div class="modal-content"></div>
     </div>
 </div>
+
 <script src="<c:url value="/resources/js/salesHistory.js"/>"></script>
+<link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/DataTables/datatables.min.css?ver=1"/>"/>
+<script type="text/javascript" src="<c:url value="/resources/js/DataTables/datatables.min.js"/>"></script>
 <c:import url="/footer"/>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#historyTable').DataTable({
+		//표시 건수기능 숨기기
+		lengthChange: false,
+		// 검색 기능 숨기기
+		searching: false,
+		// 정보 표시 숨기기
+		info: false,
+		// 페이징 기능 숨기기
+		paging: false
+	});
+})
+</script>

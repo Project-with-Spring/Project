@@ -1,5 +1,4 @@
 $(function() {
-	
 	  $('.btn-submit').click(function(e){
 	  		$(this).prop('disabled', true);
 			var $formId = $(this).parents('form');
