@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.Travel.mapper.SaleMapper">
+	
+	<select id="getCategoryList" resultType="com.Travel.domain.CategoryBean">
+		select * from category where ctg_type=#{ctg_type}
+	</select>
+	
+	<select id="getProductList" resultType="com.Travel.domain.ProductBean">
+		select * from product 
+	</select>
+</mapper>
