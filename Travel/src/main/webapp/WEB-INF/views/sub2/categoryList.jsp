@@ -83,14 +83,18 @@
 						$('input:text[name=pdt_cost]').prop('value', '');
 
 
-						// 아래 category에 들어갈 내용 넣어주기
+						// 아래 category 옵션에 들어갈 내용 넣어주기
+						// 미완성
 						<c:forEach var="ctg" items="${ctgList}">
-// 							<c:choose>
-								<c:when test="${ctg.ctg_type eq " + type + " }">
-									html = '<option value=' + "${ctg.ctg_id}" + '>' + "${ctg.ctg_name}" + '</option>';
-								</c:when>
-// 							</c:choose>
-							$('#category').html(html);
+							if(${ctg.ctg_type} == 1) {
+								var ctg_id = ${ctg.ctg_id};
+								var ctg_name = ${ctg.ctg_name}+'';
+
+								html = '<option value=' + ctg_id + '>' + ctg_name + '</option>';
+
+								$('#category').html(html);
+							}
+							
 						</c:forEach>
 						
 						
@@ -213,7 +217,7 @@
 				</form>
 				<div class="table-responsive no-padding">
 				
-					<table class="table table-striped table-responsive tbl_narrow">
+					<table class="table table-striped table-responsive tbl_narrow" id="table">
 						<thead>
 						<tr>
 							<th>Categoty ID</th>
@@ -223,48 +227,15 @@
 							<th>Detail</th>
 						</tr>
 						</thead>
-						
-						<c:forEach items="${ctgList }" var="ctg">
-						<c:forEach items="${pdtList }" var="pdt">
-						<c:forEach items="${stcList }" var="stc">
-						
-						
-						<tr onclick="href='${table_url }'">
-							<td>${ctg.ctg_id }</td>
-							<td>${ctg.ctg_type }</td>
-							<td>${ctg.ctg_name }</td>
-							
-							<c:choose>
-								<c:when test="${ctg.ctg_id == pdt.ctg_id}">
-									<td>${pdt.pdt_name }</td>
-								</c:when>
-								<c:when test="${ctg.ctg_id == stc.ctg_id}">
-									<td>${stc.stc_name }</td>
-								</c:when>
-							</c:choose>
-							
-							
-							<!-- 카테고리타입에 따른 상세페이지 이동링크 변경 -->
-							<c:choose>
-								<c:when test="${ctg.ctg_type == 1}">
-									<td><a href="<c:url value='/pdt/list/${pdt.pdt_id }'/>">상세페이지</a></td>
-								</c:when>
-								<c:otherwise>
-									<td><a href="<c:url value='/stc/list/${stc.stc_id }'/>">상세페이지로 이동</a></td>
-								</c:otherwise>
-							</c:choose>
-							
+<!-- 						테이블에 들어갈 tr은 밑의 js에서 추가함 -->
+						<tr>
+							<td>1</td>
+							<td>02</td>
+							<td>재고</td>
+							<td>원두</td>
+							<td><a href="<c:url value='/pdt/list/${pdt.pdt_id }'/>">상세보기</a></td>
 						</tr>
-					
-						</c:forEach> <!-- ctgList 반복 닫음 -->
-						</c:forEach> <!-- pdtList 반복 닫음 -->
-						</c:forEach> <!-- stcList 반복 닫음 -->
-<!-- 						<tr> -->
-<!-- 							<td>1</td> -->
-<!-- 							<td>02</td> -->
-<!-- 							<td>재고</td> -->
-<!-- 							<td>원두</td> -->
-<!-- 						</tr> -->
+						
 						<tr>
 							<td colspan="5">
 
@@ -284,7 +255,41 @@
 							</td>
 						</tr>
 					</table>
+					<script>
+						<c:forEach items="${ctgList }" var="ctg">
+						<c:forEach items="${pdtList }" var="pdt">
+						<c:forEach items="${stcList }" var="stc">
+
+						// 테이블에 들어갈 행 추가
+						var html = "<tr>" + 
+							"<td>" + ${ctg.ctg_id} + "</td>" + 
+							"<td>" + ${ctg.ctg_type} + "</td>" +
+							"<td>" + ${ctg.ctg_name} + "</td>";
+
+// 							카테고리타입에 따른 상품/재고 이름 출력
+						if(${ctg.ctg_id} == ${pdt.ctg_id})
+							html += "<td>" + ${pdt.pdt_name} + "</td>";
+						else if(${ctg.ctg_id} == ${stc.ctg_id})
+							html += "<td>" + ${stc.ctg_id} + "</td>";
+														
+// 							카테고리타입에 따른 상세페이지 이동링크 변경
+						if(${ctg.ctg_id} == ${pdt.ctg_id})
+							html += "<td> <a href='/pdt/list/" + ${pdt.pdt_id} + "'>" + 
+									"상세페이지</a> </td>" + 
+									"</tr>";
+						else if(${ctg.ctg_id} == ${stc.ctg_id})
+							html += "<td> <a href='/stc/list/" + ${stc.stc_id} + "'>" + 
+									"상세페이지</a> </td>" + 
+									"</tr>";
+						${'#table'}.html(html);
 					
+						</c:forEach> <!-- ctgList 반복 닫음 -->
+						</c:forEach> <!-- pdtList 반복 닫음 -->
+						</c:forEach> <!-- stcList 반복 닫음 -->
+
+
+					</script>
+						
 				</div>
 			</div>
 

@@ -17,7 +17,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 	private static final String namespace="com.Travel.mapper.CategoryMapper"; 
 
 	@Override
-	public List<CategoryBean> getCtgList() {
+	public List<CategoryBean> getCtgList(){
 		return sqlSession.selectList(namespace + ".selectCategoryList");
 	}
 	

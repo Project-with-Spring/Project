@@ -344,9 +344,9 @@
           <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
           </a>
 		  <ul class="treeview-menu">
-			<li><a href="<c:url value='list'/>"><i class="fa fa-angle-right"></i> 상품관리</a></li>
-            <li><a href="<c:url value='list'/>"><i class="fa fa-angle-right"></i> 재고관리</a></li>
-            <li><a href="<c:url value='list'/>"><i class="fa fa-angle-right"></i> 카테고리관리</a></li>
+			<li><a href="<c:url value='/pdt/list'/>"><i class="fa fa-angle-right"></i> 상품관리</a></li>
+            <li><a href="<c:url value='/stc/list'/>"><i class="fa fa-angle-right"></i> 재고관리</a></li>
+            <li><a href="<c:url value='/ctg/list'/>"><i class="fa fa-angle-right"></i> 카테고리관리</a></li>
          </ul>
         </li>
         <li class="treeview">

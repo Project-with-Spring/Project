@@ -30,7 +30,7 @@ public class CategoryController {
 	private StockService stockService;
 	
 	// http://localhost:8080/go/ctg/list
-	@RequestMapping(value="/list", method=RequestMethod.GET)
+	@RequestMapping("/list")
 	public String ctgList(Model model) {
 		// 카테고리 목록 불러오기
 		List<CategoryBean> ctgList = categoryService.getCtgList();
