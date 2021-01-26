@@ -314,15 +314,15 @@
     <section class="sidebar">
       <ul class="sidebar-menu">
         <li class="header">메뉴</li>
-		        <li><a href="<c:url value='main'/>"><i class="fa fa-angle-right text-yellow"></i> <span>home</span></a></li>
+		        <li><a href="<c:url value='/main'/>"><i class="fa fa-angle-right text-yellow"></i> <span>home</span></a></li>
 		       	        <li class="treeview">
           <a href="#"><i class="fa fa-table"></i>
           <span>판매/판매내역</span>
           <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
           </a>
 		  <ul class="treeview-menu" style="display: none;">
-			<li><a href="<c:url value='sale'/>"><i class="fa fa-angle-right"></i> 판매</a></li>
-            <li><a href="<c:url value='salesHistory'/>"><i class="fa fa-angle-right"></i> 판매내역</a></li>
+			<li><a href="<c:url value='/sale'/>"><i class="fa fa-angle-right"></i> 판매</a></li>
+            <li><a href="<c:url value='/salesHistory'/>"><i class="fa fa-angle-right"></i> 판매내역</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -331,11 +331,11 @@
           <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
           </a>
 		  <ul class="treeview-menu">
-            <li><a href="<c:url value='staffList'/>"><i class="fa fa-angle-right"></i> 직원리스트 </a></li>
-            <li><a href="<c:url value='staffRegist'/>"><i class="fa fa-angle-right"></i> 직원등록</a></li>
-            <li><a href="<c:url value='staffCommute'/>"><i class="fa fa-angle-right"></i>출퇴근등록</a></li>
-            <li><a href="<c:url value='staffCommuteList'/>"><i class="fa fa-angle-right"></i> 근태관리</a></li>
-            <li><a href="<c:url value='positionmanage'/>"><i class="fa fa-angle-right"></i> 직급관리</a></li>
+            <li><a href="<c:url value='/staffList'/>"><i class="fa fa-angle-right"></i> 직원리스트 </a></li>
+            <li><a href="<c:url value='/staffRegist'/>"><i class="fa fa-angle-right"></i> 직원등록</a></li>
+            <li><a href="<c:url value='/staffCommute'/>"><i class="fa fa-angle-right"></i>출퇴근등록</a></li>
+            <li><a href="<c:url value='/staffCommuteList'/>"><i class="fa fa-angle-right"></i> 근태관리</a></li>
+            <li><a href="<c:url value='/positionmanage'/>"><i class="fa fa-angle-right"></i> 직급관리</a></li>
           </ul>
         </li>
         <li class="treeview">
@@ -344,9 +344,9 @@
           <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
           </a>
 		  <ul class="treeview-menu">
-			<li><a href="<c:url value='list'/>"><i class="fa fa-angle-right"></i> 상품관리</a></li>
-            <li><a href="<c:url value='list'/>"><i class="fa fa-angle-right"></i> 재고관리</a></li>
-            <li><a href="<c:url value='list'/>"><i class="fa fa-angle-right"></i> 카테고리관리</a></li>
+			<li><a href="<c:url value='/pdt/list'/>"><i class="fa fa-angle-right"></i> 상품관리</a></li>
+            <li><a href="<c:url value='/stc/list'/>"><i class="fa fa-angle-right"></i> 재고관리</a></li>
+            <li><a href="<c:url value='/ctg/list'/>"><i class="fa fa-angle-right"></i> 카테고리관리</a></li>
          </ul>
         </li>
         <li class="treeview">
