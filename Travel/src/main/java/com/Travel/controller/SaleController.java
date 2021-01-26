@@ -61,7 +61,7 @@ public class SaleController {
 			
 			OrderBean ordBean = new OrderBean();
 			ordBean.setOrd_date(new Timestamp(System.currentTimeMillis())); // 시간생성
-			ordBean.setOrd_total(total); // 스트링으로 변경해줌
+			ordBean.setOrd_total(total+""); // 스트링으로 변경해줌
 			ordBean.setPmt_name("카드"); // 추후에 제어할 예정
 			saleService.insertOrder(ordBean); // order insert
 			String order_id = saleService.getOrderId(ordBean); // orderdetail에 들어갈 ord_id값 찾아오기

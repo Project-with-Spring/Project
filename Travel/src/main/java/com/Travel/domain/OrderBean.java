@@ -9,11 +9,11 @@ import lombok.Setter;
 @Setter
 
 public class OrderBean {
-	private int ord_id;
+	private String ord_id;
 	private Timestamp ord_date;
-	private int ord_total;
-	private int ord_discount;
-	private int ord_cancel;
+	private String ord_total;
+	private String ord_discount;
+	private String ord_cancel;
 	private String pmt_name;
 	private String pot_id;
 	private int stf_id;
