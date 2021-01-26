@@ -36,10 +36,10 @@
 					<c:forEach var="ctg" items="${ctgList }" varStatus="vs">
 					<c:if test="${vs.index==0}">
 					<div id="ctg${ctg.ctg_id}" class="pdt on">
-					<ul class ="manu.sel">
+					<ul class ="manu_sel">
 					<c:forEach var="pdt" items="${pdtList }">
 					<c:if test="${ctg.ctg_id==pdt.ctg_id }">
-					<li>${pdt.pdt_name}<br>(${pdt.pdt_cost })원</li>
+					<li data-hidden="${pdt.pdt_id}" data-options='{"name":"${pdt.pdt_name}","cost":"${pdt.pdt_cost}"}'>${pdt.pdt_name}<br>(${pdt.pdt_cost })원</li>
 					</c:if>
 					</c:forEach>
 					</ul>
@@ -47,10 +47,10 @@
 					</c:if>
 					<c:if test="${vs.index!=0}">
 					<div id="ctg${ctg.ctg_id}" class="pdt">
-					<ul>
+					<ul class ="manu_sel">
 					<c:forEach var="pdt" items="${pdtList }">
 					<c:if test="${ctg.ctg_id==pdt.ctg_id }">
-					<li>${pdt.pdt_name}<br>(${pdt.pdt_cost })원</li>
+					<li data-hidden="${pdt.pdt_id}" data-options='{"name":"${pdt.pdt_name}","cost":"${pdt.pdt_cost}"}'>${pdt.pdt_name}<br>(${pdt.pdt_cost })원</li>
 					</c:if>
 					</c:forEach>
 					</ul>
@@ -84,11 +84,11 @@
 						<table class="table tbl_narrow table-responsive" style="font-size:10px;" id="inv_detail">
 							<thead>
 							<tr>
-								<th width="50%" style="min-width:200px;">ITEM DETAIL</th>
-								<th style="min-width:40px;">QTY</th>
-								<th style="min-width:50px;">PRICE</th>
-								<th style="min-width:40px;">DIST%</th>
-								<th style="min-width:60px;">AMOUNT</th>
+								<th width="50%" style="min-width:200px;">메뉴 이름</th>
+								<th style="min-width:40px;">수량</th>
+								<th style="min-width:50px;">가격</th>
+								<th style="min-width:40px;">할인(%)</th>
+								<th style="min-width:60px;">상품 총액</th>
 								<th style="width:30px;"></th>
 							</tr>
 							</thead>
@@ -99,19 +99,25 @@
 								<td><input type="text" name="dist_1" id="dist_1" value="" class="form-control"></td>
 								<td><input type="text" name="total_1" id="total_1" value="" class="form-control"></td>
 								<td><a href="#" class="btn btn-danger btn-xs btnDelete"><span class="glyphicon glyphicon-remove"></span></a></td>
-							</tr>-->
+							</tr> -->
 							
-						<tbody>
-						<tr id="1"><td><input type="hidden" name="item_id_1" id="item_id_1" value="3642">
+						<tbody id="order_list">
+						<tr>
+						<td>
+						<div id="order_list"></div>
+						</td>
+						</tr>
+						<tr id="1">
+						<td><input type="hidden" name="pdt_id1" id="item_id_1" value="3642">
 						<input type="hidden" name="item_name_1" id="item_name_1" value="Americano">
 						<input type="hidden" name="item_code_1" id="item_code_1" value="coffee01">
 						<input type="hidden" name="item_atrr_1" id="item_atrr_1" value="">
 						<input type="hidden" name="is_group_1" id="is_group_1" value="No">
 						<div style="font-weight:bold;">Americano</div>
-						</td><td><input type="text" name="qty_1" id="qty_1" value="1" class="form-control" onkeyup="cals(1);"></td>
+						</td><td><input type="number" name="qty_1" id="qty_1" value="1" class="form-control" onkeyup="changeCount(this.name,this)"></td>
 						<td><input type="text" name="prate_1" id="prate_1" value="0.00" class="form-control" onkeyup="cals(1);"></td>
 						<td><input type="text" name="dist_1" id="dist_1" value="0" class="form-control" onkeyup="cals(1);"></td>
-						<td><input type="text" name="total_1" id="total_1" value="" class="form-control" readonly="Yes"></td>
+						<td><input type="text" name="total_1" id="total_1" value="견본(삭제금지)" class="form-control" readonly="Yes"></td>
 						<td><a href="#" class="btn btn-danger btn-xs btnDelete"><span class="glyphicon glyphicon-remove"></span></a></td></tr>
 						</tbody>
 						
@@ -124,28 +130,28 @@
 						<div style="display:block;border:solid 1px #CCC;padding:5px;" id="calc_submit">
 							<div class="form-group" style="margin:0px;margin-bottom:5px;">
 								<div class="col-md-3 col-xs-4">
-									  <label>Sale Date</label>
+									  <label>결제일</label>
 									 <input type="text" name="sale_date" id="sale_date" class="form-control" value="17-01-2021" readonly="Yes">
 								</div>
 								<div class="col-md-1 col-xs-4">
-									  <label>Items</label>
+									  <label>메뉴 수</label>
 									 <input type="text" name="total_items" id="total_items" class="form-control" value="0" readonly="Yes">
 								</div>
 								<div class="col-md-2 col-xs-4">
-									  <label>Total Qty</label>
+									  <label>총 개수</label>
 									 <input type="text" name="total_qty" id="total_qty" class="form-control" value="0" readonly="Yes">
 								</div>
 								<div class="col-md-2 col-xs-4">
-									  <label>Sub Total</label>
+									  <label>총 금액</label>
 									 <input type="text" name="sub_total" id="sub_total" class="form-control" value="0" readonly="Yes">
 								</div>
 								<div class="col-md-2 col-xs-4">
-									  <label>Dist %</label>
+									  <label>할인 %</label>
 									 <input type="number" name="tlt_dist" id="tlt_dist" class="form-control" value="0" onkeyup="cal_discount();">
 									 <input type="hidden" name="dist_amount" id="dist_amount" value="0.00">
 								</div>
 								<div class="col-md-2 col-xs-4">
-									  <label>Tax %</label>
+									  <label>세금 %</label>
 									 <input type="number" name="tlt_tax" id="tlt_tax" class="form-control" value="0" onkeyup="cal_tax();">
 									 <input type="hidden" name="tax_amount" id="tax_amount" value="0.00">
 								</div>
@@ -153,7 +159,7 @@
 							<div class="form-group" style="margin:0px;padding: 5px;">
 								<table class="table" style="margin-bottom:0px;">
 									<tbody><tr><th class="text-left" style="background:#cffbcf;padding:5px;font-size:20px;">Total Sale</th>
-									<th class="text-right" style="background:#cffbcf;padding:5px;font-size:20px;" id="TLT_AMOUNTS">USD <span id="TLT_AMOUNT">0.00</span></th>
+									<th class="text-right" style="background:#cffbcf;padding:5px;font-size:20px;" id="TLT_AMOUNTS"> <span id="TLT_AMOUNT">0 </span>원</th>
 								</tr></tbody></table>
 							</div>
 							<div class="form-group" style="margin:0px;margin-bottom:5px;">
@@ -173,9 +179,9 @@
 							</div>
 							<div class="form-group" style="margin:0px;margin-bottom:5px;">
 								<!--<div class="col-md-2 col-xs-4"><button type="button" name="rtn_btn" id="rtn_btn" class="btn btn-warning" style="width:100%;"><div><span class="glyphicon glyphicon-share-alt"></span></div><div>Return</div></button></div>-->
-								<div class="col-md-3 col-xs-6"><button type="button" name="can_btn" id="can_btn" class="btn btn-danger" onclick="cancel_sale();" style="width:100%;"><div><span class="glyphicon glyphicon-trash"></span></div><div>Cancel (F6)</div></button></div>
-								<div class="col-md-3 col-xs-6"><button type="button" name="save_btn" id="save_btn" class="btn btn-primary" onclick="save_sale();" style="width:100%;"><div><span class="glyphicon glyphicon-floppy-disk"></span></div><div>Save (F7)</div></button></div>
-								<div class="col-md-6 col-xs-12"><button type="button" name="pay_btn" id="pay_btn" class="btn btn-success" onclick="submit_sale();" style="width:100%;"><div style="font-weight:bold;">USD</div><div>Pay Now (F8)</div></button></div>
+								<div class="col-md-3 col-xs-6"><button type="button" name="can_btn" id="can_btn" class="btn btn-danger" onclick="cancel_sale();" style="width:100%;"><div><span class="glyphicon glyphicon-trash"></span></div><div>취소 (F6)</div></button></div>
+								<div class="col-md-3 col-xs-6"><button type="button" name="save_btn" id="save_btn" class="btn btn-primary" onclick="save_sale();" style="width:100%;"><div><span class="glyphicon glyphicon-floppy-disk"></span></div><div>저장 (F7)</div></button></div>
+								<div class="col-md-6 col-xs-12"><button type="button" name="sale_btn" id="sale_btn" class="btn btn-success" style="width:100%;"><div style="font-weight:bold;">WON</div><div>결제 (F8)</div></button></div>
 							</div>
 							<div class="form-group" style="margin:0px;margin-bottom:0px;">
 								<input type="hidden" name="cust_id" id="cust_id" value="">
@@ -186,9 +192,10 @@
 							</div>
 						</div>
 					</div>
-					<input type="hidden" name="rowid" id="rowid" value="1">
-					<input type="hidden" name="total_sale" id="total_sale" value="0.00">
-					<input type="hidden" class="paid_amount" name="paid_amount" id="paid_amount" value="0">
+<!-- 					내가 만든거 아님 추후에 필요할까봐 일단남겨둠 -->
+<!-- 					<input type="hidden" name="rowid" id="rowid" value="1"> -->
+<!-- 					<input type="hidden" name="total_sale" id="total_sale" value="0.00"> -->
+<!-- 					<input type="hidden" class="paid_amount" name="paid_amount" id="paid_amount" value="0"> -->
 				</div>
 			</form>
 			          </div>
