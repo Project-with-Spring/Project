@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+ 
+ <configuration>
+ 	<typeAliases>
+ 		<!-- 카테고리 -->
+ 		<typeAlias alias="category" type="com.Travel.domain.CategoryBean"/>
+ 		
+ 		<!-- 상품 -->
+ 		<typeAlias alias="product" type="com.Travel.domain.ProductBean"/>
+ 		
+ 		<!-- 재고 -->
+ 		<typeAlias alias="stock" type="com.Travel.domain.StockBean"/>
+ 		
+ 	</typeAliases>
+ </configuration> 

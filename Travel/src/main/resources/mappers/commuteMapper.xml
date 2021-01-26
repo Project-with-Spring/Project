@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.Travel.mapper.CommuteMapper">
+
+	<select id="selectCommutList" parameterType="String" resultType="commuteBean">
+		SELECT sf.stf_name stf_name , ps.pst_name pst_name, cm.* FROM  staff sf LEFT JOIN commute cm on cm.stf_id=sf.stf_id join position ps on sf.pst_id = ps.pst_id where sf.stf_id like concat('%',#{stf_id},'%');
+	</select>
+
+</mapper>
