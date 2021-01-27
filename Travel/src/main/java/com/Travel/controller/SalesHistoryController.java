@@ -48,6 +48,8 @@ public class SalesHistoryController {
 			searchMap.put("pmt_search", request.getParameter("pmt_search"));
 			searchMap.put("staff_search", request.getParameter("staff_search"));
 			searchMap.put("cancel_search", request.getParameter("cancel_search"));
+			searchMap.put("min_price", request.getParameter("min_price"));
+			searchMap.put("max_price", request.getParameter("max_price"));
 		} else {
 			searchMap.put("search", false);
 		}

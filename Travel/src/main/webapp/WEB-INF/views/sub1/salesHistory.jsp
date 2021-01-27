@@ -38,6 +38,8 @@
 			<div class="form-group">
 				<div class="col-md-2"><input type="date" name="begin_date" id="begin_date" value="" class="form-control txtdate" ></div>
 			  	<div class="col-md-2"><input type="date" name="end_date" id="end_date" value="" class="form-control txtdate" ></div>
+			  	<div class="col-md-2"><input type="number" name="min_price" id="min_price" value="" min="0" class="form-control" placeholder="최소금액"></div>
+			  	<div class="col-md-2"><input type="number" name="max_price" id="max_price" value="" min="0" class="form-control" placeholder="최대금액"></div>
 			  	<div class="col-md-2"><input type="text" name="memo_search" id="memo_search" value="" class="form-control" placeholder="메모를 입력하세요"></div>
 			</div>
 			
