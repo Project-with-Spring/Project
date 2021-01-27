@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <c:import url="/header"/>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -68,46 +70,47 @@
                     <th width="10%">판매날짜</th>
 					<th width="10%">판매자</th>
 					<th width="10%">판매금액</th>
-					<th width="10%">할인타입</th>
-					<th width="10%">할인량</th>
-					<th width="10%">고객전화번호</th>
+					<th width="10%">결제타입</th>
+					<th width="10%">할인</th>
+					<th width="10%">전화번호</th>
 					<th width="10%">상태</th>
                     <th width="10%">상세보기</th>
                     <th class="text-right" width="10%">메모</th>
                 </tr>
   				</thead>
   				<tbody>
-<!-- 				<tr> -->
-<!-- 					<td colspan="11"> -->
-<!-- 						판매내역이 없습니다				 -->
-<!-- 					</td> -->
-<!-- 				</tr> -->
-				<tr>
-				<td>1</td>
-				<td>2021-01-24</td>
-				<td>박진훈</td>
-				<td>50500</td>
-				<td>포인트</td>
-				<td>2000</td>
-				<td>010-4003-3892</td>
-				<td>판매완료</td>
-				<td>상세보기</td>
-				<td class="text-right" width="10%">없음</td>
-				</tr>
-				<tr>
-				<td>2</td>
-				<td>2021-01-25</td>
-				<td>한재욱</td>
-				<td>55000</td>
-				<td>포인트</td>
-				<td>5000</td>
-				<td>010-8483-7521</td>
-				<td>판매완료</td>
-				<td>상세보기</td>
-				<td class="text-right" width="10%">없음</td>
-				</tr>
+  				<c:choose>
+	  				<c:when test="${list != null}">
+		  				<c:forEach var="list" items="${list }">
+		  				<tr>
+						<td>${list.ord_id }</td>
+						<td><fmt:formatDate value="${list.ord_date }" type="both" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+						<td>${list.stf_name }</td>
+						<td>${list.ord_total }</td>
+						<td>${list.pmt_name }</td>
+						<td>${ord_discount }</td>
+						<td>${list.pot_id }</td>
+						<td>
+						<c:choose>
+						<c:when test="${list.ord_cancel == 0}">판매완료</c:when>
+						<c:otherwise>판매취소</c:otherwise>
+						</c:choose>
+						</td>
+						<td>상세보기</td>
+						<td class="text-right" width="10%">${list.ord_memo }</td>
+						</tr>
+		  				</c:forEach>
+	  				</c:when>
+	  				<c:otherwise>
+			  			<tr>
+						<td colspan="10">
+							판매내역이 없습니다				
+						</td>
+						</tr>
+	  				</c:otherwise>
+  				</c:choose>
   				</tbody>
-				              </table>
+				</table>
              </div>
           </div>
 		  

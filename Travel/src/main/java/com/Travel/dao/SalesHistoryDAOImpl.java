@@ -2,10 +2,15 @@ package com.Travel.dao;
 
 
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
+
+import com.Travel.domain.OrdersBean;
+import com.Travel.domain.PageBean;
 
 
 @Repository
@@ -14,5 +19,15 @@ public class SalesHistoryDAOImpl implements SalesHistoryDAO {
 		@Inject
 		private SqlSession sqlSession;
 		private static final String namespace="com.Travel.mapper.SalesHistoryMapper";
+		@Override
+		public int getListCount() {
+			System.out.println("SalesHistoryDAOImpl getListCount()");
+			return sqlSession.selectOne(namespace+".getListCount");
+		}
+		@Override
+		public List<OrdersBean> getList(PageBean pageBean) {
+			System.out.println("SalesHistoryDAOImpl getList()");
+			return sqlSession.selectList(namespace+".getList", pageBean);
+		}
 
 }

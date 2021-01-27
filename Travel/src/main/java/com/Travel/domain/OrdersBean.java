@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 
-public class OrderBean {
+public class OrdersBean {
 	private String ord_id;
 	private Timestamp ord_date;
 	private String ord_total;
@@ -18,4 +18,5 @@ public class OrderBean {
 	private String pot_id;
 	private int stf_id;
 	private String ord_memo;
+	private String stf_name;
 }
