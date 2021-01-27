@@ -29,4 +29,11 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 		return salesHistoryDAO.getList(searchMap);
 	}
 
+	@Override
+	public void updateMemo(OrderBean orderBean) {
+		System.out.println("SalesHistoryServiceImpl updateMemo()");
+		salesHistoryDAO.updateMemo(orderBean);
+		
+	}
+
 }

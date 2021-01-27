@@ -29,5 +29,10 @@ public class SalesHistoryDAOImpl implements SalesHistoryDAO {
 			System.out.println("SalesHistoryDAOImpl getList()");
 			return sqlSession.selectList(namespace+".getList", searchMap);
 		}
+		@Override
+		public void updateMemo(OrderBean orderBean) {
+			System.out.println("SalesHistoryDAOImpl updateMemo()");
+			sqlSession.update(namespace+".updateMemo", orderBean);
+		}
 
 }

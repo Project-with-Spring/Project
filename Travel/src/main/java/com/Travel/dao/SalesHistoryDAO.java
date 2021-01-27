@@ -11,6 +11,8 @@ public interface SalesHistoryDAO {
 
 	List<OrderBean> getList(Map<String, Object> searchMap);
 
+	void updateMemo(OrderBean orderBean);
+
 
 
 }

@@ -68,4 +68,8 @@
 		ORDER BY ord.ord_id DESC LIMIT #{pageBean.startRow},#{pageBean.pageSize}
 	</select>
 	
+	<update id="updateMemo" parameterType="orderBean">
+		UPDATE `order` SET ord_memo = #{ord_memo} WHERE ord_id = #{ord_id}
+	</update>
+	
 </mapper>

@@ -10,5 +10,7 @@ public interface SalesHistoryService {
 	int getListCount(Map<String, Object> searchMap);
 
 	List<OrderBean> getList(Map<String, Object> searchMap);
+
+	void updateMemo(OrderBean orderBean);
 	
 }

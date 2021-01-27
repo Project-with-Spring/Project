@@ -1,4 +1,17 @@
 $(function() {
+		$('#historyTable').DataTable({
+			//표시 건수기능 숨기기
+			lengthChange: false,
+			// 검색 기능 숨기기
+			searching: false,
+			// 정보 표시 숨기기
+			info: false,
+			// 페이징 기능 숨기기
+			paging: false,
+			//기본 정렬
+			order: [[0, 'desc']]
+			
+		});
 	  $('.btn-submit').click(function(e){
 	  		$(this).prop('disabled', true);
 			var $formId = $(this).parents('form');
@@ -253,3 +266,40 @@ $('#my-ajax-modal').on('hide.bs.modal', function () {
 	$('#my-ajax-modal').removeData('bs.modal');                
 
 });
+//다운로드 하이퍼링크에 클릭 이벤트 발생시 saveCSV 함수를 호출하도록 이벤트 리스너를 추가
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('csvDownloadButton').addEventListener('click', function(){
+    saveCSV('data.csv'); // CSV파일 다운로드 함수 호출
+    return false;
+  })
+});
+
+//CSV 생성 함수
+function saveCSV(fileName){
+    //CSV 문자열 생성
+    let downLink = document.getElementById('csvDownloadButton');
+    let csv = ''; //CSV최종 문자열을 저장하는 변수
+    let rows = document.querySelectorAll("#historyTable tr"); // 테이블에서 행 요소들을 모두 선택
+
+    
+    //행단위 루핑
+    for (var i = 0; i < rows.length; i++) {
+        let cells = rows[i].querySelectorAll("td, th");
+        let row = [];
+        //행의 셀 값을 배열로 얻기
+        cells.forEach(function(cell){
+          row.push(cell.innerHTML);
+        });
+
+        csv += row.join(',') + (i != rows.length-1 ? '\n':''); // 배열을 문자열+줄바꿈으로 변환
+    }
+    
+ 	// 한글 처리를 해주기 위해 BOM 추가하기
+    const BOM = "\uFEFF";
+    csv = BOM + csv
+    
+    //CSV 파일 저장
+    csvFile = new Blob([csv], {type: "text/csv"}); // 생성한 CSV 문자열을 Blob 데이터로 생성
+    downLink.href = window.URL.createObjectURL(csvFile); // Blob 데이터를 URL 객체로 감싸 다운로드 하이퍼링크에 붙임.
+    downLink.download = fileName; // 인자로 받은 다운로드 파일명을 지정
+}

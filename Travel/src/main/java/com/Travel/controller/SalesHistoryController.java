@@ -7,11 +7,14 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.Travel.domain.OrderBean;
 import com.Travel.domain.PageBean;
 import com.Travel.service.SalesHistoryService;
 import com.Travel.service.StaffService;
@@ -29,7 +32,12 @@ public class SalesHistoryController {
 	public String saleHistory(Model model, HttpServletRequest request) {
 		System.out.println("SalesHistoryController saleHistory()");
 		PageBean pageBean = new PageBean();
-		pageBean.setPageSize(20);
+		String sizeStr = request.getParameter("size");
+		if(sizeStr != null && !sizeStr.equals("")) {
+			pageBean.setPageSize(Integer.parseInt(sizeStr));
+		} else {
+			pageBean.setPageSize(20);
+		}
 		String page = request.getParameter("page");
 		if(page==null) {
 			pageBean.setPageNum("1");
@@ -59,5 +67,23 @@ public class SalesHistoryController {
 		model.addAttribute("pageBean", pageBean);
 		model.addAttribute("staffList", staffService.getStaffList(""));
 		return "sub1/salesHistory";
+	}
+	
+	@RequestMapping(value = "/updateMemo", method = RequestMethod.GET)
+	public ResponseEntity<String> updateMemo(HttpServletRequest request, OrderBean orderBean) {
+		System.out.println("SalesHistoryController updateMemo()");
+
+		ResponseEntity<String> entity=null;
+		String result="";
+		try {
+//			String ord_id = request.getParameter("ord_id");
+//			String ord_memo = request.getParameter("ord_memo");
+			salesHistoryService.updateMemo(orderBean);
+			result = "success";
+			entity=new ResponseEntity<String>(result,HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return entity;
 	}
 }
