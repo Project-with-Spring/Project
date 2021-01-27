@@ -248,8 +248,8 @@
 <div class="wrapper" style="height: auto;">
 
   <header class="main-header">
-        <a href="https://activepos.net/active/index.php" class="logo">
-         <span class="logo-mini"><b>POS</span>
+        <a href="<c:url value='/main'/>" class="logo">
+         <span class="logo-mini"><b>POS</b></span>
           <span class="logo-lg"><b>POS</b></span>
         </a>
     <!-- Header Navbar: style can be found in header.less -->
@@ -267,18 +267,18 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="https://activepos.net/active/resource/lte/img/placeholder_male.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs">seo jiyeon</span>
+              <span class="hidden-xs">${sessionScope.stf_name}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
                 <img src="https://activepos.net/active/resource/lte/img/placeholder_male.jpg" class="img-circle" alt="User Image">
-                <p>seo jiyeon - Administrator</p>
+                <p>${sessionScope.stf_name} - ${sessionScope.pst_name} </p>
               </li>
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left"><a href="<c:url value='commute'/>" class="btn btn-default btn-flat">마이페이지 </a></div>
-                <div class="pull-right"><a href="<c:url value='login'/>" class="btn btn-default btn-flat">로그아웃</a></div>
+                <div class="pull-left"><a href="<c:url value='/staffModify?stf_id=${sessionScope.stf_id}'/>" class="btn btn-default btn-flat">마이페이지 </a></div>
+                <div class="pull-right"><a href="<c:url value='/loginOut'/>" class="btn btn-default btn-flat">로그아웃</a></div>
               </li>
             </ul>
           </li>
@@ -312,11 +312,13 @@
           <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
           </a>
 		  <ul class="treeview-menu">
-            <li><a href="<c:url value='/staffList'/>"><i class="fa fa-angle-right"></i> 직원리스트 </a></li>
-            <li><a href="<c:url value='/staffInsert'/>"><i class="fa fa-angle-right"></i> 직원등록</a></li>
-            <li><a href="<c:url value='/staffCommute'/>"><i class="fa fa-angle-right"></i>출퇴근등록</a></li>
-            <li><a href="<c:url value='/staffCommuteList'/>"><i class="fa fa-angle-right"></i> 근태관리</a></li>
-            <li><a href="<c:url value='/positionList'/>"><i class="fa fa-angle-right"></i> 직급관리</a></li>
+	            <li><a href="<c:url value='/getCommuteList'/>"><i class="fa fa-angle-right"></i>출퇴근등록</a></li>
+	            <c:if test="${sessionScope.pst_name eq '사장' || sessionScope.pst_name eq '점장' }">
+	            	<li><a href="<c:url value='/getCommuteListAll'/>"><i class="fa fa-angle-right"></i> 근태관리</a></li>
+	            	<li><a href="<c:url value='/staffList'/>"><i class="fa fa-angle-right"></i> 직원리스트 </a></li>
+		            <li><a href="<c:url value='/staffInsert'/>"><i class="fa fa-angle-right"></i> 직원등록</a></li>
+	                <li><a href="<c:url value='/positionList'/>"><i class="fa fa-angle-right"></i> 직급관리</a></li>
+	            </c:if>
           </ul>
         </li>
         <li class="treeview">
