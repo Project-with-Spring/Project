@@ -24,8 +24,6 @@
 	  	<div class="box-header with-border">
           <h3 class="box-title"></h3>
           <div class="box-tools pull-right">
-	          <a href="<c:url value='/cmt_go'/>" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> 출근</a>
-	          <a href="<c:url value='/cmt_leave'/>" class="btn btn-success btn-sm"><i class="fa fa-plus"></i>퇴근</a>
 	          <a href="javascript:;" id="csvDownloadButton" class="btn btn-success btn-sm">엑셀파일다운로드</a>
 	      </div>
         </div>
@@ -43,10 +41,9 @@
 			  	<div class="col-md-2"><input type="text" name="to" id="to" value="" class="form-control txtdate" readonly="readonly"></div>
 				<div class="col-md-1">
 	              	<button name="btn_filter" class="btn btn-primary form-control">조회하기</button>
-	              </div>  		
+                </div>  		
 			  	
- 			</div>
-			
+ 			</div>		
 		
 	        <div class="table-responsive no-padding mg_t15">
 	          <table class="table table-striped table-responsive tbl_narrow" id="commuteTb">
@@ -56,8 +53,9 @@
 	          		<col style="width:8%;">
 	          		<col style="width:15%;">
 	          		<col style="width:18%;">
-	          		<col style="width:26%;">
-	          		<col style="width:26%;">
+	          		<col style="width:15%;">
+	          		<col style="width:16%;">
+	          		<col style="width:11%;">
 	          	</colgroup>
 	            <thead>
 	                <tr>
@@ -67,6 +65,7 @@
 						<th class="tac">직급</th>
 						<th class="tac">출근시간</th>
 						<th class="tac">퇴근시간</th> 
+						<th class="tac"></th> 
 	                </tr>
 	  				</thead>
 	  				<tbody>
@@ -83,9 +82,16 @@
 					        		<td class="tac">${cmt.stf_id} <!-- 직원ID 출력 --></td>
 					        		<td class="tac">${cmt.stf_name} <!-- 직원이름 출력 --></td>
 					        		<td class="tac">${cmt.pst_name} <!-- 직급 출력 --></td>
-					        		<td class="tac"><fmt:formatDate value="${cmt.cmt_go}" pattern="yyyy-mm-dd HH:mm"/></td>
-					        		<td class="tac"><fmt:formatDate value="${cmt.cmt_leave}" pattern="yyyy-mm-dd HH:mm"/> </td>
-					        		
+					        		<td class="tac"><fmt:formatDate value="${cmt.cmt_go}" pattern="yyyy-MM-dd HH:mm"/></td>
+					        		<td class="tac"><fmt:formatDate value="${cmt.cmt_leave}" pattern="yyyy-MM-dd HH:mm"/> </td>
+					        		<td class="text-right">					        			
+										 <a href="<c:url value='commuteModify?stf_id=${cmt.stf_id}&cmt_id=${cmt.cmt_id}'/>"  class="btn btn-default btn-xs"  title="Update Detail">
+					        			 	<span class="glyphicon glyphicon-pencil"></span>
+					        			 </a> 
+					        			 <a href="<c:url value='staffDelete?stf_id=${cmt.stf_id}&cmd_id=${cmt.cmt_id}'/>" class="btn btn-warning btn-xs" onclick="javascript:return confirm('해당 직원을 삭제하시겠습니까?');" title="Remove Position">
+					        			 	<span class="glyphicon glyphicon-remove"></span>
+				        			 	</a> 
+					        		</td>
 				            	</tr>		
 									
 					        </c:forEach>
