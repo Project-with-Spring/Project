@@ -11,7 +11,7 @@
 	
 		
 	<select id="getStaff" parameterType="int" resultType="staffBean">
-		select * from staff where stf_id=#{stf_id}
+		select sf.*, p.pst_name from staff sf LEFT OUTER JOIN position p on sf.pst_id= p.pst_id where stf_id=#{stf_id}
 	</select>
 	
 

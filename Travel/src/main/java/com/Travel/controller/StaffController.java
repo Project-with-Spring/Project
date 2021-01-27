@@ -16,7 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.Travel.domain.CommuteBean;
 import com.Travel.domain.PositionBean;
 import com.Travel.domain.StaffBean;
 import com.Travel.service.PositionService;
@@ -67,7 +66,7 @@ public class StaffController {
 	public String insertStaffPro(StaffBean sf, HttpServletRequest request) {		
 		staffService.insertStaff(sf);
 		// /WEB-INF/views/sub3/staffList.jsp
-		return "redirect:staffList";
+		return "redirect:/staffList";
 	}
 	
 	//직원삭제 
@@ -88,11 +87,11 @@ public class StaffController {
 			
 		}
 		// /WEB-INF/views/sub3/staffList.jsp
-		return "redirect:staffList";
+		return "redirect:/staffList";
 	}
 
 	//직원수정
-	//http://localhost:8080/go/staffInsert.jsp　　
+	//http://localhost:8080/go/staffModify.jsp　　
 	@RequestMapping(value = "/staffModify", method = RequestMethod.GET)
 	public String staffModify(HttpServletRequest request,Model model)throws IOException{		
 		request.setCharacterEncoding("utf-8");
@@ -105,12 +104,12 @@ public class StaffController {
 	}
 	
 	//직원수정  
-	//http://localhost:8080/go/positionDelete　　
+	//http://localhost:8080/go/staffModifyPro　　
 	@RequestMapping(value = "/staffModifyPro", method = RequestMethod.POST)
 	public String staffModifyPro(StaffBean sb, HttpServletRequest request){		
 		staffService.updateStaff(sb);
 		// /WEB-INF/views/sub3/staffList.jsp
-		return "redirect:staffModify?stf_id="+request.getParameter("stf_id");
+		return "redirect:/staffModify?stf_id="+request.getParameter("stf_id");
 	}
 	
 	
