@@ -18,4 +18,5 @@ public class OrderBean {
 	private String pot_id;
 	private int stf_id;
 	private String ord_memo;
+	private String stf_name;
 }

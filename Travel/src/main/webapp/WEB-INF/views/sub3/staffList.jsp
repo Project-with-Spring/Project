@@ -22,16 +22,10 @@
 	  	<div class="box-header with-border">
           <h3 class="box-title"></h3>
           <div class="box-tools pull-right">
-	          <a href="javascript:print_opt();" class="btn btn-success btn-sm">엑셀파일다운로드</a>
+	          <a href="javascript:;" id="csvDownloadButton" class="btn btn-success btn-sm">엑셀파일다운로드</a>
 	          <a href="<c:url value='staffInsert'/>" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> 직원등록</a></div>
         </div>
-		<script>
-		function print_opt()
-		{
-			var URL = 'sales_print.php?txt_search='+$('#txt_search').val()+'&from='+$('#from').val()+'&to='+$('#to').val()+'&branch_id='+$('#branch_id').val()+'&cust_id='+$('#cust_id').val()+'&user_id='+$('#user_id').val()+'&pstatus='+$('#pstatus').val();
-			print_sub(URL,800,600);
-		}
-		</script>
+
         <div class="box-body mg_t20">
   	       <div id="my_all">
 			<div class="form-group clearfix">
@@ -44,11 +38,10 @@
 						<option value="pst04">아르바이트</option>
 					</select>
 			  	</div>
-				<div class="col-md-2"><input type="text" name="from" id="from" value="" class="form-control txtdate" readonly="Yes"></div>
-			  	<div class="col-md-2"><input type="text" name="to" id="to" value="" class="form-control txtdate" readonly="Yes"></div>
+				
 				<form  method="get" action="<c:url value='staffList'/>" class="float_right clearfix" style="width: 14.5%;">
 					<div class="col-md-9">
-						<input type="text"  class="form-control" name="stf_name" placeholder="직원명검색">
+						<input type="text"  class="form-control" name="keyword" placeholder="직원명검색">
 					</div>
 					<input type="submit" class="btn btn-success btn-xxs" value="검색" style="width: 25%;">
 				</form>
@@ -56,7 +49,7 @@
 			
 		
 	        <div class="table-responsive no-padding mg_t15">
-	          <table class="table table-striped table-responsive tbl_narrow">
+	          <table class="table table-striped table-responsive tbl_narrow" id="staffList">
 	          	<colgroup>
 	          		<col style="width:5%;">
 	          		<col style="width:12%;">
@@ -202,6 +195,70 @@
 	       	}                           
 	    });
 	});
+
+
+	class ToCSV {
+        constructor() {
+	        // CSV 버튼에 이벤트 등록
+	        document.querySelector('#csvDownloadButton').addEventListener('click', e => {
+	            e.preventDefault()
+	            this.getCSV('staffList.csv')
+	        })
+	    }
+
+	    downloadCSV(csv, filename) {
+	        let csvFile;
+	        let downloadLink;
+	
+	        // 한글 처리를 해주기 위해 BOM 추가하기
+	        const BOM = "\uFEFF";
+	        csv = BOM + csv
+	
+	        // CSV 파일을 위한 Blob 만들기
+	        csvFile = new Blob([csv], {type: "text/csv"})
+	
+	        // Download link를 위한 a 엘리먼스 생성
+	        downloadLink = document.createElement("a")
+	
+	        // 다운받을 csv 파일 이름 지정하기
+	        downloadLink.download = filename;
+	
+	        // 위에서 만든 blob과 링크를 연결
+	        downloadLink.href = window.URL.createObjectURL(csvFile)
+	
+	        // 링크가 눈에 보일 필요는 없으니 숨겨줍시다.
+	        downloadLink.style.display = "none"
+	
+	        // HTML 가장 아래 부분에 링크를 붙여줍시다.
+	        document.body.appendChild(downloadLink)
+	
+	        // 클릭 이벤트를 발생시켜 실제로 브라우저가 '다운로드'하도록 만들어줍시다.
+	        downloadLink.click()
+	    }
+	
+	    getCSV(filename) {
+	        // csv를 담기 위한 빈 Array를 만듭시다.
+	        const csv = []
+	        const rows = document.querySelectorAll("#staffList tr")
+	
+	        for (let i = 0; i < rows.length; i++) {
+	            const row = [], cols = rows[i].querySelectorAll("td, th")
+	
+	            for (let j = 0; j < cols.length; j++)
+	                row.push(cols[j].innerText)
+	
+	            csv.push(row.join(","))
+	        }
+	
+	        // Download CSV
+	        this.downloadCSV(csv.join("\n"), filename)
+	    }
+	}
+	
+	document.addEventListener('DOMContentLoaded', e => {
+	    new ToCSV()
+	});	
+
 	</script>
   
 <script src="<c:url value="/resources/js/salesHistory.js"/>"></script>
