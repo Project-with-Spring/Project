@@ -29,7 +29,7 @@ public class SalesHistoryController {
 	public String saleHistory(Model model, HttpServletRequest request) {
 		System.out.println("SalesHistoryController saleHistory()");
 		PageBean pageBean = new PageBean();
-		pageBean.setPageSize(50);
+		pageBean.setPageSize(20);
 		String page = request.getParameter("page");
 		if(page==null) {
 			pageBean.setPageNum("1");

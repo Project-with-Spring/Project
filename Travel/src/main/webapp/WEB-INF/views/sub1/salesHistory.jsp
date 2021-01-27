@@ -4,6 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:import url="/header"/>
+<link rel="stylesheet" href="<c:url value="/resources/css/salesHistory.css"/>">
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -117,16 +119,43 @@
              </div>
              
              <div style="float: left; margin-right: 10px;">
+             <c:set var="path" value="${requestScope['javax.servlet.forward.servlet_path']}" /> 
 				<ul class="pagination" style="padding: 0px; margin: 0px;">
-					<li><a href="javascript:void(0);" title="First Page">
+					
+					<c:if test="${pageBean.pageNum > 1 }">
+					<li><a href="<c:url value="${path }?page=1"/><c:if test="${param.search eq 'on' }">
+					&search=on&begin_date=${param.begin_date}&end_date=${param.end_date}&memo_search=${param.memo_search}&phone_search=${param.phone_search}&pmt_search=${param.pmt_search}&staff_search=${param.staff_search}&cancel_search=${param.cancel_search}&btn_filter=
+					</c:if>" title="First Page">
 						<span class="glyphicon glyphicon-fast-backward"></span></a></li>
-					<li><a href="javascript:void(0);" title="Previous Page">
+					</c:if>
+					
+					<c:if test="${pageBean.pageNum > 1 }">
+					<li><a href="<c:url value="${path }?page=${pageBean.pageNum - 1 }"/><c:if test="${param.search eq 'on' }">
+					&search=on&begin_date=${param.begin_date}&end_date=${param.end_date}&memo_search=${param.memo_search}&phone_search=${param.phone_search}&pmt_search=${param.pmt_search}&staff_search=${param.staff_search}&cancel_search=${param.cancel_search}&btn_filter=
+					</c:if>" title="Previous Page">
 						<span class="glyphicon glyphicon-backward"></span></a></li>
-					<li><a href="javascript:void(0);">Page: 1 of 1</a></li>
-					<li><a href="javascript:void(0);" title="Next Page">
+					</c:if>
+					
+					<li><select onchange="location.href='<c:url value="${path }?page="/>'+this.value+'<c:if test="${param.search eq 'on' }">&search=on&begin_date=${param.begin_date}&end_date=${param.end_date}&memo_search=${param.memo_search}&phone_search=${param.phone_search}&pmt_search=${param.pmt_search}&staff_search=${param.staff_search}&cancel_search=${param.cancel_search}&btn_filter=</c:if>'">
+					<option value=${pageBean.pageNum }>Page: ${pageBean.pageNum } of ${pageBean.endPage }</option>
+					<c:forEach var="count" begin="1" end="${pageBean.endPage }" step="1">
+					<option value="${count }">Page: ${count }</option>
+					</c:forEach>
+					</select></li>
+					
+					<c:if test="${pageBean.pageNum < pageBean.endPage }">
+					<li><a href="<c:url value="${path }?page=${pageBean.pageNum + 1 }"/><c:if test="${param.search eq 'on' }">
+					&search=on&begin_date=${param.begin_date}&end_date=${param.end_date}&memo_search=${param.memo_search}&phone_search=${param.phone_search}&pmt_search=${param.pmt_search}&staff_search=${param.staff_search}&cancel_search=${param.cancel_search}&btn_filter=
+					</c:if>" title="Next Page">
 						<span class="glyphicon glyphicon-forward"></span></a></li>
-					<li><a href="javascript:void(0);" title="Last Page">
+					</c:if>
+					
+					<c:if test="${pageBean.pageNum < pageBean.endPage }">
+					<li><a href="<c:url value="${path }?page=${pageBean.endPage }"/><c:if test="${param.search eq 'on' }">
+					&search=on&begin_date=${param.begin_date}&end_date=${param.end_date}&memo_search=${param.memo_search}&phone_search=${param.phone_search}&pmt_search=${param.pmt_search}&staff_search=${param.staff_search}&cancel_search=${param.cancel_search}&btn_filter=
+					</c:if>" title="Last Page">
 						<span class="glyphicon glyphicon-fast-forward"></span></a></li>
+					</c:if>
 				</ul>
 			</div>
              
