@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.Travel.domain.PageBean;
 import com.Travel.service.SalesHistoryService;
+import com.Travel.service.StaffService;
 
 @Controller
 public class SalesHistoryController {
@@ -18,6 +19,8 @@ public class SalesHistoryController {
 	@Inject
 	private SalesHistoryService salesHistoryService;
 	
+	@Inject
+	private StaffService staffService;
 	
 	@RequestMapping(value = "/salesHistory", method = RequestMethod.GET)
 	public String saleHistory(Model model, HttpServletRequest request) {
@@ -33,6 +36,7 @@ public class SalesHistoryController {
 		pageBean.setCount(salesHistoryService.getListCount());
 		model.addAttribute("list", salesHistoryService.getList(pageBean));
 		model.addAttribute("pageBean", pageBean);
+		model.addAttribute("staffList", staffService.getStaffList(""));
 		return "sub1/salesHistory";
 	}
 }

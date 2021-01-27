@@ -20,7 +20,7 @@
       <div class="box">
 	  	<div class="box-header with-border">
           <h3 class="box-title"></h3>
-          <div class="box-tools pull-right"><a href="javascript:print_opt();" class="btn btn-success btn-sm">CSV 내보내기</a> <a href="<c:url value="sales"/>" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> 주문받기</a></div>
+          <div class="box-tools pull-right"><a id="csvDownloadButton" class="btn btn-success btn-sm">CSV 내보내기</a> <a href="<c:url value="sales"/>" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> 주문받기</a></div>
         </div>
 		<script>
 		function print_opt()
@@ -51,7 +51,9 @@
               <div class="col-md-2">
 				<select name="staff_search" id="staff_search" class="form-control">
 					<option value="">판매자</option>
-					<option value="3785">jy12356@naver.com</option>
+					<c:forEach var="list" items="${staffList }">
+					<option value="${list.stf_id }">${list.stf_name}</option>
+					</c:forEach>
 				</select>
 			  </div>
 			  <div class="col-md-2">
@@ -95,12 +97,7 @@
 						<td>${list.pmt_name }</td>
 						<td>${ord_discount }</td>
 						<td>${list.pot_id }</td>
-						<td>
-						<c:choose>
-						<c:when test="${list.ord_cancel == 0}">판매완료</c:when>
-						<c:otherwise>판매취소</c:otherwise>
-						</c:choose>
-						</td>
+						<td><c:choose><c:when test="${list.ord_cancel == 0}">판매완료</c:when><c:otherwise>판매취소</c:otherwise></c:choose></td>
 						<td>상세보기</td>
 						<td class="text-right" width="10%">${list.ord_memo }</td>
 						</tr>
@@ -149,4 +146,42 @@ $(document).ready(function(){
 		paging: false
 	});
 })
+//다운로드 하이퍼링크에 클릭 이벤트 발생시 saveCSV 함수를 호출하도록 이벤트 리스너를 추가
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('csvDownloadButton').addEventListener('click', function(){
+    saveCSV('data.csv'); // CSV파일 다운로드 함수 호출
+    return false;
+  })
+});
+
+//CSV 생성 함수
+function saveCSV(fileName){
+    //CSV 문자열 생성
+    let downLink = document.getElementById('csvDownloadButton');
+    let csv = ''; //CSV최종 문자열을 저장하는 변수
+    let rows = document.querySelectorAll("#historyTable tr"); // 테이블에서 행 요소들을 모두 선택
+
+    
+    //행단위 루핑
+    for (var i = 0; i < rows.length; i++) {
+        let cells = rows[i].querySelectorAll("td, th");
+        let row = [];
+        //행의 셀 값을 배열로 얻기
+        cells.forEach(function(cell){
+          row.push(cell.innerHTML);
+        });
+
+        csv += row.join(',') + (i != rows.length-1 ? '\n':''); // 배열을 문자열+줄바꿈으로 변환
+    }
+    
+ 	// 한글 처리를 해주기 위해 BOM 추가하기
+    const BOM = "\uFEFF";
+    csv = BOM + csv
+    
+    //CSV 파일 저장
+    csvFile = new Blob([csv], {type: "text/csv"}); // 생성한 CSV 문자열을 Blob 데이터로 생성
+    downLink.href = window.URL.createObjectURL(csvFile); // Blob 데이터를 URL 객체로 감싸 다운로드 하이퍼링크에 붙임.
+    downLink.download = fileName; // 인자로 받은 다운로드 파일명을 지정
+}
+
 </script>
