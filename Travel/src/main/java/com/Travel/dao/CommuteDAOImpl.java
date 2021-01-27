@@ -20,15 +20,15 @@ public class CommuteDAOImpl implements CommuteDAO{
 
 
 	@Override
-	public List<CommuteBean> getStafCommutfList(String search) {
-		return sqlSession.selectList(namespace + ".selectCommutList",search);
+	public List<CommuteBean> getStafCommutfList(HashMap map) {
+		return sqlSession.selectList(namespace + ".selectCommutList",map);
 	}
 
 
 	@Override
-	public List<CommuteBean> getStaffCommut(int stf_id) {
+	public List<CommuteBean> getStaffCommut(HashMap map) {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace + ".selectCommute",stf_id);
+		return sqlSession.selectList(namespace + ".selectCommute",map);
 	}
 
 	@Override
@@ -79,6 +79,13 @@ public class CommuteDAOImpl implements CommuteDAO{
 	public CommuteBean getStaffCommutOne(HashMap map) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace + ".getStaffCommutOne",map);
+	}
+
+
+	@Override
+	public void comumteModify(StaffBean sb) {
+		sqlSession.update(namespace + ".updateCmt",sb);
+		
 	}
 	
 

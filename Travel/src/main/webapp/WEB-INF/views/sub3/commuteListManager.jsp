@@ -7,13 +7,18 @@
 <c:import url="/header"/>
 <link rel="stylesheet" href="<c:url value="/resources/css/staff.css"/>">
 
+
+<c:set var="today" value="<%=new java.util.Date()%>" />
+<c:set var="date"><fmt:formatDate value="${today}" pattern="yyyy-MM-dd" /></c:set> 
+
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>출퇴근관리</h1>
+      <h1>근태관리</h1>
       <ol class="breadcrumb">
         <li><a href="<c:url value='main'/>"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">출퇴근관리</li>
+        <li class="active">근태관리</li>
       </ol>
     </section>
 
@@ -36,14 +41,17 @@
 		</script>
         <div class="box-body mg_t20">
   	       <div id="my_all">
-			<div class="form-group clearfix">
-				<div class="col-md-2"><input type="text" name="from" id="from" value="" class="form-control txtdate" readonly="readonly"></div>
-			  	<div class="col-md-2"><input type="text" name="to" id="to" value="" class="form-control txtdate" readonly="readonly"></div>
-				<div class="col-md-1">
-	              	<button name="btn_filter" class="btn btn-primary form-control">조회하기</button>
-                </div>  		
-			  	
- 			</div>		
+  	       
+			<form  method="get" action="<c:url value='/getCommuteListAll'/>" class=""> 
+				<div class="form-group clearfix">
+					<div class="col-md-2"><input type="text" name="from" id="from" value="<c:out value="${date}" />" class="form-control txtdate" readonly="readonly"></div>
+				  	<div class="col-md-2"><input type="text" name="to" id="to" value="<c:out value="${date}" />" class="form-control txtdate" readonly="readonly"></div>
+					<div class="col-md-1">
+		              	<button type="submit" name="btn_filter" class="btn btn-primary form-control">조회하기</button>
+	                </div>  		
+				  	
+	 			</div>		
+ 			</form>
 		
 	        <div class="table-responsive no-padding mg_t15">
 	          <table class="table table-striped table-responsive tbl_narrow" id="commuteTb">
@@ -241,6 +249,8 @@
 		});
 		
 	});
+
+
 
   </script>
   

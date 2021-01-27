@@ -4,12 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.Travel.domain.CommuteBean;
+import com.Travel.domain.StaffBean;
 
 public interface CommuteService {
 
-	public  List<CommuteBean> getStafCommutfList(String search);
+	public  List<CommuteBean> getStafCommutfList(HashMap map);
 
-	public List<CommuteBean> getStaffCommut(int stf_id);
+	public List<CommuteBean> getStaffCommut(HashMap map);
 
 	public int cmtgo(int stf_id);
 
@@ -28,6 +29,8 @@ public interface CommuteService {
 	public void deletecmtleaveList(int stf_id);
 
 	public CommuteBean getStaffCommutOne(HashMap map);
+
+	public void comumteModify(StaffBean sb);
 
 
 }

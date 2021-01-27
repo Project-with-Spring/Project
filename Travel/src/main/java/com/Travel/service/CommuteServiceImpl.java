@@ -19,15 +19,14 @@ public class CommuteServiceImpl implements CommuteService{
 	private CommuteDAO commuteDAO;
 
 	@Override
-	public List<CommuteBean> getStafCommutfList(String search) {
+	public List<CommuteBean> getStafCommutfList(HashMap map) {
 		// TODO Auto-generated method stub
-		return commuteDAO.getStafCommutfList(search);
+		return commuteDAO.getStafCommutfList(map);
 	}
 
 	@Override
-	public List<CommuteBean> getStaffCommut(int stf_id) {
-		// TODO Auto-generated method stub
-		return commuteDAO.getStaffCommut(stf_id);
+	public List<CommuteBean> getStaffCommut(HashMap map) {
+		return commuteDAO.getStaffCommut(map);
 	}
 
 	@Override
@@ -79,6 +78,12 @@ public class CommuteServiceImpl implements CommuteService{
 	@Override
 	public CommuteBean getStaffCommutOne(HashMap map) {
 		return commuteDAO.getStaffCommutOne(map);
+	}
+
+	@Override
+	public void comumteModify(StaffBean sb) {
+		 commuteDAO.comumteModify(sb);
+		
 	}
 
 }

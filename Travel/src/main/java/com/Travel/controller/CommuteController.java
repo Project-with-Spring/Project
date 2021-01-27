@@ -2,6 +2,8 @@ package com.Travel.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,9 +57,20 @@ public class CommuteController {
 		try {
 			request.setCharacterEncoding("utf-8");		
 			int stf_id = (int) session.getAttribute("stf_id");
+			
+			
 			if(stf_id >= 0){
 				String search= request.getParameter("stf_name")==null ? "" : request.getParameter("stf_name");
-				List<CommuteBean> cmtList = commuteService.getStafCommutfList(search);
+				SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
+				Date time = new Date();
+				String from = request.getParameter("from")== null ?  format1.format(time) : request.getParameter("from");
+				String to = request.getParameter("to")== null ?  format1.format(time) : request.getParameter("to");
+
+				HashMap map= new HashMap();
+				map.put( "search", search);
+				map.put( "from", from);
+				map.put( "to", to);
+				List<CommuteBean> cmtList = commuteService.getStafCommutfList(map);			
 				model.addAttribute("cmtList",cmtList);
 			}else{
 				ScriptUtils.alertAndMovePage(response, "로그인 후 사용가능 합니다..","/go/login");	
@@ -77,7 +90,27 @@ public class CommuteController {
 			request.setCharacterEncoding("utf-8");		
 			int stf_id = (int) session.getAttribute("stf_id");
 			if(stf_id >= 0){
-				List<CommuteBean> cmtList = commuteService.getStaffCommut(stf_id);
+								
+				SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
+				Date time = new Date();
+				String from1 = request.getParameter("from1")== null ?  format1.format(time) : request.getParameter("from1");
+				String to1 = request.getParameter("to1")== null ?  format1.format(time) : request.getParameter("to1");
+				String from2 = request.getParameter("from2")== null ?  format1.format(time) : request.getParameter("from2");
+				String to2 = request.getParameter("to2")== null ?  format1.format(time) : request.getParameter("to2");
+				//출근시간
+				HashMap map1= new HashMap();
+				map1.put( "stf_id", stf_id);
+				map1.put( "from", from1);
+				map1.put( "to", to1);
+				//총일수 총출근시간
+				HashMap map2= new HashMap();
+				map2.put( "stf_id", stf_id);
+				map2.put( "from", from2);
+				map2.put( "to", to2);
+				
+				List<CommuteBean> cmtList = commuteService.getStaffCommut(map1);
+				List<CommuteBean> cmtList2 = commuteService.getStaffCommut(map2);
+				
 				model.addAttribute("cmtList",cmtList);
 			}else{
 				ScriptUtils.alertAndMovePage(response, "로그인 후 사용가능 합니다..","/go/login");	
@@ -95,16 +128,14 @@ public class CommuteController {
 	public String cmt_go(Model model,HttpServletRequest request,HttpSession session,HttpServletResponse response) {
 
 		try {
-
+			String erroCode= "success"; 
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
 			int stf_id = (int) session.getAttribute("stf_id");
 			if(stf_id >= 0){
 				int gocnt = commuteService.cmtgoChk(stf_id);
 				if(gocnt  > 0) {
-					out.println("<script>alert('이미 출근하셨습니다.');  history.go(-1);</script>");
-					out.flush();
-//					ScriptUtils.alertAndMovePage(response, "이미 출근하셨습니다.","/go/getCommuteList");					
+					 erroCode = "cmt01"; //cmt01 : 이미 출근하셨습니다.					
 				}else {
 					int goInsertcnt = commuteService.cmtgo(stf_id);
 					
@@ -112,21 +143,20 @@ public class CommuteController {
 						commuteService.insertcmtgoList(stf_id);
 						
 					}else {
-						out.println("<script>alert('출근등록에 실패하였습니다.');  history.go(-1);</script>");
-						out.flush();
-//						ScriptUtils.alertAndMovePage(response, "출근등록에 실패하였습니다. 오류사항 문의바랍니다.","/go/getCommuteList");
+						 erroCode = "cmt02"; //cmt02 : 출근등록에 실패하였습니다
+					
 					}
 				}
 			}else {
-				out.println("<script>alert('로그인 후 사용가능 합니다.');  location.href='/login'</script>");
-				out.flush();
-//				ScriptUtils.alertAndMovePage(response, "로그인 후 사용가능 합니다..","/go/login");
+				 erroCode = "cmt3";//cmt03 : 로그인 후 사용가능 합니다
 			}
+			out.print(erroCode);
+
 		} catch (Exception e) {			
 			e.printStackTrace();
 		}
 		// /WEB-INF/views/sub3/commuteList.jsp
-		return "redirect:/getCommuteList";
+		return null;
 	}
 	
 	//나의퇴근
@@ -135,6 +165,8 @@ public class CommuteController {
 	public String cmt_leave(Model model,HttpServletRequest request,HttpSession session,HttpServletResponse response) {
 		
 		try {
+
+			String erroCode= "success"; 
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
 			
@@ -147,26 +179,22 @@ public class CommuteController {
 						commuteService.deletecmtgoList(stf_id);
 //							commuteService.insertcmtleaveList(stf_id);							
 					}else {
-						out.println("<script>alert('퇴근등록에 실패하였습니다. 오류사항 문의바랍니다.');  history.go(-1);</script>");
-						out.flush();
-						 
+						erroCode= "cmt04"; //cmt04 : 퇴근등록에 실패하였습니다. 오류사항 문의바랍니다.		
+						
 //						ScriptUtils.alertAndMovePage(response, "퇴근등록에 실패하였습니다. 오류사항 문의바랍니다.","/getCommuteList");
 					}
 				}else {
-					out.println("<script>alert('이미 퇴근하셨습니다.');  history.go(-1);</script>");
-					out.flush();
-//					ScriptUtils.alertAndMovePage(response, "이미 퇴근하셨습니다.","/getCommuteList");
+					erroCode="cmt05"; //cmt05 : 이미 퇴근하셨습니다.
 				}
 			}else {
-				out.println("<script>alert('로그인 후 사용가능 합니다.');  location.href='/login'</script>");
-				out.flush();
-//				ScriptUtils.alertAndMovePage(response, "로그인 후 사용가능 합니다.","/go/login");
+				erroCode = "cmt03"; //cmt03 : 로그인 후 사용가능 합니다.
 			}
+			out.print(erroCode);
 		} catch (Exception e) {			
 			e.printStackTrace();
 		}
 		// /WEB-INF/views/sub3/commuteList.jsp
-		return  "redirect:/getCommuteList";
+		return  null;
 	}
 	
 	
@@ -188,12 +216,12 @@ public class CommuteController {
 	}
 	
 	//근태수정  
-	//http://localhost:8080/go/positionDelete　　
+	//http://localhost:8080/go/commuteModifyPro　　
 	@RequestMapping(value = "/commuteModifyPro", method = RequestMethod.POST)
-	public String staffModifyPro(StaffBean sb, HttpServletRequest request){		
-//		 commuteService.comumteModify(sb);
+	public String staffModifyPro(StaffBean sb){		
+		 commuteService.comumteModify(sb);
 		// /WEB-INF/views/sub3/staffList.jsp
-		return "redirect:/commuteModif";
+		return "redirect:/commuteModify";
 	}
 	
 	

@@ -5,13 +5,13 @@
 
 <mapper namespace="com.Travel.mapper.CommuteMapper">
 
-	<select id="selectCommutList" parameterType="String" resultType="commuteBean">
-		SELECT sf.stf_name stf_name , ps.pst_name pst_name, cm.* FROM  staff sf JOIN commute cm on cm.stf_id=sf.stf_id join position ps on sf.pst_id = ps.pst_id where sf.stf_id like concat('%',#{stf_id},'%') order by cmt_go desc;
+	<select id="selectCommutList" parameterType="hashMap" resultType="commuteBean">
+		SELECT sf.stf_name stf_name , ps.pst_name pst_name, cm.* FROM  staff sf JOIN commute cm on cm.stf_id=sf.stf_id join position ps on sf.pst_id = ps.pst_id where date_format(cmt_go,'%Y-%m-%d') between #{from} and #{to} and sf.stf_id like concat('%',#{search},'%') order by cmt_go desc;
 	</select>
 	
 	
-	<select id="selectCommute" parameterType="int" resultType="commuteBean">
-		SELECT sf.stf_name stf_name , ps.pst_name pst_name, cm.* FROM  staff sf JOIN commute cm on cm.stf_id=sf.stf_id join position ps on sf.pst_id = ps.pst_id where sf.stf_id=#{stf_id} order by cmt_go desc;
+	<select id="selectCommute" parameterType="hashMap" resultType="commuteBean">
+		SELECT sf.stf_name stf_name , ps.pst_name pst_name, cm.* FROM  staff sf JOIN commute cm on cm.stf_id=sf.stf_id join position ps on sf.pst_id = ps.pst_id where sf.stf_id=#{stf_id} and date_format(cmt_go,'%Y-%m-%d') between #{from} and #{to} order by cmt_go desc;
 	</select>
 	
 	<select id="getStaffCommutOne" parameterType="hashMap" resultType="commuteBean">
@@ -26,6 +26,10 @@
 	<update id="cmt_leave" parameterType="int" keyProperty="seq">
 		update commute set cmt_leave=now() where stf_id=#{stf_id} and cmt_id = (select cmt_id from (select max(cmt_id) cmt_id from commute where stf_id=#{stf_id}) cmt ); 
 		<!-- update commute set cmt_leave=now() where stf_id=#{stf_id}  and cmt_go in (select cmt_go from (select max(date_format(cmt_go,'%Y-%m-%d%H:%i')) cmt_go from commute where stf_id=#{stf_id} ) as a) ; -->
+	</update>
+	
+	<update id="updateCmt" parameterType="commuteBean" >
+		update commuteBean set cmt_go=#{cmt_go}, cmt_leave=#{cmt_leave} where  cmt_id = #{cmt_id}
 	</update>
 	
 	<delete  id="deletecmtList" parameterType="int" >

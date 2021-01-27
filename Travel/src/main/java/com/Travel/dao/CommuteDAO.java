@@ -8,9 +8,9 @@ import com.Travel.domain.StaffBean;
 
 public interface CommuteDAO {
 
-    public List<CommuteBean> getStafCommutfList(String search);
+    public List<CommuteBean> getStafCommutfList(HashMap map);
 
-	public List<CommuteBean> getStaffCommut(int stf_id);
+	public List<CommuteBean> getStaffCommut(HashMap map);
 
 	public int cmtgo(int stf_id);
 
@@ -29,5 +29,7 @@ public interface CommuteDAO {
 	public void deletecmtleaveList(int stf_id);
 
 	public CommuteBean getStaffCommutOne(HashMap map);
+
+	public void comumteModify(StaffBean sb);
 
 }

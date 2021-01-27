@@ -6,10 +6,10 @@
 <div class="content-wrapper" style="min-height: 805px;">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>직급수정</h1>
+      <h1>직원수정</h1>
       <ol class="breadcrumb">
         <li><a href="<c:url value='main'/>"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">직급수정</li>
+        <li class="active">직원수정</li>
       </ol>
     </section>
 
