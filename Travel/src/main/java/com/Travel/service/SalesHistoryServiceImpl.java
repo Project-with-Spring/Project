@@ -1,6 +1,7 @@
 package com.Travel.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -17,15 +18,15 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 	private SalesHistoryDAO salesHistoryDAO;
 
 	@Override
-	public int getListCount() {
+	public int getListCount(Map<String, Object> searchMap) {
 		System.out.println("SalesHistoryServiceImpl getListCount()");
-		return salesHistoryDAO.getListCount();
+		return salesHistoryDAO.getListCount(searchMap);
 	}
 
 	@Override
-	public List<OrderBean> getList(PageBean pageBean) {
+	public List<OrderBean> getList(Map<String, Object> searchMap) {
 		System.out.println("SalesHistoryServiceImpl getList()");
-		return salesHistoryDAO.getList(pageBean);
+		return salesHistoryDAO.getList(searchMap);
 	}
 
 }

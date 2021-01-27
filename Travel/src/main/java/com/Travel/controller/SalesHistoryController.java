@@ -1,6 +1,9 @@
 package com.Travel.controller;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
@@ -33,8 +36,24 @@ public class SalesHistoryController {
 		} else {
 			pageBean.setPageNum(page);
 		}
-		pageBean.setCount(salesHistoryService.getListCount());
-		model.addAttribute("list", salesHistoryService.getList(pageBean));
+		
+		Map<String, Object> searchMap = new HashMap<String, Object>();
+		searchMap.put("pageBean", pageBean);
+		if(request.getParameter("search") != null && request.getParameter("search").equals("on")) {
+			searchMap.put("search", true);
+			searchMap.put("begin_date", request.getParameter("begin_date"));
+			searchMap.put("end_date", request.getParameter("end_date"));
+			searchMap.put("memo_search", request.getParameter("memo_search"));
+			searchMap.put("phone_search", request.getParameter("phone_search"));
+			searchMap.put("pmt_search", request.getParameter("pmt_search"));
+			searchMap.put("staff_search", request.getParameter("staff_search"));
+			searchMap.put("cancel_search", request.getParameter("cancel_search"));
+		} else {
+			searchMap.put("search", false);
+		}
+		pageBean.setCount(salesHistoryService.getListCount(searchMap));
+		
+		model.addAttribute("list", salesHistoryService.getList(searchMap));
 		model.addAttribute("pageBean", pageBean);
 		model.addAttribute("staffList", staffService.getStaffList(""));
 		return "sub1/salesHistory";

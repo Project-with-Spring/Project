@@ -31,7 +31,8 @@
 		</script>
         <div class="box-body">
   	       <div id="my_all">
-			<form name="frm_filter" id="frm_filter" method="get" action="/active/sales/sales.php" class="form-horizontal">
+			<form name="frm_filter" id="frm_filter" method="get" action="<c:url value="/salesHistory"/>" class="form-horizontal">
+			<input type="hidden" name="search" value="on">
 			<div class="form-group">
 				<div class="col-md-2"><input type="date" name="begin_date" id="begin_date" value="" class="form-control txtdate" ></div>
 			  	<div class="col-md-2"><input type="date" name="end_date" id="end_date" value="" class="form-control txtdate" ></div>
@@ -114,6 +115,21 @@
   				</tbody>
 				</table>
              </div>
+             
+             <div style="float: left; margin-right: 10px;">
+				<ul class="pagination" style="padding: 0px; margin: 0px;">
+					<li><a href="javascript:void(0);" title="First Page">
+						<span class="glyphicon glyphicon-fast-backward"></span></a></li>
+					<li><a href="javascript:void(0);" title="Previous Page">
+						<span class="glyphicon glyphicon-backward"></span></a></li>
+					<li><a href="javascript:void(0);">Page: 1 of 1</a></li>
+					<li><a href="javascript:void(0);" title="Next Page">
+						<span class="glyphicon glyphicon-forward"></span></a></li>
+					<li><a href="javascript:void(0);" title="Last Page">
+						<span class="glyphicon glyphicon-fast-forward"></span></a></li>
+				</ul>
+			</div>
+             
           </div>
 		  
         </div>

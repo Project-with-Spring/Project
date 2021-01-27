@@ -5,12 +5,59 @@
   
 <mapper namespace="com.Travel.mapper.SalesHistoryMapper">
 	
-	<select id="getListCount" resultType="int">
-		SELECT COUNT(ord_id) FROM `order`
+	<select id="getListCount" parameterType="java.util.Map" resultType="int">
+		SELECT COUNT(ord.ord_id) FROM `order` ord JOIN staff stf ON ord.stf_id = stf.stf_id
+		<if test="search == true">
+			WHERE ord.ord_memo LIKE CONCAT('%',#{memo_search},'%')
+			<choose>
+			<when test="begin_date != null and begin_date neq ''">
+			AND ord.ord_date &gt;= #{begin_date}
+			</when>
+			<when test="end_date != null and end_date neq ''">
+			AND ord.ord_date &lt;= #{end_date}
+			</when>
+			<when test="phone_search != null and phone_search neq ''">
+			AND ord.pot_id LIKE CONCAT('%',#{phone_search},'%')
+			</when>
+			<when test="pmt_search != null and pmt_search neq ''">
+			AND ord.pmt_name = #{pmt_search}
+			</when>
+			<when test="staff_search != null and staff_search neq ''">
+			AND ord.stf_id = #{staff_search}
+			</when>
+			<when test="cancel_search != null and cancel_search neq ''">
+			AND ord.ord_cancel = #{cancel_search}
+			</when>
+			</choose>
+		</if>
 	</select>
 	
-	<select id="getList" parameterType="pageBean" resultType="orderBean">
-		SELECT * FROM `order` ord JOIN staff stf ON ord.stf_id = stf.stf_id LIMIT #{startRow},#{pageSize}
+	<select id="getList" parameterType="java.util.Map" resultType="orderBean">
+		SELECT * FROM `order` ord JOIN staff stf ON ord.stf_id = stf.stf_id 
+		<if test="search == true">
+			WHERE ord.ord_memo LIKE CONCAT('%',#{memo_search},'%')
+			<choose>
+			<when test="begin_date != null and begin_date neq ''">
+			AND ord.ord_date &gt;= #{begin_date}
+			</when>
+			<when test="end_date != null and end_date neq ''">
+			AND ord.ord_date &lt;= #{end_date}
+			</when>
+			<when test="phone_search != null and phone_search neq ''">
+			AND ord.pot_id LIKE CONCAT('%',#{phone_search},'%')
+			</when>
+			<when test="pmt_search != null and pmt_search neq ''">
+			AND ord.pmt_name = #{pmt_search}
+			</when>
+			<when test="staff_search != null and staff_search neq ''">
+			AND ord.stf_id = #{staff_search}
+			</when>
+			<when test="cancel_search != null and cancel_search neq ''">
+			AND ord.ord_cancel = #{cancel_search}
+			</when>
+			</choose>
+		</if>
+		ORDER BY ord.ord_id DESC LIMIT #{pageBean.startRow},#{pageBean.pageSize}
 	</select>
 	
 </mapper>

@@ -1,14 +1,14 @@
 package com.Travel.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.Travel.domain.OrderBean;
-import com.Travel.domain.PageBean;
 
 public interface SalesHistoryService {
 
-	int getListCount();
+	int getListCount(Map<String, Object> searchMap);
 
-	List<OrderBean> getList(PageBean pageBean);
+	List<OrderBean> getList(Map<String, Object> searchMap);
 	
 }
