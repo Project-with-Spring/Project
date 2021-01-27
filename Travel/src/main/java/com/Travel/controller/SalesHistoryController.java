@@ -16,7 +16,8 @@ import com.Travel.service.SalesHistoryService;
 public class SalesHistoryController {
 	
 	@Inject
-	private SalesHistoryService salesHistoryService ;
+	private SalesHistoryService salesHistoryService;
+	
 	
 	@RequestMapping(value = "/salesHistory", method = RequestMethod.GET)
 	public String saleHistory(Model model, HttpServletRequest request) {

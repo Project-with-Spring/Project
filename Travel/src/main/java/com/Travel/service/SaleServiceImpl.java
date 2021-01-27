@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.Travel.dao.SaleDAO;
 import com.Travel.domain.CategoryBean;
-import com.Travel.domain.OrdersBean;
+import com.Travel.domain.OrderBean;
 import com.Travel.domain.OrderDetailBean;
 import com.Travel.domain.ProductBean;
 
@@ -28,12 +28,12 @@ public class SaleServiceImpl implements SaleService {
 	}
 
 	@Override
-	public void insertOrder(OrdersBean orderBean) {
+	public void insertOrder(OrderBean orderBean) {
 		saleDAO.insertOrder(orderBean);
 	}
 
 	@Override
-	public String getOrderId(OrdersBean orderBean) {
+	public String getOrderId(OrderBean orderBean) {
 		
 		return saleDAO.getOrderId(orderBean);
 	}

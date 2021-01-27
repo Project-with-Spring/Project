@@ -20,7 +20,7 @@
  		<typeAlias alias="commuteBean" type="com.Travel.domain.CommuteBean"/>
  		
 		<!-- 판매내역 -->
-		<typeAlias alias="ordersBean" type="com.Travel.domain.OrdersBean"/>
+		<typeAlias alias="orderBean" type="com.Travel.domain.OrderBean"/>
 		<!-- 페이지 -->
 		<typeAlias alias="pageBean" type="com.Travel.domain.PageBean"/>
 		

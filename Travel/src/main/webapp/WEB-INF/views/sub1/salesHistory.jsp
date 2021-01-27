@@ -33,27 +33,32 @@
   	       <div id="my_all">
 			<form name="frm_filter" id="frm_filter" method="get" action="/active/sales/sales.php" class="form-horizontal">
 			<div class="form-group">
-				<div class="col-md-2"><input type="date" name="from" id="from" value="" class="form-control txtdate" ></div>
-			  	<div class="col-md-2"><input type="date" name="to" id="to" value="" class="form-control txtdate" ></div>
-			  			</div>
+				<div class="col-md-2"><input type="date" name="begin_date" id="begin_date" value="" class="form-control txtdate" ></div>
+			  	<div class="col-md-2"><input type="date" name="end_date" id="end_date" value="" class="form-control txtdate" ></div>
+			  	<div class="col-md-2"><input type="text" name="memo_search" id="memo_search" value="" class="form-control" placeholder="메모를 입력하세요"></div>
+			</div>
+			
 			<div class="form-group">
-              <div class="col-md-3"><input type="text" name="txt_search" id="txt_search" value="" class="form-control" placeholder="고객 전화번호 '-' 빼고 입력하세요"></div>
+              <div class="col-md-3">
+              <input type="text" name="phone_search" id="phone_search" value="" class="form-control" placeholder="고객 전화번호 '-' 빼고 입력하세요"></div>
 			  <div class="col-md-3">
-			  	<select name="cust_id" id="cust_id" class="form-control select2" style="width:100%;">
-				<option value="">주문번호</option>
-								</select>
+			  	<select name="pmt_search" id="pmt_search" class="form-control select2" style="width:100%;">
+					<option value="">결제타입</option>
+					<option value="현금">현금</option>
+					<option value="카드">카드</option>
+				</select>
 			  </div>
               <div class="col-md-2">
-				<select name="user_id" id="user_id" class="form-control">
+				<select name="staff_search" id="staff_search" class="form-control">
 					<option value="">판매자</option>
-										<option value="3785">jy12356@naver.com</option>
-									</select>
+					<option value="3785">jy12356@naver.com</option>
+				</select>
 			  </div>
 			  <div class="col-md-2">
-				<select name="pstatus" id="pstatus" class="form-control">
+				<select name="cancel_search" id="cancel_search" class="form-control">
 					<option value="">상태</option>
-					<option value="Pending">판매완료</option>
-					<option value="Paid">판매취소</option>
+					<option value="0">판매완료</option>
+					<option value="1">판매취소</option>
 				</select>
 			  </div>
 			  <div class="col-md-1">

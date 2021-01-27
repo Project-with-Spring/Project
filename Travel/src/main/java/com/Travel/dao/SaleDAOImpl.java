@@ -9,7 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.Travel.domain.CategoryBean;
-import com.Travel.domain.OrdersBean;
+import com.Travel.domain.OrderBean;
 import com.Travel.domain.OrderDetailBean;
 import com.Travel.domain.ProductBean;
 
@@ -28,11 +28,11 @@ public class SaleDAOImpl implements SaleDAO {
 			return sqlSession.selectList(namespace+".getProductList");
 		}
 		@Override
-		public void insertOrder(OrdersBean orderBean) {
+		public void insertOrder(OrderBean orderBean) {
 			sqlSession.insert(namespace+".insertOrder",orderBean);
 		}
 		@Override
-		public String getOrderId(OrdersBean orderBean) {
+		public String getOrderId(OrderBean orderBean) {
 			return sqlSession.selectOne(namespace+".getOrderId",orderBean);
 		}
 		@Override

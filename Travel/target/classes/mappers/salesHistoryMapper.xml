@@ -6,11 +6,11 @@
 <mapper namespace="com.Travel.mapper.SalesHistoryMapper">
 	
 	<select id="getListCount" resultType="int">
-		SELECT COUNT(ord_id) FROM orders
+		SELECT COUNT(ord_id) FROM `order`
 	</select>
 	
-	<select id="getList" parameterType="pageBean" resultType="ordersBean">
-		SELECT * FROM orders ord JOIN staff stf ON ord.stf_id = stf.stf_id LIMIT #{startRow},#{pageSize}
+	<select id="getList" parameterType="pageBean" resultType="orderBean">
+		SELECT * FROM `order` ord JOIN staff stf ON ord.stf_id = stf.stf_id LIMIT #{startRow},#{pageSize}
 	</select>
 	
 </mapper>

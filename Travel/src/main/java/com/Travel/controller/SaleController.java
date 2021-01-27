@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.Travel.domain.CategoryBean;
-import com.Travel.domain.OrdersBean;
+import com.Travel.domain.OrderBean;
 import com.Travel.domain.OrderDetailBean;
 import com.Travel.domain.ProductBean;
 import com.Travel.service.SaleService;
@@ -59,7 +59,7 @@ public class SaleController {
 				total += Integer.parseInt(i);
 			}
 			
-			OrdersBean ordBean = new OrdersBean();
+			OrderBean ordBean = new OrderBean();
 			ordBean.setOrd_date(new Timestamp(System.currentTimeMillis())); // 시간생성
 			ordBean.setOrd_total(total+""); // 스트링으로 변경해줌
 			ordBean.setPmt_name("카드"); // 추후에 제어할 예정

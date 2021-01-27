@@ -9,7 +9,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.Travel.domain.OrdersBean;
+import com.Travel.domain.OrderBean;
 import com.Travel.domain.PageBean;
 
 
@@ -25,7 +25,7 @@ public class SalesHistoryDAOImpl implements SalesHistoryDAO {
 			return sqlSession.selectOne(namespace+".getListCount");
 		}
 		@Override
-		public List<OrdersBean> getList(PageBean pageBean) {
+		public List<OrderBean> getList(PageBean pageBean) {
 			System.out.println("SalesHistoryDAOImpl getList()");
 			return sqlSession.selectList(namespace+".getList", pageBean);
 		}
