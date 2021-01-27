@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.Travel.dao.SaleDAO;
 import com.Travel.domain.CategoryBean;
+import com.Travel.domain.OrderBean;
+import com.Travel.domain.OrderDetailBean;
 import com.Travel.domain.ProductBean;
 
 @Service
@@ -22,8 +24,24 @@ public class SaleServiceImpl implements SaleService {
 
 	@Override
 	public List<ProductBean> getProductList() {
-		// TODO Auto-generated method stub
 		return saleDAO.getProductList();
+	}
+
+	@Override
+	public void insertOrder(OrderBean orderBean) {
+		saleDAO.insertOrder(orderBean);
+	}
+
+	@Override
+	public String getOrderId(OrderBean orderBean) {
+		
+		return saleDAO.getOrderId(orderBean);
+	}
+
+	@Override
+	public void insertDetail(OrderDetailBean odtBean) {
+		saleDAO.insertDetail(odtBean);
+		
 	}
 
 }

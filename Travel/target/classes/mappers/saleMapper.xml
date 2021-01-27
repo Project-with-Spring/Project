@@ -12,4 +12,18 @@
 	<select id="getProductList" resultType="com.Travel.domain.ProductBean">
 		select * from product 
 	</select>
+	
+	<insert id="insertOrder">
+		insert into `order`(ord_date,ord_total,pmt_name)
+		values(#{ord_date},#{ord_total},#{pmt_name})
+	</insert>
+	
+	<select id="getOrderId" resultType="java.lang.String">
+		select max(ord_id) from `order` where ord_total=#{ord_total} and pmt_name=#{pmt_name}
+	</select>
+	
+	<insert id="insertOrderDetail">
+		insert into orderdetail(odt_count,ord_id,pdt_id)
+		values(#{odt_count},#{ord_id},#{pdt_id})
+	</insert>
 </mapper>

@@ -138,7 +138,7 @@ public class CommuteController {
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
 			
-			int stf_id = (int) session.getAttribute("u_id");
+			int stf_id = (int) session.getAttribute("stf_id");
 			if(stf_id >= 0) {
 				int gocnt = commuteService.cmtgoChk(stf_id);
 				if(gocnt  > 0) {
