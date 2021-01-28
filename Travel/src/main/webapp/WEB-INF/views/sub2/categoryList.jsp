@@ -82,22 +82,6 @@
 						$('input:text[name=pdt_name]').prop('value', '');
 						$('input:text[name=pdt_cost]').prop('value', '');
 
-
-						// 아래 category 옵션에 들어갈 내용 넣어주기
-						// 미완성
-						<c:forEach var="ctg" items="${ctgList}">
-							if(${ctg.ctg_type} == 1) {
-								var ctg_id = ${ctg.ctg_id};
-								var ctg_name = ${ctg.ctg_name}+'';
-
-								html = '<option value=' + ctg_id + '>' + ctg_name + '</option>';
-
-								$('#category').html(html);
-							}
-							
-						</c:forEach>
-						
-						
 					} else if(type == 2) {
 						$('#pdt_insert').css('display', 'none');
 						$('#stc_insert').css('display', 'block');
@@ -120,8 +104,14 @@
 							<label class="col-md-2 control-label">Category:</label>
 							<div class="col-md-4">
 								<select name="category" id="category" class="form-control">
-									<option value="0">카테고리를 선택하세요</option>
+									<option value="0">카테고리 이름 선택하기 (카테고리 타입)</option>
 									
+								<!-- 아래 category 옵션에 들어갈 내용 넣어주기 -->
+								<c:forEach var="ctg" items="${ctgList}">
+									<option value="${ctg.ctg_id }">${ctg.ctg_name } (${ctg.ctg_type })</option>
+								</c:forEach>
+						
+						
 								</select>
 							</div>
 						</div>
@@ -227,14 +217,43 @@
 							<th>Detail</th>
 						</tr>
 						</thead>
+						<tbody>
 <!-- 						테이블에 들어갈 tr은 밑의 js에서 추가함 -->
-						<tr>
-							<td>1</td>
-							<td>02</td>
-							<td>재고</td>
-							<td>원두</td>
-							<td><a href="<c:url value='/pdt/list/${pdt.pdt_id }'/>">상세보기</a></td>
-						</tr>
+
+						<c:forEach items="${ctgList }" var="ctg">
+						<c:forEach items="${pdtList }" var="pdt">
+
+						<!-- 테이블에 들어갈 행 추가 -->
+						<tr> 
+
+						<!-- 카테고리타입에 따른 상품/재고 이름 출력 -->
+							<c:if test="${ctg.ctg_id eq pdt.ctg_id }">
+								<td>${ctg.ctg_id}</td> 
+								<td>${ctg.ctg_type}</td>
+								<td>${ctg.ctg_name}</td>
+								<td>${pdt.pdt_name}</td>
+								<td><a href="<c:url value='/pdt/list/${pdt.pdt_id }' />">상세페이지</a></td>
+							</c:if>
+						</c:forEach> <!-- pdtList 반복 닫음 -->
+						
+						<c:forEach items="${stcList }" var="stc">
+							<c:if test="${ctg.ctg_id eq stc.ctg_id }">
+								<td>${ctg.ctg_id}</td> 
+								<td>${ctg.ctg_type}</td>
+								<td>${ctg.ctg_name}</td>
+								<td>${stc.stc_name}</td>
+								<td><a href="<c:url value='/stc/list/${stc.stc_id }' />">상세페이지</a></td>
+							</c:if>
+						</c:forEach> <!-- stcList 반복 닫음 -->
+						
+						</c:forEach> <!-- ctgList 반복 닫음 -->
+<!-- 						<tr> -->
+<!-- 							<td>1</td> -->
+<!-- 							<td>02</td> -->
+<!-- 							<td>재고</td> -->
+<!-- 							<td>원두</td> -->
+<%-- 							<td><a href="<c:url value='/pdt/list/${pdt.pdt_id }'/>">상세보기</a></td> --%>
+<!-- 						</tr> -->
 						
 						<tr>
 							<td colspan="5">
@@ -254,41 +273,8 @@
 								</div>
 							</td>
 						</tr>
+						</tbody>
 					</table>
-					<script>
-						<c:forEach items="${ctgList }" var="ctg">
-						<c:forEach items="${pdtList }" var="pdt">
-						<c:forEach items="${stcList }" var="stc">
-
-						// 테이블에 들어갈 행 추가
-						var html = "<tr>" + 
-							"<td>" + ${ctg.ctg_id} + "</td>" + 
-							"<td>" + ${ctg.ctg_type} + "</td>" +
-							"<td>" + ${ctg.ctg_name} + "</td>";
-
-// 							카테고리타입에 따른 상품/재고 이름 출력
-						if(${ctg.ctg_id} == ${pdt.ctg_id})
-							html += "<td>" + ${pdt.pdt_name} + "</td>";
-						else if(${ctg.ctg_id} == ${stc.ctg_id})
-							html += "<td>" + ${stc.ctg_id} + "</td>";
-														
-// 							카테고리타입에 따른 상세페이지 이동링크 변경
-						if(${ctg.ctg_id} == ${pdt.ctg_id})
-							html += "<td> <a href='/pdt/list/" + ${pdt.pdt_id} + "'>" + 
-									"상세페이지</a> </td>" + 
-									"</tr>";
-						else if(${ctg.ctg_id} == ${stc.ctg_id})
-							html += "<td> <a href='/stc/list/" + ${stc.stc_id} + "'>" + 
-									"상세페이지</a> </td>" + 
-									"</tr>";
-						${'#table'}.html(html);
-					
-						</c:forEach> <!-- ctgList 반복 닫음 -->
-						</c:forEach> <!-- pdtList 반복 닫음 -->
-						</c:forEach> <!-- stcList 반복 닫음 -->
-
-
-					</script>
 						
 				</div>
 			</div>
