@@ -22,5 +22,9 @@ public interface SaleService {
 	public String getPoint(PointBean potBean);
 	
 	public void insertPointId(PointBean potBean);
+
+	public void updatePoint(PointBean potBean);
+
+	public void updateOrdPoint(PointBean potBean);
 	
 }

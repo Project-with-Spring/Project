@@ -24,4 +24,8 @@ public interface SaleDAO {
 
 	public void insertPointId(PointBean potBean);
 
+	public void updatePoint(PointBean potBean);
+
+	public void updateOrdPoint(PointBean potBean);
+
 }

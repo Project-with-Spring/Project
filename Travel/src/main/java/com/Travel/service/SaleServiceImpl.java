@@ -56,4 +56,14 @@ public class SaleServiceImpl implements SaleService {
 		
 	}
 
+	@Override
+	public void updatePoint(PointBean potBean) {
+		saleDAO.updatePoint(potBean);
+	}
+
+	@Override
+	public void updateOrdPoint(PointBean potBean) {
+		saleDAO.updateOrdPoint(potBean);
+	}
+
 }
