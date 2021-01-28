@@ -87,6 +87,22 @@ public class CommuteDAOImpl implements CommuteDAO{
 		sqlSession.update(namespace + ".updateCmt",sb);
 		
 	}
+
+
+	@Override
+	public void commuteDelete(int cm_id) {
+		sqlSession.delete(namespace + ".commuteDelete",cm_id);
+		
+	}
+
+
+	@Override
+	public StaffBean getStaffCommutOnetotal(HashMap map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + ".getStaffCommutOnetotal",map);
+	}
+
+
 	
 
 }

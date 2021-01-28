@@ -3,6 +3,7 @@ package com.Travel.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -39,11 +40,15 @@ public class StaffController {
 	public String staffList(Model model, HttpServletRequest request) {
 		try {
 			request.setCharacterEncoding("utf-8");
-			System.out.println(request.getParameter("stf_name"));			
+			String pst_id = request.getParameter("pst_id")==null ? "" : request.getParameter("pst_id");
 			String stf_name = request.getParameter("stf_name")==null ? "" : request.getParameter("stf_name");
-			System.out.println(stf_name);
-			List<StaffBean> staffList = staffService.getStaffList(stf_name);
+			HashMap map = new HashMap();
+			map.put("pst_id", pst_id);
+			map.put("stf_name", stf_name);
+			List<StaffBean> staffList = staffService.getStaffList(map);
+			List<PositionBean> positionList = positionService.getPositionList();
 			model.addAttribute("staffList",staffList);
+			model.addAttribute("positionList",positionList);
 		} catch (Exception e) {
 			
 			e.printStackTrace();

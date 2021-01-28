@@ -31,25 +31,6 @@ public class CommuteController {
 	@Inject
 	private CommuteService commuteService;
 	
-	
-//	//급여리스트
-//	//http://localhost:8080/go/staffList　　
-//	@RequestMapping(value = "/staffCommuteList", method = RequestMethod.GET)
-//	public String staffList(Model model, HttpServletRequest request) {
-//		try {
-//			request.setCharacterEncoding("utf-8");		
-//			String stf_name = request.getParameter("stf_name") == null ? "" : request.getParameter("stf_name");
-//			System.out.println(stf_name);
-//			List<CommuteBean> staffCommutfList = commuteService.getStafCommutfList();
-//			model.addAttribute("staffCommutfList",staffCommutfList);
-//		} catch (Exception e) {			
-//			e.printStackTrace();
-//		}
-//		// /WEB-INF/views/sub3/staffList.jsp
-//		return "sub3/commuteList";
-//	}
-//	
-	
 	//전체 출근리스트 보기
 	//http://localhost:8080/go/getCommuteList　　
 	@RequestMapping(value = "/getCommuteListAll", method = RequestMethod.GET)
@@ -70,7 +51,7 @@ public class CommuteController {
 				map.put( "search", search);
 				map.put( "from", from);
 				map.put( "to", to);
-				List<CommuteBean> cmtList = commuteService.getStafCommutfList(map);			
+				List<CommuteBean> cmtList = commuteService.getStafCommutfList(map);						
 				model.addAttribute("cmtList",cmtList);
 			}else{
 				ScriptUtils.alertAndMovePage(response, "로그인 후 사용가능 합니다..","/go/login");	
@@ -109,11 +90,14 @@ public class CommuteController {
 				map2.put( "to", to2);
 				
 				List<CommuteBean> cmtList = commuteService.getStaffCommut(map1);
-				List<CommuteBean> cmtList2 = commuteService.getStaffCommut(map2);
-				
+				StaffBean stca = commuteService.getStaffCommutOnetotal(map2);
+							
 				model.addAttribute("cmtList",cmtList);
+				model.addAttribute("stca",stca);
 			}else{
-				ScriptUtils.alertAndMovePage(response, "로그인 후 사용가능 합니다..","/go/login");	
+				response.setContentType("text/html; charset=utf-8");
+				PrintWriter out = response.getWriter();
+				out.print("로그인 후 사용가능 합니다.");	
 			}
 		} catch (Exception e) {			
 			e.printStackTrace();
@@ -201,7 +185,7 @@ public class CommuteController {
 	//근태수정
 	//http://localhost:8080/go/commuteModify.jsp　　
 	@RequestMapping(value = "/commuteModify", method = RequestMethod.GET)
-	public String staffModify(HttpServletRequest request,Model model)throws IOException{		
+	public String commuteModify(HttpServletRequest request,Model model)throws IOException{		
 		request.setCharacterEncoding("utf-8");
 		int cmt_id = Integer.parseInt(request.getParameter("cmt_id"));
 		int stf_id = Integer.parseInt(request.getParameter("stf_id"));
@@ -218,12 +202,21 @@ public class CommuteController {
 	//근태수정  
 	//http://localhost:8080/go/commuteModifyPro　　
 	@RequestMapping(value = "/commuteModifyPro", method = RequestMethod.POST)
-	public String staffModifyPro(StaffBean sb){		
+	public String commuteModifyPro(StaffBean sb){		
 		 commuteService.comumteModify(sb);
 		// /WEB-INF/views/sub3/staffList.jsp
 		return "redirect:/commuteModify";
 	}
 	
+	//근태삭제
+	//http://localhost:8080/go/commuteDelete
+	@RequestMapping(value = "/commuteDelete", method = RequestMethod.GET)
+	public String commuteDelete(HttpServletRequest request){		
+		int cm_id = Integer.parseInt(request.getParameter("cmt_id"));
+		commuteService.commuteDelete(cm_id);
+		// /WEB-INF/views/sub3/staffList.jsp
+		return "redirect:/getCommuteListAll";
+	}
 	
 	
 	

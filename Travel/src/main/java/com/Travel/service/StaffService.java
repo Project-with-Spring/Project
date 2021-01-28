@@ -1,12 +1,13 @@
 package com.Travel.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.Travel.domain.StaffBean;
 
 public interface StaffService {
 
-	public List<StaffBean> getStaffList(String stf_name);
+	public List<StaffBean> getStaffList(HashMap map);
 
 	public void insertStaff(StaffBean sf);
 
