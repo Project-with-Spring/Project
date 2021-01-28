@@ -1,5 +1,4 @@
 package com.Travel.domain;
-// 페이징 처리를 위한 정보를 저장하는 클래스
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,20 +6,36 @@ import lombok.Setter;
 @Getter
 @Setter
 public class PageBean {
-	private String pageNum;
-	private String maxPage;
-	private String startPage;
-	private int pageSize;
-	private int count;
-	
-	public PageBean() {}
-	
-	public PageBean(String pageNum, String maxPage, String startPage, int pageSize, int count) {
-		this.pageNum = pageNum;
-		this.maxPage = maxPage;
-		this.startPage = startPage;
-		this.pageSize = pageSize;
-		this.count = count;
-	}
-	
+   private int count;
+   private int pageSize;
+   private String pageNum;
+   private int currentPage;
+   private int startRow;
+   
+   private int pageBlock;
+   private int startPage;
+   private int endPage;
+   private int pageCount;
+   
+   public int getCount() {
+      return count;
+   }
+   public void setCount(int count) {
+      this.count = count;
+      init();
+   }
+   public void init() {
+      pageBlock=10;
+      startPage=(currentPage-1)/pageBlock*pageBlock+1;
+      
+      pageCount = count/pageSize +(count%pageSize==0?0:1);
+      
+      endPage=startPage+pageBlock-1;
+       if(endPage > pageCount){
+          endPage=pageCount;
+       }
+   }
+
+   
+   
 }

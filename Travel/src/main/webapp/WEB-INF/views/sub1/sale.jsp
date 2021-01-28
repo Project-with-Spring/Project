@@ -151,7 +151,7 @@
 									 <input type="hidden" name="dist_amount" id="dist_amount" value="0.00">
 								</div>
 								<div class="col-md-2 col-xs-4">
-									  <label>세금 %</label>
+									  <label>적립 포인트</label>
 									 <input type="number" name="tlt_tax" id="tlt_tax" class="form-control" value="0" onkeyup="cal_tax();">
 									 <input type="hidden" name="tax_amount" id="tax_amount" value="0.00">
 								</div>
@@ -163,7 +163,8 @@
 								</tr></tbody></table>
 							</div>
 							<div class="form-group" style="margin:0px;margin-bottom:5px;">
-								<label class="col-md-3 control-label">Add Payment:</label>
+								<label class="col-md-3 control-label"><input type ="button" id="resetPhone" value="초기화" style="display: none;"> 회원 번호</label>
+								<div class="col-md-2"><input type="text" placeholder="'-'를 제외한 전화번호" name="paid_amt" id="phoneNumber" class="form-control" ></div>
 								<div class="col-md-3">
 								<select name="pay_method" id="pay_method" class="form-control">
 									<option value="Cash">Cash</option>
@@ -173,8 +174,7 @@
 									<option value="Credit">Credit Sale</option>
 								</select>
 								</div>
-								<div class="col-md-2"><input type="number" name="paid_amt" id="paid_amt" class="form-control" onkeyup="chk_balance();"></div>
-								<label class="col-md-2 control-label">Balance:</label>
+								<label class="col-md-2 control-label">잔여 포인트</label>
 								<div class="col-md-2"><input type="text" name="balance" id="balance" class="form-control" readonly="Yes"></div>
 							</div>
 							<div class="form-group" style="margin:0px;margin-bottom:5px;">

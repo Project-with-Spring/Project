@@ -1,4 +1,58 @@
 $(function() {
+		var phoneCheck = false;
+	$('#phoneNumber').keyup(function() {
+		$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") );
+		phoneCheck = false;
+		if($(this).val().length >7){
+			
+			if($(this).val().indexOf("-")==-1){
+				alert('오류 - 전화번호를 확인해주세요.');
+				$(this).val("");
+				$(this).focas();
+				phoneCheck = false;
+			} else if($(this).val().length > 15) {
+				alert('오류 - 전화번호를 확인해주세요.');
+				$(this).val("");
+				$(this).focas();
+				phoneCheck = false;
+			} else {
+				phoneCheck = true;
+			}
+		}
+	});
+	
+	$('#phoneNumber').blur(function() {
+		var phoneNumber = $(this).val();
+		
+		if(phoneCheck){
+			$.ajax({
+				url : "pointCheck",
+				type : "post",
+				traditional : "true",
+				data : {
+					phoneNumber:phoneNumber
+				},
+				success : function(data){
+					if(data==""){
+						alert("포인트 적립 이력이 없습니다.")
+						$('#balance').val("아이디 없음");
+					}else {
+						alert(phoneNumber+"님 \n 현재 포인트 : " +data);
+						$('#balance').val("data");
+					}
+					$('#resetPhone').show();
+				}
+				
+			})
+		} else if($(this).val()==""){
+			alert('전화번호가 입력되지 않았습니다.');
+			$(this).focas();
+		} else {
+			alert('오류 - 전화번호를 확인해주세요.');
+			$(this).val("");
+			$(this).focas();
+		}
+	})
 	$('#sale_btn').click(function() {
 		alert('결제 되었습니다.');
 		// 넘길 배열 생성
@@ -116,3 +170,4 @@ function plusComma(won) {
 function deleteComma(won) {
 	return won.replace(/,/g,"");
 }
+
