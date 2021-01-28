@@ -35,9 +35,30 @@
   	       <div id="my_all">
 			<form  method="get" action="<c:url value='/getCommuteList'/>" class=""> 
 				<div class="form-group clearfix">
-						<div class="col-md-2"><input type="text" name="from1" id="from1" value="<c:out value="${date}" />" class="from form-control txtdate" readonly="readonly"></div>
-					  	<div class="col-md-2"><input type="text" name="to1" id="to1" value="<c:out value="${date}" />" class="to form-control txtdate" readonly="readonly"></div>
-						<div class="col-md-1">
+					 	<c:if test="${not empty param.from2}">
+							<input type="hidden" name="from1" value="${param.from2}" >
+					    </c:if>
+				    	<c:if test="${not empty param.to2}">
+							<input type="hidden" name="to1" id="to1" value="${param.to2}">
+					    </c:if>
+						
+						<c:choose>
+						    <c:when test="${not empty param.from1}">
+								<div class="col-md-2"><input type="text" name="from1" id="from1" value="${param.from1}" class="from form-control txtdate" readonly="readonly"></div>
+						    </c:when>
+						    <c:otherwise>
+								<div class="col-md-2"><input type="text" name="from1" id="from1" value="<c:out value="${date}"/>" class="from form-control txtdate" readonly="readonly"></div>
+						    </c:otherwise>
+					    </c:choose>
+					    <c:choose>
+						    <c:when test="${not empty param.to1}">
+					  			<div class="col-md-2"><input type="text" name="to1" id="to1" value="<c:out value="${param.to1}" />" class="to form-control txtdate" readonly="readonly"></div>
+						    </c:when>							
+						    <c:otherwise>
+								<div class="col-md-2"><input type="text" name="to1" id="to1" value="<c:out value="${date}" />" class="to form-control txtdate" readonly="readonly"></div>
+							</c:otherwise>
+					    </c:choose>
+					    <div class="col-md-1">
 			              	<button type="submit" name="btn_filter" class="btn btn-primary form-control dateBtn">조회하기</button>
 			             </div>  		
 				  	
@@ -109,10 +130,32 @@
         <div class="box-body mg_t20">
   	       <div id="my_all">
 			<form  method="get" action="<c:url value='/getCommuteList'/>" class=""> 
+				<c:if test="${not empty param.from1}">
+					<input type="hidden" name="from1" value="${param.from1}">
+			    </c:if>
+		    	<c:if test="${not empty param.to1}">
+					<input type="hidden" name="to1" value="${param.to1}">
+			    </c:if>
 				<div class="form-group clearfix">
-					<div class="col-md-2"><input type="text" name="from2" id="from2" value="<c:out value="${date}" />" class="from form-control txtdate" readonly="readonly"></div>
-				  	<div class="col-md-2"><input type="text" name="to2" id="to2" value="<c:out value="${date}" />" class="to form-control txtdate" readonly="readonly"></div>
-					<div class="col-md-1">
+				  	
+									
+	  				<c:choose>
+					    <c:when test="${not empty param.from2}">
+							<div class="col-md-2"><input type="text" name="from2" id="from2" value="${param.from2}" class="from form-control txtdate" readonly="readonly"></div>
+					    </c:when>
+					    <c:otherwise>
+							<div class="col-md-2"><input type="text" name="from2" id="from2" value="<c:out value="${date}"/>" class="from form-control txtdate" readonly="readonly"></div>
+					    </c:otherwise>
+				    </c:choose>
+				    <c:choose>
+					    <c:when test="${not empty param.to2}">
+				  			<div class="col-md-2"><input type="text" name="to2" id="to2" value="<c:out value="${param.to2}" />" class="to form-control txtdate" readonly="readonly"></div>
+					    </c:when>							
+					    <c:otherwise>
+							<div class="col-md-2"><input type="text" name="to2" id="to2" value="<c:out value="${date}" />" class="to form-control txtdate" readonly="readonly"></div>
+						</c:otherwise>
+				    </c:choose>
+				  	<div class="col-md-1">
 		              	<button type="submit" name="btn_filter" class="btn btn-primary form-control">조회하기</button>
 		              </div> 		
 				  	
@@ -123,7 +166,6 @@
 	        <div class="table-responsive no-padding mg_t15">
 	          <table class="table table-striped table-responsive tbl_narrow" class="commuteTb2">
 	          	<colgroup>
-	          		<col style="width:5%;">
 	          		<col style="width:12%;">
 	          		<col style="width:8%;">
 	          		<col style="width:15%;">
@@ -133,8 +175,6 @@
 	          	</colgroup>
 	            <thead>
 	                <tr>
-	                	<th class="tac">#</th>
-	                    <th class="tac">직원ID</th>
 	                    <th class="tac">직원이름</th>
 						<th class="tac">직급</th>
 						<th class="tac">총 근무일</th>
@@ -143,24 +183,19 @@
 	  				</thead>
 	  				<tbody>
 	  				<c:choose>
-					    <c:when test="${fn:length(cmtList) == 0}">
-				        <tr>
-					        <td colspan="11"  class="tac">조회된 근태리스트가 없습니다. </td>
-							</tr>
+					    <c:when test="${not empty stca}">
+					    	<tr>
+				        		<td class="tac">${stca.stf_name} <!-- 직원이름 출력 --></td>
+				        		<td class="tac">${stca.pst_name} <!-- 직급 출력 --></td>
+				        		<td class="tac">${stca.cnt_go} </td>
+				        		<td class="tac">${stca.total_time} 분</td>
+			            	</tr>		
+												        
 					    </c:when>
 					    <c:otherwise>
-					        <c:forEach var="cmt" items="${cmtList}" varStatus="status">
-					        	<tr>
-					        		<td class="tac">${status.index+1}</td>
-					        		<td class="tac">${cmt.stf_id} <!-- 직원ID 출력 --></td>
-					        		<td class="tac">${cmt.stf_name} <!-- 직원이름 출력 --></td>
-					        		<td class="tac">${cmt.pst_name} <!-- 직급 출력 --></td>
-					        		<td class="tac"><fmt:formatDate value="${cmt.cmt_go}" pattern="yyyy-MM-dd hh:mm"/></td>
-					        		<td class="tac"><fmt:formatDate value="${cmt.cmt_leave}" pattern="yyyy-MM-dd hh:mm"/> </td>
-					        		
-				            	</tr>		
-									
-					        </c:forEach>
+					    	<tr>
+					        	<td colspan="11"  class="tac">조회된 근태리스트가 없습니다. </td>
+							</tr>
 					    </c:otherwise> 
 					</c:choose>
 				  				

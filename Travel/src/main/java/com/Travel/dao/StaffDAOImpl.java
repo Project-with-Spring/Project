@@ -1,5 +1,6 @@
 package com.Travel.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -18,8 +19,8 @@ public class StaffDAOImpl implements StaffDAO{
 		private static final String namespace="com.Travel.mapper.StaffMapper";
 		
 		@Override
-		public List<StaffBean> getStaffList(String stf_name) {
-			return sqlSession.selectList(namespace+".getStaffList",stf_name);
+		public List<StaffBean> getStaffList(HashMap map) {
+			return sqlSession.selectList(namespace+".getStaffList",map);
 		}
 
 		@Override

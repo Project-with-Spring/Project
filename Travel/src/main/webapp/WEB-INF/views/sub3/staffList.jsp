@@ -29,21 +29,20 @@
         <div class="box-body mg_t20">
   	       <div id="my_all">
 			<div class="form-group clearfix">
-				<div class="col-md-2">
-					<select name="position_id" id="position_id" class="form-control">
-						<option value="pst00" selected>직급을 선택해주세요. </option>
-						<option value="pst01">점장</option>
-						<option value="pst02">매니저</option>
-						<option value="pst03">정직원</option>
-						<option value="pst04">아르바이트</option>
-					</select>
-			  	</div>
 				
-				<form  method="get" action="<c:url value='staffList'/>" class="float_right clearfix" style="width: 14.5%;">
-					<div class="col-md-9">
-						<input type="text"  class="form-control" name="keyword" placeholder="직원명검색">
+				<form  method="get" action="<c:url value='/staffList'/>" class="float_right clearfix" style="width: 24%;">
+					<div class="col-md-5 float_left">
+						<select name="pst_id" id="position_id" class="form-control">
+							<option value="" selected>직급을 선택해주세요. </option>
+							<c:forEach var="psl" items="${positionList}" varStatus="status">
+								<option value="${psl.pst_id}">${psl.pst_name}</option>
+							</c:forEach>
+						</select>
+				  	</div>
+					<div class="col-md-5 float_left" >
+						<input type="text"  class="form-control" name="stf_name" placeholder="직원명검색">
 					</div>
-					<input type="submit" class="btn btn-success btn-xxs" value="검색" style="width: 25%;">
+					<input type="submit" class="col-md-2 btn btn-success btn-xxs float_left" value="검색">
 				</form>
  			</div>
 			
@@ -81,14 +80,14 @@
 					    </c:when>
 					    <c:otherwise>
 					        <c:forEach var="stl" items="${staffList}" varStatus="status">
-					        	<tr>
+					        	<tr data-pstid="${stl.pst_id}">
 					        		<td class="tac">${status.index+1}</td>
 					        		<td class="tac">${stl.stf_name} <!-- 직원이름 출력 --></td>
 					        		<td class="tac">${stl.stf_id} <!-- 직원ID 출력 --></td>
-					        		<td class="tac pst_name">${stl.pst_name} <!-- 직급 출력 --></td>
+					        		<td class="tac">${stl.pst_name} <!-- 직급 출력 --></td>
 					        		<td class="tac">${stl.stf_phone} <!-- 직원폰번호 출력 --></td>
-					        		<td class="tac">${stl.stf_phone} <!-- 직원이름 출력 --></td>
-					        		<td class="tac">${stl.stf_phone} <!-- 직원이름 출력 --></td>
+					        		<td class="tac">${stl.cnt_go} </td>
+					        		<td class="tac">${stl.total_time} 분</td>
 					        		<td class="text-right">					        			
 										 <a href="<c:url value='staffModify?stf_id=${stl.stf_id}'/>"  class="btn btn-default btn-xs"  title="Update Detail">
 					        			 	<span class="glyphicon glyphicon-pencil"></span>
@@ -157,42 +156,24 @@
 	$(function() {
 		//직급별 리스트만 띄우기 
 	    $(document).on("change", "#position_id", function() {
-		    
-	        var pst_val = $(this).val();
-	        var stf_tb = $("#stf_tb tr");
-	       	if(pst_val == "pst01"){
-		       
-	       		for(i=0; i< stf_tb.length; i++){
-	       			if(stf_tb.eq(i).children('.pst_name').text()  != "점장"){
-	       				stf_tb.eq(i).hide();
-	       			}                           			
-	       		}
-	       		return 	
-	       	}else if(pst_val == "pst02"){
-	       		for(i=0; i< stf_tb.length; i++){
-	       			if(stf_tb.eq(i).children('.pst_name').text() != "매니저"){
-	       				stf_tb.eq(i).hide();
-	       			}                           			
-	       		}
-	       		return 	
-	       	}else if(pst_val == "pst03"){
-		       	alert(stf_tb.length);
-	       		for(i=0; i< stf_tb.length; i++){
-	       			if(stf_tb.eq(i).children('.pst_name').text() != "정직원"){
-	       				stf_tb.eq(i).hide();
-	       			}                           			
-	       		}
-	       		return 	
-	       	}else if(pst_val == "pst04"){
-	       		for(i=0; i< stf_tb.length; i++){
-	       			if(stf_tb.eq(i).children('.pst_name').text() != "아르바이트"){
-	       				stf_tb.eq(i).hide();
-	       			}                        			
-	       		}
-	       		return 	
-	       	}else{
-	       		stf_tb.show();                           			
-	       	}                           
+	        var selPosion = $("#position_id option");
+	        for(a=0; a< selPosion.length; a++){
+		        var pst_val = $(this).val();
+		        var stf_tb = $("#stf_tb tr");
+		    	stf_tb.show();
+		    	if(selPosion.eq(a).val() != ""){
+			       	if(pst_val == selPosion.eq(a).val()){		       
+			       		for(i=0; i< stf_tb.length; i++){
+			       			if(stf_tb.eq(i).data('pstid') != pst_val){		       			
+			       				stf_tb.eq(i).hide();
+			       			}                           			
+			       		}
+			       		return 	
+			       	}
+		       	}else{
+		       		stf_tb.show();
+			    }
+	        }                  
 	    });
 	});
 
@@ -261,5 +242,5 @@
 
 	</script>
   
-<script src="<c:url value="/resources/js/salesHistory.js"/>"></script>
+<%-- <script src="<c:url value="/resources/js/salesHistory.js"/>"></script> --%>
 <c:import url="/footer"/>
