@@ -1,5 +1,13 @@
 $(function() {
 		var phoneCheck = false;
+	$('#resetPhone').click(function() {
+		$(this).hide();
+		$('#phoneNumber').val("");
+		$('#balance').val("");
+		phoneCheck = false;
+	})
+	
+	
 	$('#phoneNumber').keyup(function() {
 		$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") );
 		phoneCheck = false;
@@ -37,8 +45,8 @@ $(function() {
 						alert("포인트 적립 이력이 없습니다.")
 						$('#balance').val("아이디 없음");
 					}else {
-						alert(phoneNumber+"님 \n 현재 포인트 : " +data);
-						$('#balance').val("data");
+						alert(phoneNumber+"님 \n잔여 포인트 : " +data);
+						$('#balance').val(data);
 					}
 					$('#resetPhone').show();
 				}
@@ -55,6 +63,12 @@ $(function() {
 	})
 	$('#sale_btn').click(function() {
 		alert('결제 되었습니다.');
+		// 판매자 정보
+		var stf_id = 1;
+		// 포인트 적립 정보
+		var pot_id = $('#phoneNumber').val();
+		var pot_point = $('#balance').val();
+		
 		// 넘길 배열 생성
 		var pdt_idList = [];
 		var pdt_nameList = [];
@@ -77,7 +91,10 @@ $(function() {
 				pdt_idList:pdt_idList,
 				pdt_nameList:pdt_nameList,
 				pdt_countList:pdt_countList,
-				pdt_priceList:pdt_priceList
+				pdt_priceList:pdt_priceList,
+				pot_id:pot_id,
+				pot_point:pot_point,
+				stf_id:stf_id
 			},
 			success:function(data){
 			location.href='sale';
@@ -108,7 +125,8 @@ $(function() {
 		var pdt_name = $(this).data("options").name;
 		var pdt_cost = $(this).data("options").cost;
 		var order_price = pdt_cost/1;
-		var changeId = 0; 
+		var changeId = 0;
+		var totalCount = 1;
 		var check = false;
 		
 		// 주문리스트에 해당 메뉴 있는가? 판별
@@ -118,7 +136,8 @@ $(function() {
 				changeId = i;
 			};
 			// 주문 총액 계산기
-			order_price += deleteComma($("input[name='pdt_price']").eq(i).val())/1; 
+			order_price += deleteComma($("input[name='pdt_price']").eq(i).val())/1;
+			totalCount += $("input[name='pdt_count']").eq(i).val()/1;
 		})
 		
 		// 이미 클릭된 적 있다면?
@@ -139,6 +158,10 @@ $(function() {
 		+"<span class='glyphicon glyphicon-remove'></span></a></td><tr>");
 			
 		}   // 계산했던 주문 총액 적용
+		var totalItems = $("input[name='pdt_price']").length;
+			$('#total_items').val(totalItems);
+			$('#total_qty').val(totalCount);
+			$('#sub_total').val(plusComma(order_price));
 			$('#TLT_AMOUNTS').html(plusComma(order_price)+" 원"); 
 	});
 	
@@ -154,10 +177,17 @@ function changeCount(count){
 	var cost = deleteComma(document.getElementsByName("pdt_cost")[i].value); //찾은 배열에서 개당가격 가져오기
 	var sumValue = cost*count.value; // 상품 총액 계산기
 	document.getElementsByName("pdt_price")[i].value = plusComma(sumValue); //상품 총액 변경
+	var totalItems = document.getElementsByName("pdt_price").length;
+	var totalCost = 0;
 	var price = 0;
 	for (var j = 0 ; j < document.getElementsByName("pdt_price").length ; j++ ){
 		price += deleteComma(document.getElementsByName("pdt_price")[j].value)/1;  // 주문총액 계산기
+		totalCost += document.getElementsByName("pdt_count")[j].value/1;
+		
 	}
+	document.getElementById("total_items").value = totalItems;
+	document.getElementById("total_qty").value = totalCost;
+	document.getElementById("sub_total").value = price;
 	document.getElementById("TLT_AMOUNTS").innerHTML = plusComma(price) +" 원"; // 주문 총액 적용
 }
 

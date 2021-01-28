@@ -8,5 +8,6 @@ import lombok.Setter;
 @Setter
 public class PointBean {
 	private String pot_id;
-	private String pot_point;
+	private int pot_point;
+	private String ord_id;
 }

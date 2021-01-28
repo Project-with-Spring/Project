@@ -47,14 +47,16 @@ public class SaleController {
 	//http://localhost:8080/go/payment　
 	@RequestMapping(value = "/payment", method = RequestMethod.POST)
 	public String payment(Model model, HttpServletRequest request) {
-			
+		// 판매자 정보받아오기
+		int stf_id = Integer.parseInt(request.getParameter("stf_id"));
+		
 		// 배열로 보낸 파라미터 값들 받아오기
 		String[] pdt_idList = request.getParameterValues("pdt_idList");
 		String[] pdt_countList = request.getParameterValues("pdt_countList");
 		String[] pdt_priceList = request.getParameterValues("pdt_priceList");
 			
 		// 이건 아직 안씀 쓸일없을수도.. 근데 orderDetail 보고있으면 이거 넣어야될것같기도..
-//		String[] pdt_nameList = request.getParameterValues("pdt_nameList"); 
+		String[] pdt_nameList = request.getParameterValues("pdt_nameList"); 
 			
 		int total = 0;
 		// 총 금액 계산
@@ -66,6 +68,7 @@ public class SaleController {
 		ordBean.setOrd_date(new Timestamp(System.currentTimeMillis())); // 시간생성
 		ordBean.setOrd_total(total+""); // 스트링으로 변경해줌
 		ordBean.setPmt_name("카드"); // 추후에 제어할 예정
+		ordBean.setStf_id(stf_id);
 		saleService.insertOrder(ordBean); // order insert
 		String order_id = saleService.getOrderId(ordBean); // orderdetail에 들어갈 ord_id값 찾아오기
 		for(int i = 0 ; i < pdt_idList.length ; i++) {  // orderdetail에 구매한 상품들 넣기
@@ -73,7 +76,25 @@ public class SaleController {
 			odtBean.setOrd_id(order_id);
 			odtBean.setPdt_id(pdt_idList[i]);
 			odtBean.setOdt_count(pdt_countList[i]);
+			odtBean.setPdt_name(pdt_nameList[i]);
 			saleService.insertDetail(odtBean);
+		}
+		String pot_id = request.getParameter("pot_id");
+		if(pot_id != "") {
+			String pot_point = request.getParameter("pot_point");
+			PointBean potBean = new PointBean();
+			if(pot_point.equals("아이디 없음")) {
+				potBean.setPot_id(pot_id);
+				potBean.setPot_point(total/50); //2% 적립
+				saleService.insertPointId(potBean);
+			}
+			else {
+				potBean.setPot_id(pot_id);
+				potBean.setPot_point(Integer.parseInt(pot_point) + total/50);
+				potBean.setOrd_id(order_id);
+				saleService.updatePoint(potBean);
+			}
+			saleService.updateOrdPoint(potBean);
 		}
 		return "sub1/sale"; 
 	}
@@ -82,11 +103,9 @@ public class SaleController {
 	@ResponseBody
 	public String pointCheck(Model model, HttpServletRequest request) {
 		String phoneNumber = request.getParameter("phoneNumber");
-		System.out.println(phoneNumber);
 		PointBean potBean = new PointBean();
 		potBean.setPot_id(phoneNumber);
 		String point = saleService.getPoint(potBean);
-		System.out.println(point);
 		return point;
 	}
 }

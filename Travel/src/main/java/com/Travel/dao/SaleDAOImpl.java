@@ -46,8 +46,16 @@ public class SaleDAOImpl implements SaleDAO {
 		}
 		@Override
 		public void insertPointId(PointBean potBean) {
-			sqlSession.insert(namespace+".inserPointId",potBean);
+			sqlSession.insert(namespace+".insertPointId",potBean);
 			
+		}
+		@Override
+		public void updatePoint(PointBean potBean) {
+			sqlSession.update(namespace+".updatePoint",potBean);
+		}
+		@Override
+		public void updateOrdPoint(PointBean potBean) {
+			sqlSession.update(namespace+".updateOrdPoint", potBean);
 		}
 
 }
