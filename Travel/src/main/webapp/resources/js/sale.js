@@ -64,7 +64,7 @@ $(function() {
 	$('#sale_btn').click(function() {
 		alert('결제 되었습니다.');
 		// 판매자 정보
-		var stf_id = 1;
+		var stf_id = 11;
 		// 포인트 적립 정보
 		var pot_id = $('#phoneNumber').val();
 		var pot_point = $('#balance').val();
