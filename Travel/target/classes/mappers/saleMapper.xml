@@ -26,4 +26,13 @@
 		insert into orderdetail(odt_count,ord_id,pdt_id)
 		values(#{odt_count},#{ord_id},#{pdt_id})
 	</insert>
+	
+	<select id="getPoint" resultType="java.lang.String">
+		select pot_point from point where pot_id = #{pot_id}
+	</select>
+	
+	<select id="insertPointId">
+		insert into point(pot_id,pot_point)
+		values(#{pot_id},#{pot_point})
+	</select>
 </mapper>
