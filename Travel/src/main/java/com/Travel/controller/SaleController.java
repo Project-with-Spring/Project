@@ -54,8 +54,6 @@ public class SaleController {
 		String[] pdt_idList = request.getParameterValues("pdt_idList");
 		String[] pdt_countList = request.getParameterValues("pdt_countList");
 		String[] pdt_priceList = request.getParameterValues("pdt_priceList");
-			
-		// 이건 아직 안씀 쓸일없을수도.. 근데 orderDetail 보고있으면 이거 넣어야될것같기도..
 		String[] pdt_nameList = request.getParameterValues("pdt_nameList"); 
 			
 		int total = 0;
@@ -85,12 +83,12 @@ public class SaleController {
 			PointBean potBean = new PointBean();
 			if(pot_point.equals("아이디 없음")) {
 				potBean.setPot_id(pot_id);
-				potBean.setPot_point(total/50); //2% 적립
+				potBean.setPot_point(total/50); //5% 적립
 				saleService.insertPointId(potBean);
 			}
 			else {
 				potBean.setPot_id(pot_id);
-				potBean.setPot_point(Integer.parseInt(pot_point) + total/50);
+				potBean.setPot_point(Integer.parseInt(pot_point) + total/20);
 				potBean.setOrd_id(order_id);
 				saleService.updatePoint(potBean);
 			}

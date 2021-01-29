@@ -59,18 +59,23 @@
 					</c:forEach>
 					
 																	</div>
+					<div id="save_order">
 					<div class="col-md-9 hidden-xs">
-						<div class="table-responsive" style="border:solid 1px #CCC;padding:5px;">
-							<h4 class="text-center" style="margin-top:0px;">Recent Sale</h4>
+						<div class="table-responsive" style="border:solid 1px #CCC;padding:5px; background-color: lightyellow;" >
+							<h4 class="text-center" style="margin-top:0px;">최근 저장된 주문</h4>
 							<div id="recent_sales"></div>
 						</div>
 					</div>
 					<div class="col-md-3 hidden-xs">
 						<div class="table-responsive" style="border:solid 1px #CCC;padding:5px;">
-							<h4 class="text-center" style="margin-top:0px;margin-bottom:5px;">Saved Sale</h4>
+							<h4 class="text-center" style="margin-top:0px;margin-bottom:5px;">주문 불러오기</h4>
 							<div id="saved_sales"></div>
 						</div>
 					</div>
+				</div>
+				<div id="manu_detail" style="display: none;">
+					<input type="button" id="return_save" value="이전"> <input type="button" value="샷추가"> <input type="button" value="사이즈 업"> <input type="button" value="휘핑 추가">
+				</div>
 				</div>
 				<div class="col-md-6 col-sm-6">
 					<div class="form-group" style="margin:0px;">
@@ -114,9 +119,9 @@
 						<input type="hidden" name="item_atrr_1" id="item_atrr_1" value="">
 						<input type="hidden" name="is_group_1" id="is_group_1" value="No">
 						<div style="font-weight:bold;">Americano</div>
-						</td><td><input type="number" name="qty_1" id="qty_1" value="1" class="form-control" onkeyup="changeCount(this.name,this)"></td>
+						</td><td><input type="number" name="qty_1" id="qty_1" value="1" class="form-control" oninput="changeCount(this.name,this)"></td>
 						<td><input type="text" name="prate_1" id="prate_1" value="0.00" class="form-control" onkeyup="cals(1);"></td>
-						<td><input type="text" name="dist_1" id="dist_1" value="0" class="form-control" onkeyup="cals(1);"></td>
+						<td><input type="text" name="dist_1" id="dist_1" value="0" class="form-control" oninput="cals(1);"></td>
 						<td><input type="text" name="total_1" id="total_1" value="견본(삭제금지)" class="form-control" readonly="Yes"></td>
 						<td><a href="#" class="btn btn-danger btn-xs btnDelete"><span class="glyphicon glyphicon-remove"></span></a></td></tr>
 						</tbody>
@@ -142,18 +147,16 @@
 									 <input type="text" name="total_qty" id="total_qty" class="form-control" value="0" readonly="Yes">
 								</div>
 								<div class="col-md-2 col-xs-4">
-									  <label>총 금액</label>
+									  <label>총 금액</label>	
 									 <input type="text" name="sub_total" id="sub_total" class="form-control" value="0" readonly="Yes">
 								</div>
 								<div class="col-md-2 col-xs-4">
-									  <label>할인 %</label>
-									 <input type="number" name="tlt_dist" id="tlt_dist" class="form-control" value="0" onkeyup="cal_discount();">
-									 <input type="hidden" name="dist_amount" id="dist_amount" value="0.00">
+									  <label>포인트 사용</label>
+									 <input type="number" name="tlt_dist" id="tlt_dist" class="form-control" value="0" readonly="readonly" onchange="pointSale(this);" step="100">
 								</div>
 								<div class="col-md-2 col-xs-4">
 									  <label>적립 포인트</label>
-									 <input type="number" name="tlt_tax" id="tlt_tax" class="form-control" value="0" onkeyup="cal_tax();">
-									 <input type="hidden" name="tax_amount" id="tax_amount" value="0.00">
+									 <input type="text" name="tlt_tax" id="tlt_tax" class="form-control" value="0" readonly="Yes">
 								</div>
 							</div>
 							<div class="form-group" style="margin:0px;padding: 5px;">
@@ -174,7 +177,7 @@
 									<option value="Credit">Credit Sale</option>
 								</select>
 								</div>
-								<label class="col-md-2 control-label">잔여 포인트</label>
+								<label class="col-md-2 control-label"><input type="button" value="전액"> 잔여 포인트</label>
 								<div class="col-md-2"><input type="text" name="balance" id="balance" class="form-control" readonly="Yes"></div>
 							</div>
 							<div class="form-group" style="margin:0px;margin-bottom:5px;">
@@ -185,7 +188,7 @@
 							</div>
 							<div class="form-group" style="margin:0px;margin-bottom:0px;">
 								<input type="hidden" name="cust_id" id="cust_id" value="">
-								<div class="col-md-10"><input type="text" name="customer_name" id="customer_name" class="form-control ac_input" placeholder="Search a Customer..." autocomplete="off"></div>
+								<div class="col-md-10"><input type="text" name="customer_name" id="customer_name" class="form-control ac_input" placeholder="고객 요청사항" autocomplete="off"></div>
 																								<div class="col-md-2"><a href="new_quick_cust.php" class="btn btn-primary form-control" data-target="#new-customer-modal" data-toggle="modal"><span class="glyphicon glyphicon-plus"></span></a></div>
 																<div id="cust_detail"></div>
 								</div>
