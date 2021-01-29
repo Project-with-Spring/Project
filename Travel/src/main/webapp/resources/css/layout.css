@@ -1,0 +1,26 @@
+@charset "utf-8";
+
+header{height: 78px;border-bottom: 2px solid #2a318a;}
+footer{height: 55px; background-color: #dcdddd; border-top:2px solid #2a318a;}
+footer > p{float: left;line-height: 53px;}
+footer > p >img{padding: 20px 20px 20px 18px;}
+footer > div.address{padding-top: 8px;float: left;font-size: 10px;}
+footer > div.address address{font-size: 12px;line-height: 1.8;}
+footer > div.address p{font-size: 10px;}
+footer .footericon_inner{float: right;padding-top: 20px;}
+footer .footericon_inner >li{float: left;margin-right: 20px;}
+footer .footericon_inner >li:last-child{margin-right: 30px;}
+footer .footericon_inner >li >img{}
+
+
+.tstyle1{border-top: 2px solid #3b3c97;}
+.tstyle1 thead >tr{border-bottom: 1px solid #3b3c97;}
+.tstyle1 thead >tr >th{padding: 15px 0;vertical-align: middle;color: #fff;background: #c1b9d9;border-right: 1px solid #fff;text-shadow: -1px 0 #2a318a, 0 1px #2a318a , 1px 0 #2a318a, 0 -1px #2a318a;}
+
+.tstyle1 thead >tr >th:last-child{border-right: 0;}
+
+.tstyle1 tbody > tr{border-bottom: 1px dashed #3b3c97;}
+.tstyle1 tbody > tr > td{padding: 9px 11px;font-size: 11px;line-height: 1.6;border-right: 1px dashed #3b3c97;vertical-align: middle; text-align: center;}
+.tstyle1 tbody >tr >td:nth-child(2),
+.tstyle1 tbody >tr >td:nth-child(3){text-align: left;}
+.tstyle1 tbody > tr > td:last-child{border-right: 0;}

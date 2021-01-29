@@ -65,12 +65,7 @@ public class SalesHistoryController {
 		
 		model.addAttribute("list", salesHistoryService.getList(searchMap));
 		model.addAttribute("pageBean", pageBean);
-		
-		HashMap map = new HashMap();
-		map.put("pst_id", "");
-		map.put("stf_name", "");
-		
-		model.addAttribute("staffList", staffService.getStaffList(map));
+		model.addAttribute("staffList", staffService.getStaffList(""));
 		return "sub1/salesHistory";
 	}
 	

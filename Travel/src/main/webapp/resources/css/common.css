@@ -1,0 +1,176 @@
+
+
+/*=========== webfont ============*/
+
+/* font */
+@font-face {
+  font-family: 'NotoSans';
+  font-style: normal;
+  font-weight: 100;
+  src: local('NotoSans'),
+      url('font/NotoSansKR-Thin.woff2') format('woff2'), 
+      url('font/NotoSansKR-Thin.woff') format('woff'),
+      url('font/NotoSansKR-Thin.ttf') format('truetype'),
+      url('font/NotoSansKR-Thin.otf') format('opentype'),
+      url('font/NotoSansKR-Thin.eot') format('embedded-opentype');
+}
+@font-face {
+  font-family: 'NotoSans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('NotoSans'),
+      url('font/NotoSansKR-DemiLight.woff2') format('woff2'), 
+      url('font/NotoSansKR-DemiLight.woff') format('woff'),
+      url('font/NotoSansKR-DemiLight.ttf') format('truetype'),
+      url('font/NotoSansKR-DemiLight.otf') format('opentype'),
+      url('font/NotoSansKR-DemiLight.eot') format('embedded-opentype');
+}
+
+
+@font-face {
+  font-family: 'NotoSans';
+  font-style: normal;
+  font-weight: 600;
+  src: local('NotoSans'),
+      url('font/NotoSansKR-Regular.woff2') format('woff2'), 
+      url('font/NotoSansKR-Regular.woff') format('woff'),
+      url('font/NotoSansKR-Regular.ttf') format('truetype'),
+      url('font/NotoSansKR-Regular.otf') format('opentype'),
+      url('font/NotoSansKR-Regular.eot') format('embedded-opentype');
+}
+
+@font-face {
+  font-family: 'NotoSans';
+  font-style: normal;
+  font-weight: 700;
+  src: local('NotoSans'),
+      url('font/NotoSansKR-Bold.woff2') format('woff2'), 
+      url('font/NotoSansKR-Bold.woff') format('woff'),
+      url('font/NotoSansKR-Bold.ttf') format('truetype'),
+      url('font/NotoSansKR-Bold.otf') format('opentype'),
+      url('font/NotoSansKR-Bold.eot') format('embedded-opentype');
+}
+
+@font-face {
+  font-family: 'NotoSans';
+  font-style: normal;
+  font-weight: 900;
+  src: local('NotoSans'),
+      url('font/NotoSansKR-Black.woff2') format('woff2'), 
+      url('font/NotoSansKR-Black.woff') format('woff'),
+      url('font/NotoSansKR-Black.ttf') format('truetype'),
+      url('font/NotoSansKR-Black.otf') format('opentype'),
+      url('font/NotoSansKR-Black.eot') format('embedded-opentype');
+}
+
+
+
+/* fontë */
+.red {color:#cc0000;}
+.blue {color:#0066cc;}
+.green {color:#3c7800;}
+.orange {color:#b44800;}
+.bold {font-weight:bold;}
+
+/*align set */
+.tal{text-align:left !important}
+.tar{text-align:right !important}
+.tac{text-align:center !important}
+.fs11{font-size: 11px !important;}
+
+.clearfix:after{display:block;clear:both;content:"";}
+.skip{position:absolute;overflow:hidden;height:0;width:0;font-size:0;line-height:0;text-indent:-9999px;}
+.float_left{float: left;}
+.float_right{float: right;}
+
+/* space set */
+.mg_l5{margin-left:5px}
+.mg_l10{margin-left:10px}
+.mg_l13{margin-left:13px}
+.mg_l15{margin-left:15px}
+.mg_l20{margin-left:20px}
+.mg_l25{margin-left:25px}
+.mg_l30{margin-left:30px}
+
+.mg_b5{margin-bottom:5px!important}
+.mg_b10{margin-bottom:10px!important}
+.mg_b15{margin-bottom:15px!important}
+.mg_b20{margin-bottom:20px!important}
+.mg_b25{margin-bottom:25px!important}
+.mg_b30{margin-bottom:30px!important}
+.mg_b35{margin-bottom:35px!important}
+.mg_b40{margin-bottom:40px!important}
+.mg_b45{margin-bottom:45px!important}
+.mg_b50{margin-bottom:50px!important}
+
+.mg_t5{margin-top:5px!important}
+.mg_t10{margin-top:10px!important}
+.mg_t15{margin-top:10px!important}
+.mg_t20{margin-top:20px!important}
+.mg_t25{margin-top:25px!important}
+.mg_t30{margin-top:30px!important}
+.mg_t35{margin-top:35px!important}
+.mg_t40{margin-top:40px!important}
+.mg_t45{margin-top:45px!important}
+.mg_t50{margin-top:50px!important}
+.mg_t55{margin-top:55px!important}
+.mg_t60{margin-top:60px!important}
+.mg_t65{margin-top:65px!important}
+.mg_t70{margin-top:70px!important}
+.mg_t75{margin-top:75px!important}
+.mg_t80{margin-top:80px!important}
+.mg_t85{margin-top:85px!important}
+.mg_t90{margin-top:90px!important}
+.mg_t95{margin-top:95px!important}
+.mg_t100{margin-top:100px!important}
+/* width set */
+.w_30{width:30px}
+.w_40{width:40px}
+.w_50{width:50px}
+.w_60{width:60px}
+.w_70{width:70px}
+.w_80{width:80px}
+.w_90{width:90px}
+.w_100{width:100px}
+.w_110{width:110px}
+.w_120{width:120px}
+.w_130{width:130px}
+.w_150{width:150px}
+.w_160{width:160px}
+.w_180{width:180px}
+.w_200{width:200px!important}
+.w_250{width:250px!important}
+.w_300{width:300px!important}
+.w_350{width:350px!important}
+.w_400{width:400px!important}
+.w_500{width:500px!important}
+.w_600{width:600px!important}
+
+.wps_5{width:5%}
+.wps_10{width:10%}
+.wps_15{width:15%}
+.wps_16{width:16%}
+.wps_20{width:20%}
+.wps_25{width:25%}
+.wps_28{width:28%}
+.wps_30{width:30%}
+.wps_35{width:35%}
+.wps_40{width:40%}
+.wps_43{width:43%}
+.wps_45{width:45%}
+.wps_50{width:50%}
+.wps_55{width:55%}
+.wps_60{width:60%}
+.wps_65{width:65%}
+.wps_70{width:70%}
+.wps_75{width:75%}
+.wps_80{width:80%}
+.wps_85{width:85%}
+.wps_90{width:90%}
+.wps_95{width:95%}
+.wps_100{width:100%}
+.pdfDown{display: inline-block;position:relative;margin: 20px 0;color: #1d2088;}
+.pdfDown::after{content:'';position: absolute;right: -20px;top: 0px;background: url(../images/down.png) no-repeat;background-size: 100% 100%;width: 15px;height: 16px;}
+.linkIcon{font-size: 12px;text-decoration: underline !important;color: #333694;}
+
+.linkIcon::after{content: '';background: url(../images/link.png)no-repeat;width: 15px;height: 15px;vertical-align: bottom;display: inline-block;margin-left: 5px;background-size: 70%;}

@@ -1,0 +1,52 @@
+@charset "utf-8";
+/*========= reset style ==========*/
+/* reset */
+* {margin:0;padding:0;box-sizing:border-box;-webkit-touch-callout:none; } 
+
+html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, 
+pre,a, abbr, acronym, address, big, cite, code,del, dfn, em, img, ins, kbd, q, s, samp,small, strike, strong, sub, sup, tt, var,b, 
+u, i, center,dl, dt, dd, ol, ul, li,fieldset, form, label, legend,table, caption, tbody, tfoot, thead, tr, th, td,article, aside, canvas, 
+details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary,time, mark, audio, video 
+{margin: 0;padding: 0;border: 0;font-size: 14px;color: #231f20;vertical-align: baseline;letter-spacing: -0.05em;}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {display: block;}
+body {font-family: 'NotoSans',serif; width:100%; font-size:14px; line-height: 1;letter-spacing:-0.05em;  word-wrap:break-word; word-break:break-all; }
+div,ul,ol,li,dl,dt,dd,p,input,textarea,select,h1,h2,h3,h4,h5,em,address,fieldset,form,iframe,object,menu,button {margin:0;padding:0;line-height:1.2;}
+menu,ul,ol,li {list-style:none; }
+blockquote, q {quotes: none;}
+blockquote:before, blockquote:after,q:before, q:after {content: '';content: none;}
+table {border-collapse: collapse;border-spacing: 0;}
+audio, canvas, progress, video {display:inline-block; vertical-align:baseline;} 
+img,fieldset,iframe {border:none;overflow:hidden;}
+img,input,select,textarea {vertical-align:top;}
+input,select,textarea { border-radius:0;}
+em,address, dfn, cite, i{font-style:normal;}
+button {border:0;background:none;cursor:pointer;}
+legend,caption{text-indent:-100000px;overflow:hidden;width:0;height:0;font-size:0;line-height:0;}
+input[type="text"] {font-size:1em;-webkit-appearance:none;}
+input[type="checkbox"], input[type="radio"] {vertical-align:middle;}
+input[type="submit"]{border: 0;}
+strong {font-weight:bold;}
+select::-ms-expand {display:none;}       
+img{max-width:100%;}          
+label,select,input,button{vertical-align:middle}
+
+/*모든 브라우저에서 line-height에 미치는 영향 예방*/
+sup,sub {position:relative; font-size:60%; line-height:0; vertical-align:baseline;}
+sub {bottom: -0.5em;}sup {top: -0.5em;}#snb a{color:#666;}
+img {border:0; max-width:100%; vertical-align:top; font-size:0; line-height:0;}
+b, strong {font-weight:700;}
+mark {background-color:#ff0; color:#000;} /*IE8/9 존재하지 않는 스타일 부여*/
+small, .small {font-size:80%;} /*브라우저 글꼴 통일*/
+pre {overflow:auto;} /*모든브라우저에서 값 통일*/
+del {text-decoration: line-through; }
+hr {visibility:hidden; overflow:hidden; position:absolute; height:0; width:0; font-size:0;}
+label {cursor:default;}
+a {cursor: pointer; color:inherit; text-decoration: none; }
+a:link,a:visited,a:hover,a:active,a:focus {text-decoration: none;}
+
+/*IE8,9에서 inline-block으로 지정 ; chrom, firefox, opera에서 progress 세로정렬 표준화 */
+a {/* background-color:transparent; */} /*IE10에서 active 링크의 회색배경 제거 */
+
+
+select{background: url('../images/common/select_arrow.gif')no-repeat 90% 50%;-webkit-appearance: none;-moz-appearance: none;appearance: none;}
