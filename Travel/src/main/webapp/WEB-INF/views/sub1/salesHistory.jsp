@@ -140,7 +140,7 @@
 						<td>${list.pot_id }</td>
 						<td><c:choose><c:when test="${list.ord_cancel == 0}">판매완료</c:when><c:otherwise>판매취소</c:otherwise></c:choose></td>
 						<td>상세보기</td>
-						<td class="text-right" width="10%"><span id="memo${list.ord_id }" class="ord_memo" style="cursor: pointer">${list.ord_memo }</span></td>
+						<td class="text-right ord_memo" style="cursor: pointer" width="10%" id="memo${list.ord_id }">${list.ord_memo }</td>
 						</tr>
 		  				</c:forEach>
 	  				</c:when>
@@ -162,20 +162,20 @@
 				<ul class="pagination" style="padding: 0px; margin: 0px;">
 					
 					<c:if test="${pageBean.pageNum > 1 }">
-					<li><a href="<c:url value="${path }?page=1"/><c:if test="${param.search eq 'on' }">
-					&search=on&begin_date=${param.begin_date}&end_date=${param.end_date}&memo_search=${param.memo_search}&phone_search=${param.phone_search}&pmt_search=${param.pmt_search}&staff_search=${param.staff_search}&cancel_search=${param.cancel_search}&btn_filter=&size=${param.size }
+					<li><a href="<c:url value="${path }?page=1&size=${param.size }"/><c:if test="${param.search eq 'on' }">
+					&search=on&begin_date=${param.begin_date}&end_date=${param.end_date}&memo_search=${param.memo_search}&phone_search=${param.phone_search}&pmt_search=${param.pmt_search}&staff_search=${param.staff_search}&cancel_search=${param.cancel_search}&btn_filter=&
 					</c:if>" title="First Page">
 						<span class="glyphicon glyphicon-fast-backward"></span></a></li>
 					</c:if>
 					
 					<c:if test="${pageBean.pageNum > 1 }">
-					<li><a href="<c:url value="${path }?page=${pageBean.pageNum - 1 }"/><c:if test="${param.search eq 'on' }">
-					&search=on&begin_date=${param.begin_date}&end_date=${param.end_date}&memo_search=${param.memo_search}&phone_search=${param.phone_search}&pmt_search=${param.pmt_search}&staff_search=${param.staff_search}&cancel_search=${param.cancel_search}&btn_filter=&size=${param.size }
+					<li><a href="<c:url value="${path }?page=${pageBean.pageNum - 1 }&size=${param.size }"/><c:if test="${param.search eq 'on' }">
+					&search=on&begin_date=${param.begin_date}&end_date=${param.end_date}&memo_search=${param.memo_search}&phone_search=${param.phone_search}&pmt_search=${param.pmt_search}&staff_search=${param.staff_search}&cancel_search=${param.cancel_search}&btn_filter=&
 					</c:if>" title="Previous Page">
 						<span class="glyphicon glyphicon-backward"></span></a></li>
 					</c:if>
 					
-					<li><select onchange="location.href='<c:url value="${path }?page="/>'+this.value+'<c:if test="${param.search eq 'on' }">&search=on&begin_date=${param.begin_date}&end_date=${param.end_date}&memo_search=${param.memo_search}&phone_search=${param.phone_search}&pmt_search=${param.pmt_search}&staff_search=${param.staff_search}&cancel_search=${param.cancel_search}&btn_filter=&size=${param.size }</c:if>'">
+					<li><select onchange="location.href='<c:url value="${path }?page="/>'+this.value+'&size=${param.size }<c:if test="${param.search eq 'on' }">&search=on&begin_date=${param.begin_date}&end_date=${param.end_date}&memo_search=${param.memo_search}&phone_search=${param.phone_search}&pmt_search=${param.pmt_search}&staff_search=${param.staff_search}&cancel_search=${param.cancel_search}&btn_filter=</c:if>'">
 					<option value=${pageBean.pageNum }>Page: ${pageBean.pageNum } of ${pageBean.endPage }</option>
 					<c:forEach var="count" begin="1" end="${pageBean.endPage }" step="1">
 					<option value="${count }">Page: ${count }</option>
@@ -183,15 +183,15 @@
 					</select></li>
 					
 					<c:if test="${pageBean.pageNum < pageBean.endPage }">
-					<li><a href="<c:url value="${path }?page=${pageBean.pageNum + 1 }"/><c:if test="${param.search eq 'on' }">
-					&search=on&begin_date=${param.begin_date}&end_date=${param.end_date}&memo_search=${param.memo_search}&phone_search=${param.phone_search}&pmt_search=${param.pmt_search}&staff_search=${param.staff_search}&cancel_search=${param.cancel_search}&btn_filter=&size=${param.size }
+					<li><a href="<c:url value="${path }?page=${pageBean.pageNum + 1 }&size=${param.size }"/><c:if test="${param.search eq 'on' }">
+					&search=on&begin_date=${param.begin_date}&end_date=${param.end_date}&memo_search=${param.memo_search}&phone_search=${param.phone_search}&pmt_search=${param.pmt_search}&staff_search=${param.staff_search}&cancel_search=${param.cancel_search}&btn_filter=&
 					</c:if>" title="Next Page">
 						<span class="glyphicon glyphicon-forward"></span></a></li>
 					</c:if>
 					
 					<c:if test="${pageBean.pageNum < pageBean.endPage }">
-					<li><a href="<c:url value="${path }?page=${pageBean.endPage }"/><c:if test="${param.search eq 'on' }">
-					&search=on&begin_date=${param.begin_date}&end_date=${param.end_date}&memo_search=${param.memo_search}&phone_search=${param.phone_search}&pmt_search=${param.pmt_search}&staff_search=${param.staff_search}&cancel_search=${param.cancel_search}&btn_filter=&size=${param.size }
+					<li><a href="<c:url value="${path }?page=${pageBean.endPage }&size=${param.size }"/><c:if test="${param.search eq 'on' }">
+					&search=on&begin_date=${param.begin_date}&end_date=${param.end_date}&memo_search=${param.memo_search}&phone_search=${param.phone_search}&pmt_search=${param.pmt_search}&staff_search=${param.staff_search}&cancel_search=${param.cancel_search}&btn_filter=&
 					</c:if>" title="Last Page">
 						<span class="glyphicon glyphicon-fast-forward"></span></a></li>
 					</c:if>

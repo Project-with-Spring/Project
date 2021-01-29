@@ -5,8 +5,18 @@
   
 <mapper namespace="com.Travel.mapper.StaffMapper">
 	
-	<select id="getStaffList" parameterType="string" resultType="staffBean">
-		select st.*, ps.pst_name pst_name from staff st join position ps on st.pst_id = ps.pst_id where st.stf_name like CONCAT('%',#{stf_name},'%')
+	<select id="getStaffList" parameterType="hashMap" resultType="staffBean">
+		<![CDATA[
+			select st.*, ps.pst_name pst_name , cm.cnt_go, cm.total_time from staff st 
+			join position ps on st.pst_id = ps.pst_id 
+			left join (select stf_id, count(stf_id) cnt_go, TIMESTAMPDIFF(MINUTE,cmt_go,cmt_leave) AS total_time from commute group by stf_id having  COUNT(stf_id) > 0) as cm 
+			on st.stf_id=cm.stf_id 
+		]]>
+			where st.stf_name like CONCAT('%',#{stf_name},'%')
+			<!-- where st.stf_name like CONCAT('%',#{stf_name},'%')and st.pst_id=#{pst_id} ; -->		
+			<if test="pst_id != ''">
+				and st.pst_id=#{pst_id} ;
+			</if>
 	</select>
 	
 		

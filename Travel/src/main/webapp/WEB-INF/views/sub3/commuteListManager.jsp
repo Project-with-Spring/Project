@@ -33,19 +33,29 @@
 	      </div>
         </div>
 		<script>
-		function print_opt()
-		{
-			var URL = 'sales_print.php?txt_search='+$('#txt_search').val()+'&from='+$('#from').val()+'&to='+$('#to').val()+'&branch_id='+$('#branch_id').val()+'&cust_id='+$('#cust_id').val()+'&user_id='+$('#user_id').val()+'&pstatus='+$('#pstatus').val();
-			print_sub(URL,800,600);
-		}
 		</script>
         <div class="box-body mg_t20">
   	       <div id="my_all">
   	       
 			<form  method="get" action="<c:url value='/getCommuteListAll'/>" class=""> 
 				<div class="form-group clearfix">
-					<div class="col-md-2"><input type="text" name="from" id="from" value="<c:out value="${date}" />" class="form-control txtdate" readonly="readonly"></div>
-				  	<div class="col-md-2"><input type="text" name="to" id="to" value="<c:out value="${date}" />" class="form-control txtdate" readonly="readonly"></div>
+								
+					<c:choose>
+					    <c:when test="${not empty param.from}">
+							<div class="col-md-2"><input type="text" name="from" id="from" value="${param.from}" class="from form-control txtdate" readonly="readonly"></div>
+					    </c:when>
+					    <c:otherwise>
+							<div class="col-md-2"><input type="text" name="from" id="from" value="<c:out value="${date}"/>" class="from form-control txtdate" readonly="readonly"></div>
+					    </c:otherwise>
+				    </c:choose>
+				    <c:choose>
+					    <c:when test="${not empty param.to}">
+				  			<div class="col-md-2"><input type="text" name="to" id="to" value="<c:out value="${param.to}" />" class="to form-control txtdate" readonly="readonly"></div>
+					    </c:when>							
+					    <c:otherwise>
+							<div class="col-md-2"><input type="text" name="to" id="to" value="<c:out value="${date}" />" class="to form-control txtdate" readonly="readonly"></div>
+						</c:otherwise>
+				    </c:choose>
 					<div class="col-md-1">
 		              	<button type="submit" name="btn_filter" class="btn btn-primary form-control">조회하기</button>
 	                </div>  		
@@ -96,7 +106,7 @@
 										 <a href="<c:url value='commuteModify?stf_id=${cmt.stf_id}&cmt_id=${cmt.cmt_id}'/>"  class="btn btn-default btn-xs"  title="Update Detail">
 					        			 	<span class="glyphicon glyphicon-pencil"></span>
 					        			 </a> 
-					        			 <a href="<c:url value='staffDelete?stf_id=${cmt.stf_id}&cmd_id=${cmt.cmt_id}'/>" class="btn btn-warning btn-xs" onclick="javascript:return confirm('해당 직원을 삭제하시겠습니까?');" title="Remove Position">
+					        			 <a href="<c:url value='commuteDelete?cmt_id=${cmt.cmt_id}'/>" class="btn btn-warning btn-xs" onclick="javascript:return confirm('해당 근태기록을 삭제하시겠습니까?');" title="Remove Position">
 					        			 	<span class="glyphicon glyphicon-remove"></span>
 				        			 	</a> 
 					        		</td>

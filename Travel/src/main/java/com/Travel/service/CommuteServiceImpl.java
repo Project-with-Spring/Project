@@ -86,4 +86,16 @@ public class CommuteServiceImpl implements CommuteService{
 		
 	}
 
+	@Override
+	public void commuteDelete(int cm_id) {
+		 commuteDAO.commuteDelete(cm_id);
+		
+	}
+
+	@Override
+	public StaffBean getStaffCommutOnetotal(HashMap map) {
+		// TODO Auto-generated method stub
+		return commuteDAO.getStaffCommutOnetotal(map);
+	}
+
 }

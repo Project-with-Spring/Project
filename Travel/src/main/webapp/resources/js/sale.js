@@ -232,6 +232,11 @@ function deleteComma(won) {
 }
 	// 포인트 사용제어
 function pointSale(point) {
-	var regex = /0|^[1-9][0-9]+[0]{2}$/;
-	return ;
+	var pot_point = document.getElementById("balance").value.replace(/[0-9][1-9]$/,"00");
+	alert(pot_point);
+	var regex = /^([1-9])([0-9])+[0]{2}$/;
+	if(regex.exec(point.value)){
+		
+		document.getElementById("TLT_AMOUNTS").innerHTML = plusComma(deleteComma(document.getElementById("sub_total").value)-point.value) +" 원"; // 주문 총액 적용
+	}
 }
