@@ -91,4 +91,13 @@ public class SalesHistoryController {
 		}
 		return entity;
 	}
+	
+	@RequestMapping(value = "/salesInfo", method = RequestMethod.GET)
+	public String salesInfo(Model model, HttpServletRequest request) {
+		System.out.println("SalesHistoryController salesInfo()");
+		
+		
+		return "sub1/salesInfo";
+	}
+	
 }
