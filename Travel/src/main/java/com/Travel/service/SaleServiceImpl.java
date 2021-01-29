@@ -10,6 +10,7 @@ import com.Travel.dao.SaleDAO;
 import com.Travel.domain.CategoryBean;
 import com.Travel.domain.OrderBean;
 import com.Travel.domain.OrderDetailBean;
+import com.Travel.domain.PointBean;
 import com.Travel.domain.ProductBean;
 
 @Service
@@ -42,6 +43,27 @@ public class SaleServiceImpl implements SaleService {
 	public void insertDetail(OrderDetailBean odtBean) {
 		saleDAO.insertDetail(odtBean);
 		
+	}
+
+	@Override
+	public String getPoint(PointBean potBean) {
+		return saleDAO.getPoint(potBean);
+	}
+
+	@Override
+	public void insertPointId(PointBean potBean) {
+		saleDAO.insertPointId(potBean);
+		
+	}
+
+	@Override
+	public void updatePoint(PointBean potBean) {
+		saleDAO.updatePoint(potBean);
+	}
+
+	@Override
+	public void updateOrdPoint(PointBean potBean) {
+		saleDAO.updateOrdPoint(potBean);
 	}
 
 }

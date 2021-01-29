@@ -1,5 +1,6 @@
 package com.Travel.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -15,8 +16,8 @@ public class StaffServiceImpl implements StaffService{
 	private StaffDAO staffDAO;
 
 	@Override
-	public List<StaffBean> getStaffList(String stf_name) {		
-		return  staffDAO.getStaffList(stf_name);
+	public List<StaffBean> getStaffList(HashMap map) {		
+		return  staffDAO.getStaffList(map);
 	}
 
 	@Override

@@ -32,4 +32,8 @@ public interface CommuteDAO {
 
 	public void comumteModify(StaffBean sb);
 
+	public void commuteDelete(int cm_id);
+
+	public StaffBean getStaffCommutOnetotal(HashMap map);
+
 }

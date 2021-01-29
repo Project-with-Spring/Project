@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.Travel.domain.CategoryBean;
 import com.Travel.domain.OrderBean;
 import com.Travel.domain.OrderDetailBean;
+import com.Travel.domain.PointBean;
 import com.Travel.domain.ProductBean;
 
 @Repository
@@ -38,6 +39,23 @@ public class SaleDAOImpl implements SaleDAO {
 		@Override
 		public void insertDetail(OrderDetailBean odtBean) {
 			sqlSession.insert(namespace+".insertOrderDetail",odtBean);
+		}
+		@Override
+		public String getPoint(PointBean potBean) {
+			return sqlSession.selectOne(namespace+".getPoint",potBean);
+		}
+		@Override
+		public void insertPointId(PointBean potBean) {
+			sqlSession.insert(namespace+".insertPointId",potBean);
+			
+		}
+		@Override
+		public void updatePoint(PointBean potBean) {
+			sqlSession.update(namespace+".updatePoint",potBean);
+		}
+		@Override
+		public void updateOrdPoint(PointBean potBean) {
+			sqlSession.update(namespace+".updateOrdPoint", potBean);
 		}
 
 }
