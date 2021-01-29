@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 
-public class OrderdetailBean {
+public class OrderDetailBean {
 	private int odt_id;
 	private int odt_count;
 	private int ord_id;
