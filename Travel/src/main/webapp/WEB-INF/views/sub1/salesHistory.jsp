@@ -115,7 +115,7 @@
             <thead>
                 <tr id="tr_top">
                   <th width="5%">#</th>
-                    <th width="10%">판매날짜</th>
+                    <th width="15%">판매날짜</th>
 					<th width="10%">판매자</th>
 					<th width="10%">판매금액</th>
 					<th width="10%">결제타입</th>
