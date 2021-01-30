@@ -18,6 +18,13 @@
     <!-- Main content -->
     <section class="content">
     
+    <div class="box">
+    	<div class="box-header with-border">
+          <h3 class="box-title">판매 현황</h3>
+          <div class="box-tools pull-right"><a href="<c:url value="salesHistory"/>" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> 판매내역 리스트</a> <a href="<c:url value="sale"/>" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> 주문받기</a></div>
+        </div>
+    
+    </div>
     
     </section>
     <!-- /.content -->
