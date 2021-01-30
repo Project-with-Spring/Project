@@ -152,7 +152,8 @@
 								</div>
 								<div class="col-md-2 col-xs-4">
 									  <label>포인트 사용</label>
-									 <input type="number" name="tlt_dist" id="tlt_dist" class="form-control" value="0" readonly="readonly" onchange="pointSale(this);" step="100">
+									 <input type="number" name="tlt_dist" id="tlt_dist" class="form-control" value="0" readonly="readonly" min="0" step="100" oninput="pointSale(this);">
+
 								</div>
 								<div class="col-md-2 col-xs-4">
 									  <label>적립 포인트</label>
@@ -170,14 +171,14 @@
 								<div class="col-md-2"><input type="text" placeholder="'-'를 제외한 전화번호" name="paid_amt" id="phoneNumber" class="form-control" ></div>
 								<div class="col-md-3">
 								<select name="pay_method" id="pay_method" class="form-control">
-									<option value="Cash">Cash</option>
-									<option value="Bank Deposit">Bank Deposit</option>
-									<option value="Cheque">Cheque</option>
-									<option value="Credit Card">Credit Card</option>
-									<option value="Credit">Credit Sale</option>
+									<option value="card">카드</option>
+									<option value="cash">현금</option>
+									<option value="samsungpay">삼성페이</option>
+									<option value="kakaopay">카카오페이</option>
+									<option value="payco">페이코</option>
 								</select>
 								</div>
-								<label class="col-md-2 control-label"><input type="button" value="전액"> 잔여 포인트</label>
+								<label class="col-md-2 control-label"><input type="button" id ="maxPoint"value="최대" style="display: none;"> 잔여 포인트</label>
 								<div class="col-md-2"><input type="text" name="balance" id="balance" class="form-control" readonly="Yes"></div>
 							</div>
 							<div class="form-group" style="margin:0px;margin-bottom:5px;">
