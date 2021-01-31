@@ -12,5 +12,7 @@ public interface SalesHistoryService {
 	List<OrderBean> getList(Map<String, Object> searchMap);
 
 	void updateMemo(OrderBean orderBean);
+
+	List<OrderBean> getChartList(Map<String, Integer> chartType);
 	
 }

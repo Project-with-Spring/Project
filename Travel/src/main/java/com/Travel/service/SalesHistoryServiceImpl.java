@@ -36,4 +36,10 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 		
 	}
 
+	@Override
+	public List<OrderBean> getChartList(Map<String, Integer> chartType) {
+		System.out.println("SalesHistoryServiceImpl getChartList()");
+		return salesHistoryDAO.getChartList(chartType);
+	}
+
 }
