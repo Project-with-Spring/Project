@@ -95,7 +95,21 @@ public class SalesHistoryController {
 	@RequestMapping(value = "/saleInfo", method = RequestMethod.GET)
 	public String salesInfo(Model model, HttpServletRequest request) {
 		System.out.println("SalesHistoryController salesInfo()");
+		request.getParameter("totalType");
 		
+		int dateType = 0;
+		if(request.getParameter("dateType") != null && !request.getParameter("dateType").equals("")) {
+			dateType = Integer.parseInt(request.getParameter("dateType"));
+		}
+		int totalType = 0;
+		if(request.getParameter("totalType") != null && !request.getParameter("totalType").equals("")) {
+			totalType = Integer.parseInt(request.getParameter("totalType"));
+		}
+		Map<String, Integer> chartType = new HashMap<String, Integer>();
+		chartType.put("dateType", dateType);
+		chartType.put("totalType", totalType);
+		
+		model.addAttribute("chartList", salesHistoryService.getChartList(chartType));
 		
 		return "sub1/saleInfo";
 	}

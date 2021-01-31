@@ -22,7 +22,7 @@
       <div class="box">
 	  	<div class="box-header with-border">
           <h3 class="box-title">판매내역 리스트</h3>
-          <div class="box-tools pull-right"><a id="csvDownloadButton" class="btn btn-success btn-sm">CSV 내보내기</a> <a href="<c:url value="sale"/>" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> 주문받기</a></div>
+          <div class="box-tools pull-right"><a href="<c:url value="saleInfo"/>" class="btn btn-success btn-sm"><i class="fa fa-pie-chart"></i> 판매현황</a> <a id="csvDownloadButton" class="btn btn-success btn-sm">CSV 내보내기</a> <a href="<c:url value="sale"/>" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> 주문받기</a></div>
         </div>
         <div class="box-body">
   	       <div id="my_all">
