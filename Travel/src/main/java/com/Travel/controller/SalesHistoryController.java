@@ -2,6 +2,7 @@ package com.Travel.controller;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.Travel.domain.OrderBean;
+import com.Travel.domain.OrderDetailBean;
 import com.Travel.domain.PageBean;
 import com.Travel.service.SalesHistoryService;
 import com.Travel.service.StaffService;
@@ -109,8 +111,25 @@ public class SalesHistoryController {
 		chartType.put("dateType", dateType);
 		chartType.put("totalType", totalType);
 		
+		List<OrderDetailBean> popularityChart = salesHistoryService.getPopularityList();
 		model.addAttribute("chartList", salesHistoryService.getChartList(chartType));
+		model.addAttribute("popularityChart", popularityChart);
 		
+		String pdt_name1 = popularityChart.get(0).getPdt_name();
+		String pdt_name2 = popularityChart.get(1).getPdt_name();
+		String pdt_name3 = popularityChart.get(2).getPdt_name();
+		if(request.getParameter("pdt_name1") != null) {
+			pdt_name1 = request.getParameter("pdt_name1");
+		}
+		if(request.getParameter("pdt_name2") != null) {
+			pdt_name2 = request.getParameter("pdt_name2");
+		}
+		if(request.getParameter("pdt_name3") != null) {
+			pdt_name3 = request.getParameter("pdt_name3");
+		}
+		model.addAttribute("chartBarList1", salesHistoryService.getChartBarList(pdt_name1));
+		model.addAttribute("chartBarList2", salesHistoryService.getChartBarList(pdt_name2));
+		model.addAttribute("chartBarList3", salesHistoryService.getChartBarList(pdt_name3));
 		return "sub1/saleInfo";
 	}
 	

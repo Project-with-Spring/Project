@@ -37,10 +37,23 @@
           </div>
         </div>
         <div class="box-body">
-
-		<div id="line-chart-1"></div>
-
+			<div id="line-chart-1"></div>
         </div>
+        
+        <div class="box-header with-border">
+          <h3 class="box-title">인기 상품</h3>
+        </div>
+        <div class="box-body">
+        	<div id="pie-chart-2" style="width:100%"></div>
+        </div>
+        
+        <div class="box-header with-border">
+          <h3 class="box-title">상품별 판매현황</h3>
+        </div>
+        <div class="box-body">
+        	<div id="bar-chart-1" style="width:100%"></div>
+        </div>
+        
       </div>
       <!-- /.box -->
     
@@ -130,6 +143,141 @@ $(document).ready(function() {
             );
             chart.render();
         });
+        
+        $(function() {
+            var options = {
+                chart: {
+                    height: 320,
+                    type: 'donut',
+                },
+                series: [${popularityChart[0].odt_count}, ${popularityChart[1].odt_count}, ${popularityChart[2].odt_count}, ${popularityChart[3].odt_count}, ${popularityChart[4].odt_count}],
+                colors: ["#4680ff", "#0e9e4a", "#00acc1", "#ffba57", "#ff5252"],
+                labels: ['${popularityChart[0].pdt_name}', '${popularityChart[1].pdt_name}', '${popularityChart[2].pdt_name}', '${popularityChart[3].pdt_name}', '${popularityChart[4].pdt_name}'],
+                legend: {
+                    show: true,
+                    position: 'bottom',
+                },
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            labels: {
+                                show: true,
+                                name: {
+                                    show: true
+                                },
+                                value: {
+                                    show: true
+                                }
+                            }
+                        }
+                    }
+                },
+                dataLabels: {
+                    enabled: true,
+                    dropShadow: {
+                        enabled: false,
+                    }
+                },
+                responsive: [{
+                    breakpoint: 480,
+                    options: {          
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }]
+            }
+            var chart = new ApexCharts(
+                document.querySelector("#pie-chart-2"),
+                options
+            );
+            chart.render();
+        });
+        $(function() {
+            var options = {
+                chart: {
+                    height: 350,
+                    type: 'bar',
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: '55%',
+                        endingShape: 'rounded'
+                    },
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                colors: ["#0e9e4a", "#4680ff", "#ff5252"],
+                stroke: {
+                    show: true,
+                    width: 2,
+                    colors: ['transparent']
+                },
+                series: [{
+                    name: '${chartBarList1[0].pdt_name}',
+                    data: [${chartBarList1[0].odt_count}, 
+                        ${chartBarList1[1].odt_count}, 
+                        ${chartBarList1[2].odt_count}, 
+                        ${chartBarList1[3].odt_count}, 
+                        ${chartBarList1[4].odt_count}, 
+                        ${chartBarList1[5].odt_count}, 
+                        ${chartBarList1[6].odt_count}]
+                },
+                {
+                    name: '${chartBarList2[0].pdt_name}',
+                    data: [${chartBarList2[0].odt_count}, 
+                        ${chartBarList2[1].odt_count}, 
+                        ${chartBarList2[2].odt_count}, 
+                        ${chartBarList2[3].odt_count}, 
+                        ${chartBarList2[4].odt_count}, 
+                        ${chartBarList2[5].odt_count}, 
+                        ${chartBarList2[6].odt_count}]
+                },
+                {
+                    name: '${chartBarList3[0].pdt_name}',
+                    data: [${chartBarList3[0].odt_count}, 
+                        ${chartBarList3[1].odt_count}, 
+                        ${chartBarList3[2].odt_count}, 
+                        ${chartBarList3[3].odt_count}, 
+                        ${chartBarList3[4].odt_count}, 
+                        ${chartBarList3[5].odt_count}, 
+                        ${chartBarList3[6].odt_count}]
+                }],
+                xaxis: {
+                    categories: ['${chartBarList1[0].date}', 
+                        '${chartBarList1[1].date}', 
+                        '${chartBarList1[2].date}', 
+                        '${chartBarList1[3].date}', 
+                        '${chartBarList1[4].date}', 
+                        '${chartBarList1[5].date}', 
+                        '${chartBarList1[6].date}'],
+                },
+                yaxis: {
+                    title: {
+                        text: 'count'
+                    }
+                },
+                fill: {
+                    opacity: 1
+
+                },
+                tooltip: {
+                    y: {
+                        formatter: function(val) {
+                            return  val + " 개 판매"
+                        }
+                    }
+                }
+            }
+            var chart = new ApexCharts(
+                document.querySelector("#bar-chart-1"),
+                options
+            );
+            chart.render();
+        });
+        
     });
 });
 </script>

@@ -13,4 +13,6 @@ public class OrderDetailBean {
 	private String pdt_id;
 	private String pdt_name;
 	private String odt_memo;
+	
+	private String date;
 }

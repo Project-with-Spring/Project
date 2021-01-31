@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.Travel.dao.SalesHistoryDAO;
 import com.Travel.domain.OrderBean;
+import com.Travel.domain.OrderDetailBean;
 import com.Travel.domain.PageBean;
 
 @Service
@@ -40,6 +41,18 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 	public List<OrderBean> getChartList(Map<String, Integer> chartType) {
 		System.out.println("SalesHistoryServiceImpl getChartList()");
 		return salesHistoryDAO.getChartList(chartType);
+	}
+
+	@Override
+	public List<OrderDetailBean> getPopularityList() {
+		System.out.println("SalesHistoryServiceImpl getpopularityList()");
+		return salesHistoryDAO.getPopularityList();
+	}
+
+	@Override
+	public List<OrderDetailBean> getChartBarList(String pdt_name) {
+		System.out.println("SalesHistoryServiceImpl getChartBarList()");
+		return salesHistoryDAO.getChartBarList(pdt_name);
 	}
 
 }
