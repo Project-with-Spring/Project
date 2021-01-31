@@ -13,6 +13,8 @@ public interface SalesHistoryDAO {
 
 	void updateMemo(OrderBean orderBean);
 
+	List<OrderBean> getChartList(Map<String, Integer> chartType);
+
 
 
 }

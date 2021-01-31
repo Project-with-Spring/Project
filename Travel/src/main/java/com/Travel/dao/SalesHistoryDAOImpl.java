@@ -34,5 +34,10 @@ public class SalesHistoryDAOImpl implements SalesHistoryDAO {
 			System.out.println("SalesHistoryDAOImpl updateMemo()");
 			sqlSession.update(namespace+".updateMemo", orderBean);
 		}
+		@Override
+		public List<OrderBean> getChartList(Map<String, Integer> chartType) {
+			System.out.println("SalesHistoryDAOImpl getChartList()");
+			return sqlSession.selectList(namespace+".getChartList", chartType);
+		}
 
 }
