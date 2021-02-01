@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.Travel.domain.OrderBean;
 import com.Travel.domain.OrderDetailBean;
 import com.Travel.domain.PageBean;
+import com.Travel.service.ProductService;
 import com.Travel.service.SalesHistoryService;
 import com.Travel.service.StaffService;
 
@@ -29,6 +30,9 @@ public class SalesHistoryController {
 	
 	@Inject
 	private StaffService staffService;
+	
+	@Inject
+	private ProductService ProductService;
 	
 	@RequestMapping(value = "/salesHistory", method = RequestMethod.GET)
 	public String saleHistory(Model model, HttpServletRequest request) {
@@ -130,6 +134,8 @@ public class SalesHistoryController {
 		model.addAttribute("chartBarList1", salesHistoryService.getChartBarList(pdt_name1));
 		model.addAttribute("chartBarList2", salesHistoryService.getChartBarList(pdt_name2));
 		model.addAttribute("chartBarList3", salesHistoryService.getChartBarList(pdt_name3));
+		
+		model.addAttribute("pdtList", ProductService.getPdtList());
 		return "sub1/saleInfo";
 	}
 	

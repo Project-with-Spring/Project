@@ -47,8 +47,35 @@
         	<div id="pie-chart-2" style="width:100%"></div>
         </div>
         
-        <div class="box-header with-border">
+        <div id="pdtChartBox">
+        <div class="box-header with-border" id="pdtChart">
           <h3 class="box-title">상품별 판매현황</h3>
+          <hr>
+          <form action="<c:url value='saleInfo'/>" method="get">
+       	 	<div class="form-group">
+			  	<div class="col-md-2"><span style="color : rgb(14, 158, 74);">ITEM 1 : </span>
+			  	<select name="pdt_name1" class="form-control select2">
+			  	<c:forEach var="pdt" items="${pdtList }">
+			  	<option <c:if test="${pdt.pdt_name eq chartBarList1[0].pdt_name }">selected</c:if>>${pdt.pdt_name }</option>
+			  	</c:forEach>
+			  	</select></div>
+			  	<div class="col-md-2"><span style="color : rgb(70, 128, 255);">ITEM 2 : </span>
+			  	<select name="pdt_name2" class="form-control select2">
+			  	<c:forEach var="pdt" items="${pdtList }">
+			  	<option <c:if test="${pdt.pdt_name eq chartBarList2[0].pdt_name }">selected</c:if>>${pdt.pdt_name }</option>
+			  	</c:forEach>
+			  	</select></div>
+			  	<div class="col-md-2"><span style="color : rgb(255, 82, 82);">ITEM 3 : </span>
+			  	<select name="pdt_name3" class="form-control select2">
+			  	<c:forEach var="pdt" items="${pdtList }">
+			  	<option <c:if test="${pdt.pdt_name eq chartBarList3[0].pdt_name }">selected</c:if>>${pdt.pdt_name }</option>
+			  	</c:forEach>
+			  	</select></div>
+			  	<div class="col-md-2" style="float: right;">
+			  	<button class="btn btn-success form-control">필터</button>
+			  	</div>
+			</div>
+			</form>
         </div>
         <div class="box-body">
         	<div id="bar-chart-1" style="width:100%"></div>
@@ -56,6 +83,7 @@
         
       </div>
       <!-- /.box -->
+      </div>
     
     </section>
     <!-- /.content -->
