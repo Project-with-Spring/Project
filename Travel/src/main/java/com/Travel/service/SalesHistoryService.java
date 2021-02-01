@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.Travel.domain.OrderBean;
+import com.Travel.domain.OrderDetailBean;
 
 public interface SalesHistoryService {
 
@@ -14,5 +15,9 @@ public interface SalesHistoryService {
 	void updateMemo(OrderBean orderBean);
 
 	List<OrderBean> getChartList(Map<String, Integer> chartType);
+
+	List<OrderDetailBean> getPopularityList();
+
+	List<OrderDetailBean> getChartBarList(String pdt_name);
 	
 }

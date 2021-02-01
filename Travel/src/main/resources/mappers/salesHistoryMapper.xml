@@ -94,7 +94,7 @@
 		 DATE_SUB(`date2`, INTERVAL 1 YEAR)  AS `date2`
 		 </when>
 		 <otherwise>
-		 `date` - 1 
+		 DATE_SUB(`date`, INTERVAL 1 DAY)
 		 </otherwise>
 		 </choose>
 		 
@@ -103,10 +103,10 @@
 		
 		<choose>
 			<when test="totalType == 1">
-				(ord.ord_total - ord.ord_discount)
+				ord.ord_total
 			</when>
 			<otherwise>
-				ord.ord_total
+				(ord.ord_total + ord.ord_discount)
 			</otherwise>
 		</choose>
 		
@@ -128,9 +128,32 @@
 		
 		GROUP BY dt.`date`; 
 	</select>
+	
+	<select id="getPopularityList" resultType="orderDetailBean">
+	SELECT pdt_name, SUM(odt_count) odt_count FROM orderdetail GROUP BY pdt_name ORDER BY SUM(odt_count) DESC LIMIT 0,5;
+	</select>
+	
+	<select id="getChartBarList" parameterType="String" resultType="orderDetailBean">
+	WITH RECURSIVE date2 AS (
+	SELECT DATE(SYSDATE()) AS `date`
+	UNION ALL
+	SELECT DATE_SUB(`date`, INTERVAL 1 DAY) FROM date2
+	LIMIT 0, 9
+	)
+	SELECT dt.`date`, IFNULL(odt.pdt_name,#{pdt_name}) pdt_name, IFNULL(SUM(odt.odt_count) ,0) odt_count
+	FROM date2 dt LEFT OUTER JOIN 
+	(SELECT DATE(ord.ord_date) AS ord_date, odt.pdt_name, SUM(odt.odt_count) AS odt_count
+	FROM `order` ord JOIN orderdetail odt
+	ON ord.ord_id = odt.ord_id
+	WHERE odt.pdt_name = #{pdt_name}
+	Group by DATE(ord.ord_date)) odt
+	ON dt.`date` = odt.ord_date
+	GROUP BY dt.`date`;
+	</select>
 		
 	<update id="updateMemo" parameterType="orderBean">
 		UPDATE `order` SET ord_memo = #{ord_memo} WHERE ord_id = #{ord_id}
 	</update>
+	
 	
 </mapper>

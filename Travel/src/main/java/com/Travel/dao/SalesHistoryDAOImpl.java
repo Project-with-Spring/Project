@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.Travel.domain.OrderBean;
+import com.Travel.domain.OrderDetailBean;
 
 
 @Repository
@@ -38,6 +39,16 @@ public class SalesHistoryDAOImpl implements SalesHistoryDAO {
 		public List<OrderBean> getChartList(Map<String, Integer> chartType) {
 			System.out.println("SalesHistoryDAOImpl getChartList()");
 			return sqlSession.selectList(namespace+".getChartList", chartType);
+		}
+		@Override
+		public List<OrderDetailBean> getPopularityList() {
+			System.out.println("SalesHistoryDAOImpl getPopularityList()");
+			return sqlSession.selectList(namespace+".getPopularityList");
+		}
+		@Override
+		public List<OrderDetailBean> getChartBarList(String pdt_name) {
+			System.out.println("SalesHistoryDAOImpl getChartBarList()");
+			return sqlSession.selectList(namespace+".getChartBarList", pdt_name);
 		}
 
 }
