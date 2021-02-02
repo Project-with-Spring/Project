@@ -36,7 +36,7 @@ public class SalesHistoryDAOImpl implements SalesHistoryDAO {
 			sqlSession.update(namespace+".updateMemo", orderBean);
 		}
 		@Override
-		public List<OrderBean> getChartList(Map<String, Integer> chartType) {
+		public List<OrderBean> getChartList(Map<String, Object> chartType) {
 			System.out.println("SalesHistoryDAOImpl getChartList()");
 			return sqlSession.selectList(namespace+".getChartList", chartType);
 		}
@@ -46,9 +46,19 @@ public class SalesHistoryDAOImpl implements SalesHistoryDAO {
 			return sqlSession.selectList(namespace+".getPopularityList");
 		}
 		@Override
-		public List<OrderDetailBean> getChartBarList(String pdt_name) {
+		public List<OrderDetailBean> getChartBarList(Map<String, Object> chartType) {
 			System.out.println("SalesHistoryDAOImpl getChartBarList()");
-			return sqlSession.selectList(namespace+".getChartBarList", pdt_name);
+			return sqlSession.selectList(namespace+".getChartBarList", chartType);
+		}
+		@Override
+		public List<OrderDetailBean> getOdtList(int ord_id) {
+			System.out.println("SalesHistoryDAOImpl getOdtList()");
+			return sqlSession.selectList(namespace+".getOdtList", ord_id);
+		}
+		@Override
+		public OrderBean getOrdList(int ord_id) {
+			System.out.println("SalesHistoryDAOImpl getOrdList()");
+			return sqlSession.selectOne(namespace+".getOrdList", ord_id);
 		}
 
 }

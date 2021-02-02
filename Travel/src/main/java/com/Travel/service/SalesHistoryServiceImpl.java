@@ -38,7 +38,7 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 	}
 
 	@Override
-	public List<OrderBean> getChartList(Map<String, Integer> chartType) {
+	public List<OrderBean> getChartList(Map<String, Object> chartType) {
 		System.out.println("SalesHistoryServiceImpl getChartList()");
 		return salesHistoryDAO.getChartList(chartType);
 	}
@@ -50,9 +50,21 @@ public class SalesHistoryServiceImpl implements SalesHistoryService {
 	}
 
 	@Override
-	public List<OrderDetailBean> getChartBarList(String pdt_name) {
+	public List<OrderDetailBean> getChartBarList(Map<String, Object> chartType) {
 		System.out.println("SalesHistoryServiceImpl getChartBarList()");
-		return salesHistoryDAO.getChartBarList(pdt_name);
+		return salesHistoryDAO.getChartBarList(chartType);
+	}
+
+	@Override
+	public List<OrderDetailBean> getOdtList(int ord_id) {
+		System.out.println("SalesHistoryServiceImpl getOdtList()");
+		return salesHistoryDAO.getOdtList(ord_id);
+	}
+
+	@Override
+	public OrderBean getOrdList(int ord_id) {
+		System.out.println("SalesHistoryServiceImpl getOrdList()");
+		return salesHistoryDAO.getOrdList(ord_id);
 	}
 
 }

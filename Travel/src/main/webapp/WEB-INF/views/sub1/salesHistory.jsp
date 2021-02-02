@@ -132,7 +132,7 @@
 						<td>${ord_discount }</td>
 						<td>${list.pot_id }</td>
 						<td><c:choose><c:when test="${list.ord_cancel == 0}">판매완료</c:when><c:otherwise>판매취소</c:otherwise></c:choose></td>
-						<td>상세보기</td>
+						<td><a href="<c:url value="saleDetail?ord_id=${list.ord_id }"/>">상세보기</a></td>
 						<td class="text-right ord_memo" style="cursor: pointer" width="10%" id="memo${list.ord_id }">${list.ord_memo }</td>
 						</tr>
 		  				</c:forEach>

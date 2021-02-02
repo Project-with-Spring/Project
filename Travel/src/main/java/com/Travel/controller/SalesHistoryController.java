@@ -111,7 +111,7 @@ public class SalesHistoryController {
 		if(request.getParameter("totalType") != null && !request.getParameter("totalType").equals("")) {
 			totalType = Integer.parseInt(request.getParameter("totalType"));
 		}
-		Map<String, Integer> chartType = new HashMap<String, Integer>();
+		Map<String, Object> chartType = new HashMap<String, Object>();
 		chartType.put("dateType", dateType);
 		chartType.put("totalType", totalType);
 		
@@ -131,12 +131,25 @@ public class SalesHistoryController {
 		if(request.getParameter("pdt_name3") != null) {
 			pdt_name3 = request.getParameter("pdt_name3");
 		}
-		model.addAttribute("chartBarList1", salesHistoryService.getChartBarList(pdt_name1));
-		model.addAttribute("chartBarList2", salesHistoryService.getChartBarList(pdt_name2));
-		model.addAttribute("chartBarList3", salesHistoryService.getChartBarList(pdt_name3));
+		chartType.put("pdt_name", pdt_name1);
+		model.addAttribute("chartBarList1", salesHistoryService.getChartBarList(chartType));
+		chartType.replace("pdt_name", pdt_name2);
+		model.addAttribute("chartBarList2", salesHistoryService.getChartBarList(chartType));
+		chartType.replace("pdt_name", pdt_name3);
+		model.addAttribute("chartBarList3", salesHistoryService.getChartBarList(chartType));
 		
 		model.addAttribute("pdtList", ProductService.getPdtList());
 		return "sub1/saleInfo";
 	}
-	
+	@RequestMapping(value = "/saleDetail", method = RequestMethod.GET)
+	public String saleDetail(Model model, HttpServletRequest request) {
+		System.out.println("SalesHistoryController saleDetail()");
+		int ord_id = 0;
+		if(request.getParameter("ord_id") != null) {
+			ord_id = Integer.parseInt(request.getParameter("ord_id"));
+		}
+		model.addAttribute("odtList", salesHistoryService.getOdtList(ord_id));
+		model.addAttribute("ordInfo", salesHistoryService.getOrdList(ord_id));
+		return "sub1/saleDetail";
+	}
 }
