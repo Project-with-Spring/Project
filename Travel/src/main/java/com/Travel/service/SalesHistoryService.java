@@ -14,10 +14,14 @@ public interface SalesHistoryService {
 
 	void updateMemo(OrderBean orderBean);
 
-	List<OrderBean> getChartList(Map<String, Integer> chartType);
+	List<OrderBean> getChartList(Map<String, Object> chartType);
 
 	List<OrderDetailBean> getPopularityList();
 
-	List<OrderDetailBean> getChartBarList(String pdt_name);
+	List<OrderDetailBean> getChartBarList(Map<String, Object> chartType);
+
+	List<OrderDetailBean> getOdtList(int ord_id);
+
+	OrderBean getOrdList(int ord_id);
 	
 }

@@ -133,22 +133,84 @@
 	SELECT pdt_name, SUM(odt_count) odt_count FROM orderdetail GROUP BY pdt_name ORDER BY SUM(odt_count) DESC LIMIT 0,5;
 	</select>
 	
-	<select id="getChartBarList" parameterType="String" resultType="orderDetailBean">
+	<select id="getChartBarList" parameterType="java.util.Map" resultType="orderDetailBean">
 	WITH RECURSIVE date2 AS (
-	SELECT DATE(SYSDATE()) AS `date`
-	UNION ALL
-	SELECT DATE_SUB(`date`, INTERVAL 1 DAY) FROM date2
+	SELECT 
+	
+	<choose>
+		 <when test="dateType == 1">
+		 DATE_FORMAT(sysdate(), '%Y-%c') AS `date`, sysdate() AS `date2`
+		 </when>
+		 <when test="dateType == 2">
+		 DATE_FORMAT(sysdate(), '%Y') AS `date`, sysdate() AS `date2`
+		 </when>
+		 <otherwise>
+		 DATE(sysdate()) AS `date`
+		 </otherwise>
+	</choose>
+	
+	UNION ALL SELECT
+	
+	<choose>
+		 <when test="dateType == 1">
+		 DATE_FORMAT(DATE_SUB(`date2`, INTERVAL 1 MONTH), '%Y-%c') AS `date`,
+		 DATE_SUB(`date2`, INTERVAL 1 MONTH)  AS `date2`
+		 </when>
+		 <when test="dateType == 2">
+		 DATE_FORMAT(DATE_SUB(`date2`, INTERVAL 1 YEAR), '%Y') AS `date`,
+		 DATE_SUB(`date2`, INTERVAL 1 YEAR)  AS `date2`
+		 </when>
+		 <otherwise>
+		 DATE_SUB(`date`, INTERVAL 1 DAY)
+		 </otherwise>
+	</choose>
+	FROM date2
 	LIMIT 0, 9
 	)
 	SELECT dt.`date`, IFNULL(odt.pdt_name,#{pdt_name}) pdt_name, IFNULL(SUM(odt.odt_count) ,0) odt_count
 	FROM date2 dt LEFT OUTER JOIN 
-	(SELECT DATE(ord.ord_date) AS ord_date, odt.pdt_name, SUM(odt.odt_count) AS odt_count
+	(SELECT 
+	<choose>
+		 <when test="dateType == 1">
+		 DATE_FORMAT(ord.ord_date, '%Y-%c')
+		 </when>
+		 <when test="dateType == 2">
+		 DATE_FORMAT(ord.ord_date, '%Y')
+		 </when>
+		 <otherwise>
+		 DATE(ord.ord_date)
+		 </otherwise>
+	</choose>
+	AS ord_date, odt.pdt_name, SUM(odt.odt_count) AS odt_count
 	FROM `order` ord JOIN orderdetail odt
 	ON ord.ord_id = odt.ord_id
 	WHERE odt.pdt_name = #{pdt_name}
-	Group by DATE(ord.ord_date)) odt
+	Group by 
+	<choose>
+		 <when test="dateType == 1">
+		 DATE_FORMAT(ord.ord_date, '%Y-%c')
+		 </when>
+		 <when test="dateType == 2">
+		 DATE_FORMAT(ord.ord_date, '%Y')
+		 </when>
+		 <otherwise>
+		 DATE(ord.ord_date)
+		 </otherwise>
+	</choose>
+	) odt
 	ON dt.`date` = odt.ord_date
 	GROUP BY dt.`date`;
+	</select>
+	
+	<select id="getOdtList" parameterType="int" resultType="orderDetailBean">
+		SELECT * FROM orderdetail odt 
+		JOIN product pdt
+		ON odt.pdt_id = pdt.pdt_id
+		WHERE odt.ord_id = #{ord_id};
+	</select>
+	
+	<select id="getOrdList" parameterType="int" resultType="orderBean">
+		SELECT * FROM `order` ord JOIN staff stf ON ord.stf_id = stf.stf_id WHERE ord.ord_id = #{ord_id} 
 	</select>
 		
 	<update id="updateMemo" parameterType="orderBean">
