@@ -92,7 +92,11 @@ $(function() {
 	// 결제 버튼
 	$('#sale_btn').click(function() {
 		// 판매자 정보
-		var stf_id = 11;
+		var stf_id = $('#stf_id').data('hidden');
+		if(stf_id == ""){
+			alert('판매자 로그인 해주세요.');
+			return false;
+		}
 		// 포인트 적립 정보
 		var pot_id = $('#phoneNumber').val();
 		var pot_point = $('#balance').val();
@@ -155,10 +159,19 @@ $(function() {
 	
 	// orderlist -> detail menu
 	$(document.body).delegate('#order_list tr','click',function() {
+		if($(this).data('select')=="on"){
+		$('#order_list tr').data('select','');
 		$('#order_list tr').css('background-color',"");
+		$('#manu_detail').hide();
+		$('#save_order').show();
+		}else {
+		$('#order_list tr').data('select','');
+		$('#order_list tr').css('background-color',"");
+		$(this).data('select',"on");
 		$(this).css('background-color','lightyellow');
 		$('#save_order').hide();
 		$('#manu_detail').show();
+		}
 	});
 	
 	// detail menu -> save_order
