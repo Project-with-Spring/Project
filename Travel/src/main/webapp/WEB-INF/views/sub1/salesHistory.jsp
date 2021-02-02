@@ -42,8 +42,12 @@
 			  <div class="col-md-3">
 			  	<select name="pmt_search" id="pmt_search" class="form-control select2" style="width:100%;">
 					<option value="">결제타입</option>
-					<option value="현금" <c:if test="${param.pmt_search eq '현금' }">selected</c:if>>현금</option>
-					<option value="카드" <c:if test="${param.pmt_search eq '카드' }">selected</c:if>>카드</option>
+					<option value="cash" <c:if test="${param.pmt_search eq 'cash' }">selected</c:if>>현금</option>
+					<option value="card" <c:if test="${param.pmt_search eq 'card' }">selected</c:if>>카드</option>
+					<option value="samsungpay" <c:if test="${param.pmt_search eq 'samsungpay' }">selected</c:if>>삼성페이</option>
+					<option value="kakaopay" <c:if test="${param.pmt_search eq 'kakaopay' }">selected</c:if>>카카오페이</option>
+					<option value="payco" <c:if test="${param.pmt_search eq 'payco' }">selected</c:if>>페이코</option>
+				
 				</select>
 			  </div>
               <div class="col-md-2">
