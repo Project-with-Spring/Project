@@ -21,4 +21,9 @@ public class CategoryServiceImpl implements CategoryService {
 		
 		return categoryDAO.getCtgList();
 	}
+
+	@Override
+	public CategoryBean getCtg(String ctg_id) {
+		return categoryDAO.getCtg(ctg_id);
+	}
 }

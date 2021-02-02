@@ -22,29 +22,16 @@
 			<div class="box-header with-border">
 				<h3 class="box-title"></h3>
 				<div class="box-tools pull-right">
-					<!-- <a href="javascript:print_opt();" class="btn btn-success btn-sm">Print</a>  -->
 					<a href="javascript:add_new();" class="btn btn-success btn-sm">
 					<i class="fa fa-plus"></i> Add New ( 상품 / 재고 ) </a>
 				</div>
-				<!-- <script>
-		function print_opt()
-		{
-			var txt_search = $('#txt_search').val();
-			var branch_id = $('#branch_id').val();
-			var URL = 'print_item_categories.php?txt_search='+txt_search+'&branch_id='+branch_id;
-			print_sub(URL,800,600);
-		}
-		</script> -->
 			</div>
 			<div class="box-body">
 
 				<div id="add_new" class="col-sm-12 col-md-12 col-lg-12" style="display: none;">
-					<form method="POST" class="form-horizontal" name="frm_new" id="frm_new">
+				<form method="POST" class="form-horizontal" name="frm_new" id="frm_new">
 						<h2>Product / Stock Insert</h2>
 						<br>
-						<!-- <input type="hidden" name="csrf_token" id="csrf_token" value="297C9751E106E0F24E1B53A0E" /> -->
-						<!-- <input type="hidden" name="csrf_url" id="csrf_url" value="/active/products/categories.php?" /> -->
-						<!-- <input type="hidden" name="frm_action" id="frm_action" value="NEW" /> -->
 						<div class="form-group">
 							<label class="col-md-2 control-label">Category Type: </label>
 							<div class="col-md-4">
@@ -55,41 +42,56 @@
 								</select>
 							</div>
 						</div>
-						<!-- <script>
-			  function chk_group_code()
-			  {
-			  		var parent = $('#parent').val();
-					$.ajax({
-						url: "get_item_code.php?frm_action=GROUP",
-						type: "POST",
-						data: { parent: parent },
-						success: function(data) {
-							$('#cat_code').val(data);
-						}
-					});
-			  }
-			</script> -->
 				<script>
 						
 				$('#ctg_type').on('click', function() {
-					var type = $('#ctg_type').val();
-					var html = '';
-					if(type == 1) {
+					// json형태로 controller에서 받아온 list를 js에서 활용
+					var ctgList = (${ctgListByJson});
+					// select 안에 달릴 option 내용
+					var option = "<option value='" + 0 + "'>카테고리 이름 선택하기 (카테고리 타입)</option>";
+						
+
+					if($('#ctg_type').val() == 1) {
 						$('#pdt_insert').css('display', 'block');
 						$('#stc_insert').css('display', 'none');
 						
-						// 입력된 내용 초기화
+						// 입력된 내용, 카테고리 select 초기화
+						$('#category').empty();
+						$('#category').append(option);
 						$('input:text[name=pdt_name]').prop('value', '');
 						$('input:text[name=pdt_cost]').prop('value', '');
+						
+						for(var i=0; i<ctgList.length; i++) {
+							var ctg = ctgList[i];
 
-					} else if(type == 2) {
+							if(ctg.ctg_type == 1) {
+								option = "<option value='" + ctg.ctg_id + "'>" + 
+									ctg.ctg_name + "(" + ctg.ctg_type + ", 상품)</option>";
+								$('#category').append(option);
+							}
+						}
+						
+					} else if($('#ctg_type').val() == 2) {
 						$('#pdt_insert').css('display', 'none');
 						$('#stc_insert').css('display', 'block');
-						
-						// 입력된 내용 초기화
+
+						// 입력된 내용, 카테고리 select 초기화
+						$('#category').empty();
+						$('#category').append(option);
 						$('input:text[name=stc_name]').prop('value', '');
 						$('input:text[name=stc_cost]').prop('value', '');
 						$('input:text[name=stc_count]').prop('value', '');
+
+						for(var i=0; i<ctgList.length; i++) {
+							var ctg = ctgList[i];
+							
+							if(ctg.ctg_type == 2) {
+								option = "<option value='" + ctg.ctg_id + "'>" + 
+									ctg.ctg_name + "(" + ctg.ctg_type + ", 재고)</option>";
+								$('#category').append(option);
+							}
+							
+						}
 					} else {
 						$('#pdt_insert').css('display', 'none');
 						$('#stc_insert').css('display', 'none');
@@ -97,21 +99,14 @@
 				});
 				</script>
 
-						<!-- 상품(1) 선택시 커피, 음료, 디저트, 기타
-			재고(2) 선택시 커피원두, 냉장/냉동, 차, 시럽/소스, 기타 -->
-
 						<div class="form-group">
 							<label class="col-md-2 control-label">Category:</label>
 							<div class="col-md-4">
 								<select name="category" id="category" class="form-control">
-									<option value="0">카테고리 이름 선택하기 (카테고리 타입)</option>
-									
-								<!-- 아래 category 옵션에 들어갈 내용 넣어주기 -->
-								<c:forEach var="ctg" items="${ctgList}">
-									<option value="${ctg.ctg_id }">${ctg.ctg_name } (${ctg.ctg_type })</option>
-								</c:forEach>
-						
-						
+
+						<!-- 상품(1) 선택시 커피, 음료, 디저트, 기타
+							 재고(2) 선택시 커피원두, 냉장/냉동, 차, 시럽/소스, 기타 -->
+
 								</select>
 							</div>
 						</div>
@@ -125,12 +120,73 @@
 						<input type="text" name="pdt_name" id="pdt_name"
 							class="form-control required" required>
 					</div>
+					
 					<label class="col-md-2 control-label">Product Cost:</label>
 					<div class="col-md-4">
 						<input type="text" name="pdt_cost" id="pdt_cost"
 							class="form-control required" required>
 					</div>
+					<hr><hr>
+<!-- 					view에만 입력하는 것 구현해놨습니당, 입력 코드랑 DB 수정해야 함 -->
+					<div id="stc_in_pdt">
+						<label class="col-md-2 control-label">Stock Name:</label>
+						<div class="col-md-4">
+							<select class="form-control" name="stc_pdt" id="stc_pdt">
+								<option value="0">재료를 선택하세요</option>
+
+								<c:set var="num" value="1"/>
+								<c:forEach items="${stcList }" var="stc">
+									<option value="${num }">${stc.stc_name }</option>
+									<c:set var="num" value="${num+1 }"/>
+								</c:forEach>
+							</select>
+						</div>
+						
+						<label class="col-md-2 control-label">Stock Usage:</label>
+						<div class="col-md-4">
+							<input type="text" name="stc_usage" id="stc_usage" class="form-control required" required>
+							<input type="button" id="btn-stc-pdt" value="추가" class="form-control btn btn-success btn-sm btn-submit">
+						</div>
+						
+						<div id="stc_input">
+							
+						</div>
+					</div>
+					<hr><hr>
 				</div>
+				
+<!-- 				<script> -->
+<!-- 					// 한 상품에 대한 재고 사용량 입력 -->
+<!-- 					$('#btn-stc-pdt').on('click', function() { -->
+<!-- 						var stc = "재료명"; -->
+<!-- 						var usage = "사용량"; -->
+<!-- 						var html = "선택된 재료명&사용량 입력할 tag 저장 변수"; -->
+
+<!-- 						if($('#stc_pdt').val() == 0) { -->
+<!-- 							alert('재료를 선택하세요'); -->
+<!-- 							return ; -->
+<!-- 						} else if($('#stc_usage').val() == "") { -->
+<!-- 							alert('사용량을 입력하세요'); -->
+<!-- 							return ; -->
+<!-- 						} else { -->
+<!-- 							stc = $('#stc_pdt option:selected').text(); -->
+<!-- 							usage = $('#stc_usage').val(); -->
+
+<!-- 							html = "<input type='text' value='" + stc + "' name='stc_pdt' readonly> " + -->
+<!-- 								"<input type='text' value='" + usage + "' name='stc_usage' readonly> " +  -->
+<!-- 								"<input type='button' value='선택 옵션 삭제' id='stc_pdt_del' class='form-control btn btn-danger btn-sm' > <br>"; -->
+							
+<!-- 							$('#stc_input').html(html); -->
+
+<!-- 							$('#stc_pdt').prop('value', 0); -->
+<!-- 							$('#stc_usage').prop('value', ''); -->
+<!-- 						} -->
+<!-- 					}); -->
+
+<!-- 					function stc_del() { -->
+<!-- 						구현하다맘.. -->
+<!-- 					} -->
+<!-- 				</script> -->
 				
 				<!-- 재고 입력 -->
 				<div class="form-group" id="stc_insert" style="display: none;">
@@ -165,27 +221,30 @@
 				</div>
 				<p class="alert alert-danger" id="err_msg" style="display: none;"></p>
 				</form>
-				
+			</div>
+			
 			<script>
 			// form action 변경
-			$('#add-new-btn').on('click', function() {
-				var action_url = '';
+			var action = "";
+				$('#sub_mit').on('click', function() {
+					// ctg_id 를 hidden으로 form안에 넣어서 보낼게용
+					var ctg_id = $('#category option:selected').val();
+					var html = "<input type='hidden' name='ctg_id' value='" + ctg_id + "' >";
+					$('#frm_new').append(html);
+					
+					if($('#ctg_type').val() == 1) {
+						action = "/go/pdt/add";
+					} else if($('#ctg_type').val() == 2) {
+						action = "/go/stc/add";
+					}
 
-				// 카테고리 타입에 따라 form action 경로 다르게 설정
-				if($('#ctg_type').val() == 1) {
-					action_url = '/ctg/add-pdt';
-				} else if($('#ctg_type').val() == 2) {
-					action_url = '/ctg/add-stc';
-				}
+					// action 값 변경
+					$('#frm_new').attr('action', action);
 
-				// form action 경로 변경
-				$('#frm_new').attr('action', '<c:url value="' + action_url + '" />');
-				// form submit
-				$('#frm_new').submit();
-			});
-			</script>
-			
-			</div>
+					// form submit
+					$('#frm_new').submit();
+				});
+	 		</script>
 
 			<div id="my_all">
 				<form name="frm_filter" id="frm_filter" method="get"
@@ -210,7 +269,7 @@
 					<table class="table table-striped table-responsive tbl_narrow" id="table">
 						<thead>
 						<tr>
-							<th>Categoty ID</th>
+							<th>No.</th>
 							<th>Category Type</th>
 							<th>Category Name</th>
 							<th>Name</th>
@@ -218,42 +277,38 @@
 						</tr>
 						</thead>
 						<tbody>
-<!-- 						테이블에 들어갈 tr은 밑의 js에서 추가함 -->
-
+						<c:set var="num" value="1" />
 						<c:forEach items="${ctgList }" var="ctg">
-						<c:forEach items="${pdtList }" var="pdt">
 
 						<!-- 테이블에 들어갈 행 추가 -->
-						<tr> 
 
+						<c:forEach items="${pdtList }" var="pdt">
 						<!-- 카테고리타입에 따른 상품/재고 이름 출력 -->
 							<c:if test="${ctg.ctg_id eq pdt.ctg_id }">
-								<td>${ctg.ctg_id}</td> 
-								<td>${ctg.ctg_type}</td>
+							<tr>
+								<td>${num}</td> 
+								<td>${ctg.ctg_type}: 상품</td>
 								<td>${ctg.ctg_name}</td>
 								<td>${pdt.pdt_name}</td>
 								<td><a href="<c:url value='/pdt/list/${pdt.pdt_id }' />">상세페이지</a></td>
+							</tr>
+							<c:set var="num" value="${num+1 }" />
 							</c:if>
 						</c:forEach> <!-- pdtList 반복 닫음 -->
 						
 						<c:forEach items="${stcList }" var="stc">
 							<c:if test="${ctg.ctg_id eq stc.ctg_id }">
-								<td>${ctg.ctg_id}</td> 
-								<td>${ctg.ctg_type}</td>
+							<tr>
+								<td>${num}</td> 
+								<td>${ctg.ctg_type}: 재고</td>
 								<td>${ctg.ctg_name}</td>
 								<td>${stc.stc_name}</td>
 								<td><a href="<c:url value='/stc/list/${stc.stc_id }' />">상세페이지</a></td>
+							</tr>
+							<c:set var="num" value="${num+1 }" />
 							</c:if>
 						</c:forEach> <!-- stcList 반복 닫음 -->
-						
 						</c:forEach> <!-- ctgList 반복 닫음 -->
-<!-- 						<tr> -->
-<!-- 							<td>1</td> -->
-<!-- 							<td>02</td> -->
-<!-- 							<td>재고</td> -->
-<!-- 							<td>원두</td> -->
-<%-- 							<td><a href="<c:url value='/pdt/list/${pdt.pdt_id }'/>">상세보기</a></td> --%>
-<!-- 						</tr> -->
 						
 						<tr>
 							<td colspan="5">
@@ -288,264 +343,6 @@
 </div>
 
 <%@ include file="../include/footer.jsp"%>
-
-<script>
-$(function() {
-	
-	  $('.btn-submit').click(function(e){
-	  		$(this).prop('disabled', true);
-			var $formId = $(this).parents('form');
-			var formAction = $formId.attr('action');
-			var err = '';
-			var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-			$('.required',$formId).each(function(){
-				var inputVal = $(this).val();
-				//var $parentTag = $(this).parent();
-				if(inputVal == ''){
-					$(this).addClass('error');
-					err = 'error';
-				}else{
-					$(this).removeClass('error');
-				}
-				if($(this).hasClass('email') == true){
-					if(!emailReg.test(inputVal)){
-						$(this).addClass('error');
-						err = 'error';
-					}
-				}
-			});
-			if (err == '')
-			{
-				if ($('#csrf_token'))
-				{
-					var csrf_token = $('#csrf_token').val();
-					var csrf_url = $('#csrf_url').val();
-					$.ajax({
-					  method: "POST",
-					  url: formAction,
-					  headers: {'X-CSRF-TOKEN': csrf_token},
-					  data: $formId.serialize()
-					})
-					.done(function( msg ) {
-						//alert( "Data Saved: " + msg );
-						if (msg == "OK" || Number(msg) > 0)
-						{
-							//window.location.reload(true);
-							window.location.href = csrf_url;
-						}else{
-							$('#err_msg').html(msg);
-							$("#err_msg").show().delay(10000).fadeOut();
-							$('.btn-submit').prop('disabled', false);
-						}
-					  });
-				}else{
-					//alert( "Token Not Exist");
-					$('#err_msg').html("Token Not Exist");
-					$("#err_msg").show().delay(10000).fadeOut();
-					$('.btn-submit').prop('disabled', false);
-				}
-			}else{
-				$('.btn-submit').prop('disabled', false);
-			}
-			e.preventDefault();
-		});
-
-	  $('.btn-update').click(function(e){
-	  		$(this).prop('disabled', true);
-			var $formId = $(this).parents('form');
-			var formAction = $formId.attr('action');
-			var err = '';
-			var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-			$('.required',$formId).each(function(){
-				var inputVal = $(this).val();
-				//var $parentTag = $(this).parent();
-				if(inputVal == ''){
-					$(this).addClass('error');
-					err = 'error';
-				}else{
-					$(this).removeClass('error');
-				}
-				if($(this).hasClass('email') == true){
-					if(!emailReg.test(inputVal)){
-						$(this).addClass('error');
-						err = 'error';
-					}
-				}
-			});
-			if (err == '')
-			{
-				if ($('#csrf_token'))
-				{
-					var csrf_token = $('#csrf_token').val();
-					var csrf_url = $('#csrf_url').val();
-
-					$.ajax({
-					  method: "POST",
-					  url: formAction,
-					  headers: {'X-CSRF-TOKEN': csrf_token},
-					  data: $formId.serialize()
-					})
-					.done(function( msg ) {
-						//alert( "Data Saved: " + msg );
-						if (msg == "OK" || Number(msg) > 0)
-						{
-							window.location.href = csrf_url;
-						}else{
-							$('#err_msg').html(msg);
-							$("#err_msg").show().delay(10000).fadeOut();
-							$('.btn-update').prop('disabled', false);
-						}
-					  });
-				}else{
-					//alert( "Token Not Exist");
-					$('#err_msg').html("Token Not Exist");
-					$("#err_msg").show().delay(10000).fadeOut();
-					$('.btn-update').prop('disabled', false);
-				}
-			}else{
-				$('.btn-update').prop('disabled', false);
-			}
-			e.preventDefault();
-		});
-	  $('.btn-update-up').click(function(e){
-	  		$(this).prop('disabled', true);
-			var $formId = $(this).parents('form');
-			var formAction = $formId.attr('action');
-			var formData = new FormData($formId[0]);
-			var err = '';
-			var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-			$('.required',$formId).each(function(){
-				var inputVal = $(this).val();
-				//var $parentTag = $(this).parent();
-				if(inputVal == ''){
-					$(this).addClass('error');
-					err = 'error';
-				}else{
-					$(this).removeClass('error');
-				}
-				if($(this).hasClass('email') == true){
-					if(!emailReg.test(inputVal)){
-						$(this).addClass('error');
-						err = 'error';
-					}
-				}
-			});
-			if (err == '')
-			{
-				if ($('#csrf_token'))
-				{
-					var csrf_token = $('#csrf_token').val();
-					var csrf_url = $('#csrf_url').val();
-
-					$.ajax({
-					  method: "POST",
-					  url: formAction,
-					  headers: {'X-CSRF-TOKEN': csrf_token},
-					  //data: $formId.serialize()
-					  data: formData,
-					  async: false,
-					  cache: false,
-					  contentType: false,
-					  processData: false
-					})
-					.done(function( msg ) {
-						//alert( "Data Saved: " + msg );
-						if (msg == "OK" || Number(msg) > 0)
-						{
-							window.location.href = csrf_url;
-						}else{
-							$('#err_msg').html(msg);
-							$("#err_msg").show().delay(10000).fadeOut();
-							$('.btn-update-up').prop('disabled', false);
-						}
-					  });
-				}else{
-					//alert( "Token Not Exist");
-					$('#err_msg').html("Token Not Exist");
-					$("#err_msg").show().delay(10000).fadeOut();
-					$('.btn-update-up').prop('disabled', false);
-				}
-			}else{
-				$('.btn-update-up').prop('disabled', false);
-			}
-			e.preventDefault();
-		});
-		$( "#from" ).datepicker({
-			dateFormat: "dd-mm-yy",
-			changeYear: true,
-			yearRange: "2013:2021"
-		});
-		$( "#to" ).datepicker({
-			dateFormat: "dd-mm-yy",
-			changeYear: true,
-			yearRange: "2013:2022"
-		});
-		$( "#dob" ).datepicker({
-			dateFormat: "dd-mm-yy",
-			changeYear: true,
-			yearRange: "1940:2021"
-		});
-		$( "#date_join" ).datepicker({
-			dateFormat: "dd-mm-yy",
-			changeYear: true,
-			yearRange: "1970:2021"
-		});
-		$( "#open_date" ).datepicker({
-			dateFormat: "dd-mm-yy",
-			changeYear: true,
-			yearRange: "2013:2021"
-		});
-		$( "#pdate" ).datepicker({
-			dateFormat: "dd-mm-yy",
-			changeYear: true,
-			yearRange: "2013:2022"
-		});
-		$( "#leave_from" ).datepicker({
-			dateFormat: "dd-mm-yy",
-			changeYear: true,
-			yearRange: "2013:2022"
-		});
-		$( "#leave_to" ).datepicker({
-			dateFormat: "dd-mm-yy",
-			changeYear: true,
-			yearRange: "2013:2022"
-		});
-		$( "#holiday_date" ).datepicker({
-			dateFormat: "dd-mm-yy",
-			changeYear: true,
-			yearRange: "2013:2022"
-		});
-		$( "#v_date" ).datepicker({
-			dateFormat: "dd-mm-yy",
-			changeYear: true,
-			yearRange: "2013:2022"
-		});
-		$(".datefld").datepicker({
-			dateFormat: "dd-mm-yy",
-			changeYear: true,
-			yearRange: "2013:2022"
-		});
-		$(".date_box").datepicker({
-			dateFormat: "dd-mm-yy",
-			changeYear: true,
-			yearRange: "2013:2022"
-		});
-		
-	});
-function print_sub(url,wid,hht)
-{
-	leftw = (window.screen.width / 2) - ((wid / 2) + 10);
-	microsite_window=window.open(url,'microsite_window','toolbar=no,location=no,borders=no,directories=no,status=yes,menubar=no,scrollbars=yes,top=50,left='+leftw+',resizable=no,width='+wid+',height='+hht+'');
-	microsite_window.focus();
-}
-$().ready(function() {
-	$(".select2").select2();
-	//$('.p_time').mask('00:00');
-});
-$('#my-ajax-modal').on('hide.bs.modal', function () {
-	$('#my-ajax-modal').removeData('bs.modal');                
-});
-</script>
 
 </body>
 </html>

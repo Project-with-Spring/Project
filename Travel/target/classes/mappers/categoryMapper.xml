@@ -6,4 +6,8 @@
 	<select id="selectCategoryList" resultType="category">
 		SELECT * FROM category
 	</select>
+	
+	<select id="selectCategory" resultType="category">
+		SELECT * FROM category WHERE ctg_id=#{ctg_id }
+	</select>
 </mapper>

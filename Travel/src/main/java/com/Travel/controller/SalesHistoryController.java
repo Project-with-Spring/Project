@@ -2,6 +2,7 @@ package com.Travel.controller;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.Travel.domain.OrderBean;
+import com.Travel.domain.OrderDetailBean;
 import com.Travel.domain.PageBean;
+import com.Travel.service.ProductService;
 import com.Travel.service.SalesHistoryService;
 import com.Travel.service.StaffService;
 
@@ -27,6 +30,9 @@ public class SalesHistoryController {
 	
 	@Inject
 	private StaffService staffService;
+	
+	@Inject
+	private ProductService ProductService;
 	
 	@RequestMapping(value = "/salesHistory", method = RequestMethod.GET)
 	public String saleHistory(Model model, HttpServletRequest request) {
@@ -92,12 +98,58 @@ public class SalesHistoryController {
 		return entity;
 	}
 	
-	@RequestMapping(value = "/salesInfo", method = RequestMethod.GET)
+	@RequestMapping(value = "/saleInfo", method = RequestMethod.GET)
 	public String salesInfo(Model model, HttpServletRequest request) {
 		System.out.println("SalesHistoryController salesInfo()");
+		request.getParameter("totalType");
 		
+		int dateType = 0;
+		if(request.getParameter("dateType") != null && !request.getParameter("dateType").equals("")) {
+			dateType = Integer.parseInt(request.getParameter("dateType"));
+		}
+		int totalType = 0;
+		if(request.getParameter("totalType") != null && !request.getParameter("totalType").equals("")) {
+			totalType = Integer.parseInt(request.getParameter("totalType"));
+		}
+		Map<String, Object> chartType = new HashMap<String, Object>();
+		chartType.put("dateType", dateType);
+		chartType.put("totalType", totalType);
 		
-		return "sub1/salesInfo";
+		List<OrderDetailBean> popularityChart = salesHistoryService.getPopularityList();
+		model.addAttribute("chartList", salesHistoryService.getChartList(chartType));
+		model.addAttribute("popularityChart", popularityChart);
+		
+		String pdt_name1 = popularityChart.get(0).getPdt_name();
+		String pdt_name2 = popularityChart.get(1).getPdt_name();
+		String pdt_name3 = popularityChart.get(2).getPdt_name();
+		if(request.getParameter("pdt_name1") != null) {
+			pdt_name1 = request.getParameter("pdt_name1");
+		}
+		if(request.getParameter("pdt_name2") != null) {
+			pdt_name2 = request.getParameter("pdt_name2");
+		}
+		if(request.getParameter("pdt_name3") != null) {
+			pdt_name3 = request.getParameter("pdt_name3");
+		}
+		chartType.put("pdt_name", pdt_name1);
+		model.addAttribute("chartBarList1", salesHistoryService.getChartBarList(chartType));
+		chartType.replace("pdt_name", pdt_name2);
+		model.addAttribute("chartBarList2", salesHistoryService.getChartBarList(chartType));
+		chartType.replace("pdt_name", pdt_name3);
+		model.addAttribute("chartBarList3", salesHistoryService.getChartBarList(chartType));
+		
+		model.addAttribute("pdtList", ProductService.getPdtList());
+		return "sub1/saleInfo";
 	}
-	
+	@RequestMapping(value = "/saleDetail", method = RequestMethod.GET)
+	public String saleDetail(Model model, HttpServletRequest request) {
+		System.out.println("SalesHistoryController saleDetail()");
+		int ord_id = 0;
+		if(request.getParameter("ord_id") != null) {
+			ord_id = Integer.parseInt(request.getParameter("ord_id"));
+		}
+		model.addAttribute("odtList", salesHistoryService.getOdtList(ord_id));
+		model.addAttribute("ordInfo", salesHistoryService.getOrdList(ord_id));
+		return "sub1/saleDetail";
+	}
 }

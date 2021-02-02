@@ -3,6 +3,7 @@ package com.Travel.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -51,6 +52,13 @@ public class CommuteController {
 				map.put( "search", search);
 				map.put( "from", from);
 				map.put( "to", to);
+				
+				Calendar cal = Calendar.getInstance();
+				Date date = new Date();
+				cal.setTime(date);
+				cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),cal.getActualMinimum(Calendar.DAY_OF_MONTH));
+
+				model.addAttribute("firstDay",cal.getTime());
 				List<CommuteBean> cmtList = commuteService.getStafCommutfList(map);						
 				model.addAttribute("cmtList",cmtList);
 			}else{

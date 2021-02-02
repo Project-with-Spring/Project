@@ -14,8 +14,8 @@
 	</select>
 	
 	<insert id="insertOrder">
-		insert into `order`(ord_date,ord_total,pmt_name,stf_id,ord_memo,ord_discount)
-		values(#{ord_date},#{ord_total},#{pmt_name},#{stf_id},#{ord_memo},#{ord_discount})
+		insert into `order`(ord_date,ord_total,pmt_name,stf_id,ord_memo)
+		values(#{ord_date},#{ord_total},#{pmt_name},#{stf_id},#{ord_memo})
 	</insert>
 	
 	<select id="getOrderId" resultType="java.lang.String">

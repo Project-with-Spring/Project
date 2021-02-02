@@ -29,11 +29,26 @@ public class MainController {
 
 	//http://localhost:8080/go/main　　
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String main(HttpSession session,Model model) {
-		int stf_id = (int) session.getAttribute("stf_id");
-		StaffBean sb = staffService.getStaff(stf_id);
-		model.addAttribute("sb",sb);		
-		
+	public String main(HttpSession session,Model model,HttpServletResponse response){
+		int stf_id = -1;
+		if(stf_id > -1 ) {
+			stf_id = (int) session.getAttribute("stf_id");
+			StaffBean sb = staffService.getStaff(stf_id);
+			model.addAttribute("sb",sb);		
+		}else {
+			try {
+				response.setContentType("text/html; charset=UTF-8"); 
+				PrintWriter out;
+				out = response.getWriter();
+				out.println("<script>"); // 자바스크립트 시작 태그
+				out.println("alert('로그인 해주시길 바랍니다.')"); // 다이얼로그 메세지 출력
+				out.println("location.href ='/login'"); // 이전 페이지로 이동
+				out.println("</script>"); // 자바스크립트 끝 태그
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 //		/WEB-INF/views/main/main.jsp
 		return "main/main";
 	}

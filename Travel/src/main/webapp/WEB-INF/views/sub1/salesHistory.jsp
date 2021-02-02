@@ -21,16 +21,9 @@
 	      <!-- Default box -->
       <div class="box">
 	  	<div class="box-header with-border">
-          <h3 class="box-title"></h3>
-          <div class="box-tools pull-right"><a id="csvDownloadButton" class="btn btn-success btn-sm">CSV 내보내기</a> <a href="<c:url value="sales"/>" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> 주문받기</a></div>
+          <h3 class="box-title">판매내역 리스트</h3>
+          <div class="box-tools pull-right"><a href="<c:url value="saleInfo"/>" class="btn btn-success btn-sm"><i class="fa fa-pie-chart"></i> 판매현황</a> <a id="csvDownloadButton" class="btn btn-success btn-sm">CSV 내보내기</a> <a href="<c:url value="sale"/>" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> 주문받기</a></div>
         </div>
-		<script>
-		function print_opt()
-		{
-			var URL = 'sales_print.php?txt_search='+$('#txt_search').val()+'&from='+$('#from').val()+'&to='+$('#to').val()+'&branch_id='+$('#branch_id').val()+'&cust_id='+$('#cust_id').val()+'&user_id='+$('#user_id').val()+'&pstatus='+$('#pstatus').val();
-			print_sub(URL,800,600);
-		}
-		</script>
         <div class="box-body">
   	       <div id="my_all">
 			<form name="frm_filter" id="frm_filter" method="get" action="<c:url value="/salesHistory"/>" class="form-horizontal">
@@ -49,8 +42,12 @@
 			  <div class="col-md-3">
 			  	<select name="pmt_search" id="pmt_search" class="form-control select2" style="width:100%;">
 					<option value="">결제타입</option>
-					<option value="현금" <c:if test="${param.pmt_search eq '현금' }">selected</c:if>>현금</option>
-					<option value="카드" <c:if test="${param.pmt_search eq '카드' }">selected</c:if>>카드</option>
+					<option value="cash" <c:if test="${param.pmt_search eq 'cash' }">selected</c:if>>현금</option>
+					<option value="card" <c:if test="${param.pmt_search eq 'card' }">selected</c:if>>카드</option>
+					<option value="samsungpay" <c:if test="${param.pmt_search eq 'samsungpay' }">selected</c:if>>삼성페이</option>
+					<option value="kakaopay" <c:if test="${param.pmt_search eq 'kakaopay' }">selected</c:if>>카카오페이</option>
+					<option value="payco" <c:if test="${param.pmt_search eq 'payco' }">selected</c:if>>페이코</option>
+				
 				</select>
 			  </div>
               <div class="col-md-2">
@@ -139,7 +136,7 @@
 						<td>${ord_discount }</td>
 						<td>${list.pot_id }</td>
 						<td><c:choose><c:when test="${list.ord_cancel == 0}">판매완료</c:when><c:otherwise>판매취소</c:otherwise></c:choose></td>
-						<td>상세보기</td>
+						<td><a href="<c:url value="saleDetail?ord_id=${list.ord_id }"/>">상세보기</a></td>
 						<td class="text-right ord_memo" style="cursor: pointer" width="10%" id="memo${list.ord_id }">${list.ord_memo }</td>
 						</tr>
 		  				</c:forEach>

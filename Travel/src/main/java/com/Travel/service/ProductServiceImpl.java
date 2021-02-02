@@ -19,6 +19,27 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductBean> getPdtList() {
 		return productDAO.getPdtList();
 	}
+
+	@Override
+	public ProductBean getPdt(Long pdt_id) {
+		return productDAO.getPdt(pdt_id);
+	}
+
+	@Override
+	public void add(ProductBean pdt) {
+		productDAO.add(pdt);
+	}
+
+	@Override
+	public void update(ProductBean pdt) {
+		productDAO.update(pdt);
+		
+	}
+
+	@Override
+	public void delete(Long pdt_id) {
+		productDAO.delete(pdt_id);
+	}
 	
 	
 }

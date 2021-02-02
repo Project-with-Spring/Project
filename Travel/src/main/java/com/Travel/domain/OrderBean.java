@@ -19,4 +19,6 @@ public class OrderBean {
 	private int stf_id;
 	private String ord_memo;
 	private String stf_name;
+	
+	private String date;
 }
