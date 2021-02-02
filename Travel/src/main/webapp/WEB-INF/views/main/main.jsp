@@ -3,6 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 
 <%@ include file="../include/header.jsp" %>
+
+<script type="text/javascript">
+	/* var stf_id = (Integer) session.getAttribute("stf_id"); */
+	if(${empty sessionScope.stf_id}){
+		alert('로그인 해주시길 바랍니다.');
+		location.href ='login';
+	}
+</script>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">

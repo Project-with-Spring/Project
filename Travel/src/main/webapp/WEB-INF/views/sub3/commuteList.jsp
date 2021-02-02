@@ -8,7 +8,14 @@
 <link rel="stylesheet" href="<c:url value="/resources/css/staff.css"/>">
 <c:set var="today" value="<%=new java.util.Date()%>" />
 <c:set var="date"><fmt:formatDate value="${today}" pattern="yyyy-MM-dd" /></c:set> 
+<script type="text/javascript">
+	var firstDayCalss = document.getElementById("from2").className = "firstDay";
 
+	var date = new Date();	
+	var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+	firstDayCalss.value=firstDay;
+	
+</script>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -144,7 +151,7 @@
 							<div class="col-md-2"><input type="text" name="from2" id="from2" value="${param.from2}" class="from form-control txtdate" readonly="readonly"></div>
 					    </c:when>
 					    <c:otherwise>
-							<div class="col-md-2"><input type="text" name="from2" id="from2" value="<c:out value="${date}"/>" class="from form-control txtdate" readonly="readonly"></div>
+							<div class="col-md-2"><input type="text" name="from2" id="from2" value='${date}' class="from form-control txtdate firstDay" readonly="readonly"></div>
 					    </c:otherwise>
 				    </c:choose>
 				    <c:choose>
@@ -152,7 +159,7 @@
 				  			<div class="col-md-2"><input type="text" name="to2" id="to2" value="<c:out value="${param.to2}" />" class="to form-control txtdate" readonly="readonly"></div>
 					    </c:when>							
 					    <c:otherwise>
-							<div class="col-md-2"><input type="text" name="to2" id="to2" value="<c:out value="${date}" />" class="to form-control txtdate" readonly="readonly"></div>
+							<div class="col-md-2"><input type="text" name="to2" id="to2" value="<c:out value="${date}" />" class="to form-control txtdate " readonly="readonly"></div>
 						</c:otherwise>
 				    </c:choose>
 				  	<div class="col-md-1">
