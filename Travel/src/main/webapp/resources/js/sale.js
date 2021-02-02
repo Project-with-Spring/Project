@@ -159,10 +159,19 @@ $(function() {
 	
 	// orderlist -> detail menu
 	$(document.body).delegate('#order_list tr','click',function() {
+		if($(this).data('select')=="on"){
+		$('#order_list tr').data('select','');
 		$('#order_list tr').css('background-color',"");
+		$('#manu_detail').hide();
+		$('#save_order').show();
+		}else {
+		$('#order_list tr').data('select','');
+		$('#order_list tr').css('background-color',"");
+		$(this).data('select',"on");
 		$(this).css('background-color','lightyellow');
 		$('#save_order').hide();
 		$('#manu_detail').show();
+		}
 	});
 	
 	// detail menu -> save_order
