@@ -20,6 +20,11 @@ public class CategoryDAOImpl implements CategoryDAO {
 	public List<CategoryBean> getCtgList(){
 		return sqlSession.selectList(namespace + ".selectCategoryList");
 	}
+
+	@Override
+	public CategoryBean getCtg(String ctg_id) {
+		return sqlSession.selectOne(namespace + ".selectCategory", ctg_id);
+	}
 	
 
 }

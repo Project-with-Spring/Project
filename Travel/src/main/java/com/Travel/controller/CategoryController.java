@@ -16,6 +16,8 @@ import com.Travel.service.CategoryService;
 import com.Travel.service.ProductService;
 import com.Travel.service.StockService;
 
+import net.sf.json.JSONArray;
+
 
 @Controller
 // http://localhost:8080/go/ctg
@@ -35,6 +37,9 @@ public class CategoryController {
 		// 카테고리 목록 불러오기
 		List<CategoryBean> ctgList = categoryService.getCtgList();
 		model.addAttribute("ctgList", ctgList);
+		// 카테고리 목록을 json형태로 넘겨주기
+		JSONArray jsonArray = new JSONArray();
+		model.addAttribute("ctgListByJson", jsonArray.fromObject(ctgList));
 		
 		List<ProductBean> pdtList = productService.getPdtList();
 		model.addAttribute("pdtList", pdtList);
@@ -43,13 +48,6 @@ public class CategoryController {
 		model.addAttribute("stcList", stcList);
 		
 		return "sub2/categoryList";
-	}
-	
-	// http://localhost:8080/go/ctg/add-pdt
-	@RequestMapping("/add-pdt")
-	public String addPdt() {
-		
-		return "redirect:/ctg/list";
 	}
 	
 	

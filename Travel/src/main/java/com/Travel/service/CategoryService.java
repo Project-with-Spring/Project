@@ -8,4 +8,6 @@ public interface CategoryService {
 
 	public List<CategoryBean> getCtgList();
 
+	public CategoryBean getCtg(String ctg_id);
+
 }

@@ -7,4 +7,23 @@
 	<select id="selectProductList" resultType="product">
 		select * from product
 	</select>
+	
+	<select id="selectProduct" resultType="product">
+<!-- 		select p.*, c.* -->
+<!-- 		from product p join category c on p.ctg_id = c.ctg_id -->
+<!-- 		where p.pdt_id = #{pdt_id} -->
+		select * from product where pdt_id = #{pdt_id }
+	</select>
+	
+	<insert id="insertProduct" useGeneratedKeys="true" keyProperty="id">
+		insert into product values(#{pdt_id }, #{pdt_name}, #{pdt_cost}, #{ctg_id })
+	</insert>
+	
+	<update id="updateProduct">
+		update product set pdt_name=#{pdt_name}, pdt_cost=#{pdt_cost} where pdt_id=#{pdt_id}
+	</update>
+	
+	<delete id="deleteProduct">
+		delete from product where pdt_id=#{pdt_id}
+	</delete>
 </mapper>

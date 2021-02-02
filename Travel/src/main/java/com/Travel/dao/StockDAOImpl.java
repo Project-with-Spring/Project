@@ -20,6 +20,26 @@ public class StockDAOImpl implements StockDAO {
 	// 재고 전체 목록 뽑아오기
 	public List<StockBean> getStcList() {
 		return sqlSession.selectList(namespace + ".selectStockList");
+	}
+
+	@Override
+	public void add(StockBean stc) {
+		sqlSession.insert(namespace + ".insertStock", stc);
+	}
+
+	@Override
+	public StockBean getStc(Long stc_id) {
+		return sqlSession.selectOne(namespace + ".selectStock", stc_id);
+	}
+
+	@Override
+	public void update(StockBean stc) {
+		sqlSession.update(namespace + ".updateStock", stc);
+	}
+
+	@Override
+	public void delete(Long stc_id) {
+		sqlSession.delete(namespace + ".deleteStock", stc_id);
 	} 
 	
 	
