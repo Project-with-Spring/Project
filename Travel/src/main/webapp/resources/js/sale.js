@@ -192,6 +192,28 @@ $(function() {
 			$('#tlt_tax').val(order_price/20);
 			$('#TLT_AMOUNTS').html(plusComma(order_price)+" 원"); 
 	});
+<<<<<<< HEAD
+=======
+
+		// 주문리스트 검색 기능
+		$('#txt_search').keyup(function() {
+			var search = $(this).val();
+			$('#order_list tr').hide();
+			var view = $("#order_list > tr > td > div:contains('"+search+"')");
+			$(view).closest('tr').show();
+		})
+
+		$('.text-center').click(function() {
+			$.ajax({
+				url : "saveOrder",
+				type : "post",
+				traditional : "true",
+				data : {
+					phoneNumber:phoneNumber
+				},
+			})
+	})
+>>>>>>> origin/je
 	
 	
 });
