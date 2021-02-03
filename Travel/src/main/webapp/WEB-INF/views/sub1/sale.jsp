@@ -58,7 +58,7 @@
 					</c:if>
 					</c:forEach>
 					
-																	</div	>
+																	</div>
 					<div id="save_order">
 					<div class="col-md-9 hidden-xs">
 						<div class="table-responsive" style="border:solid 1px #CCC;padding:5px; background-color: lightyellow;" >
@@ -79,13 +79,13 @@
 				</div>
 				<div class="col-md-6 col-sm-6">
 					<div class="form-group" style="margin:0px;">
-						<div class="col-md-10 col-sm-8 col-xs-8"><input type="text" name="txt_search" id="txt_search" value="" class="form-control ac_input" placeholder="Search any Item / Scan Barcode" autocomplete="off"></div>
+						<div class="col-md-10 col-sm-8 col-xs-8"><input type="text" name="txt_search" id="txt_search" value="" class="form-control ac_input" placeholder="주문 리스트 검색" autocomplete="off"></div>
 						<div class="col-md-1 col-sm-2 col-xs-2">
 							<button type="button" name="search_prod" id="search_prod" class="btn btn-success form-control" onclick="javascript:print_sub('search_item.php',800,600);" title="SEARCH PRODUCTS (F4)"><span class="glyphicon glyphicon-search"></span></button>
 						</div>
 																		<div class="col-md-1 col-sm-2 col-xs-2"><a href="new_quick_item.php" class="btn btn-primary form-control" data-target="#new-item-modal" data-toggle="modal" title="ADD NEW PRODUCT"><span class="glyphicon glyphicon-plus"></span></a></div>
 											</div>
-					<div class="table-responsive main_sale_table" style="padding: 5px; min-height: 550px; max-height: 550px; ove" id="sales_items">
+					<div class="table-responsive main_sale_table" style="padding: 5px; min-height: 550px; max-height: 550px;" id="sales_items">
 						<table class="table tbl_narrow table-responsive" style="font-size:10px;" id="inv_detail">
 							<thead>
 							<tr>
@@ -107,11 +107,11 @@
 							</tr> -->
 							
 						<tbody id="order_list">
-						<tr>
-						<td>
-						<div id="order_list"></div>
-						</td>
-						</tr>
+<!-- 						<tr> -->
+<!-- 						<td> -->
+<!-- 						<div id="order_list"></div> -->
+<!-- 						</td> -->
+<!-- 						</tr> -->
 						<tr id="1">
 						<td><input type="hidden" name="pdt_id1" id="item_id_1" value="3642">
 						<input type="hidden" name="item_name_1" id="item_name_1" value="Americano">
@@ -177,7 +177,7 @@
 									<option value="Credit">Credit Sale</option>
 								</select>
 								</div>
-								<label class="col-md-2 control-label"><input type="button" value="전액"> 잔여 포인트</label>
+								<label class="col-md-2 control-label"><input type="button" value="전액" style="display: none;"> 잔여 포인트</label>
 								<div class="col-md-2"><input type="text" name="balance" id="balance" class="form-control" readonly="Yes"></div>
 							</div>
 							<div class="form-group" style="margin:0px;margin-bottom:5px;">
