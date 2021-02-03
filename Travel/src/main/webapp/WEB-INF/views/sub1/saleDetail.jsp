@@ -18,7 +18,7 @@
     <!-- Main content -->
     <section class="content">
     	      <!-- Default box -->
-      <div class="box">
+      <div id="detailBox" class="box">
 	  	<div class="box-header with-border">
           <h3 class="box-title">판매 상세내역</h3>
           <div class="box-tools pull-right"><a href="<c:url value="salesHistory"/>" class="btn btn-success btn-sm"><i class="fa fa-list"></i> 판매내역 리스트</a></div>
@@ -29,7 +29,7 @@
           <p class="text-info">결제타입 : ${ordInfo.pmt_name }</p>
           <p class="text-info">판매자 : ${ordInfo.stf_name }</p>
           <p class="text-info">상태 : <c:choose><c:when test="${ordInfo.ord_cancel == 1 }">판매취소</c:when><c:otherwise>판매완료</c:otherwise></c:choose></p>
-          <p class="text-info">총금액 : ${ordInfo.ord_total }원</p>
+          <p class="text-info">총금액 : <span id="total">${ordInfo.ord_total }</span>원</p>
           </div>
         </div>
       

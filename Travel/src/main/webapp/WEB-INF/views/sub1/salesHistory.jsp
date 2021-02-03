@@ -78,6 +78,13 @@
         </form>
 		<script>
 		$(document).ready(function(){
+			$(document).on('blur','#ord_id',function(){
+				var ord_id = $('#ord_id').val();
+				$('#ordBox').load('<c:url value="saleDetail?ord_id="/>'+ord_id+' #detailBox',function(){
+					$('#pot_point').val(($('#total').html())*0.05);
+				});
+				
+			})
 			$(document).on('click','.ord_memo',function(){
 				var ord_id = $(this).attr('id').replaceAll('memo','');
 				var memo = $(this).html();
@@ -213,40 +220,35 @@
  		  <div id="add_new" class="col-sm-12 col-md-12 col-lg-12" style="display: none;">
 			<form method="POST" action="expense_process.php" class="form-horizontal" name="frm_new" id="frm_new">
 			  <div class="form-group">
-			  <label class="col-md-2 control-label">Category:</label>
-			  <div class="col-md-4"><select name="cat_ids" id="cat_ids" class="form-control required" required>
-				<option value="0">~ Category ~</option>
-								</select></div>
+			  <label class="col-md-2 control-label" for="ord_id">주문번호 :</label>
+			  <div class="col-md-4"><input type="number" id="ord_id" name="ord_id" class="form-control"></div>
 			</div>
-			  <div class="form-group">
-				  <label class="col-md-2 control-label">Expense Date:</label>
-				  <div class="col-md-4"><input type="text" name="exp_date" id="exp_date" value="17-01-2021" class="form-control datefld txtdate required" readonly="Yes" required></div>
+			<div class="form-group">
+				  <label class="col-md-2 control-label" for="pot_id">고객전화번호 :</label>
+				  <div class="col-md-4"><input type="text" placeholder="'-'를 제외한 전화번호" name="paid_amt" id="phoneNumber" class="form-control" required="required"></div>
 			  </div>
 			  <div class="form-group">
-				  <label class="col-md-2 control-label">Expense Detail:</label>
-				  <div class="col-md-10"><input type="text" name="pdetail" id="pdetail" placeholder="Expense Detail" class="form-control required" required></div>
+				  <label class="col-md-2 control-label" for="old_pot_point">잔여포인트 :</label>
+				  <div class="col-md-4"><input type="text" name="balance" id="balance" class="form-control" readonly="Yes"></div>
 			  </div>
 			  <div class="form-group">
-				  <label class="col-md-2 control-label">Expense Amount:</label>
-				  <div class="col-md-4"><input type="text" name="expense_amt" id="expense_amt" placeholder="0.00" class="form-control required" required></div>
+				  <label class="col-md-2 control-label" for="pot_point">적립포인트 :</label>
+				  <div class="col-md-4"><input type="text" name="pot_point" id="pot_point" class="form-control required" readonly="Yes" required></div>
 			  </div>
 			  <div class="form-group">
 					<label for="expiry_date" class="col-sm-2 control-label"></label>
 					<div class="col-xs-6 col-sm-2">
-					  <input type="button" class="form-control btn btn-success btn-sm btn-submit" id="sub_mit" value="ADD NEW">
-					</div>
-					<div class="col-xs-6 col-sm-2">
-					  <input type="button" class="form-control btn btn-danger btn-sm" id="sub_mit" value="CANCEL" onclick="javascript:cancel_new();">
+					  <input type="button" class="form-control btn btn-success btn-sm btn-submit" id="sub_mit" value="포인트 적립">
 					</div>
 			  </div>
 				<p class="alert alert-danger" id="err_msg" style="display:none;"></p>
 			  </form>
+			  <div id="ordBox"></div>
           </div>
           		  
         </div>
       </div>
       <!-- /.box -->
-
     </section>
     <!-- /.content -->
   </div>
@@ -259,4 +261,5 @@
 <script src="<c:url value="/resources/js/salesHistory.js"/>"></script>
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/DataTables/datatables.min.css?ver=1"/>"/>
 <script type="text/javascript" src="<c:url value="/resources/js/DataTables/datatables.min.js"/>"></script>
+<script src="<c:url value="/resources/js/sale.js"/>"></script>
 <c:import url="/footer"/>
