@@ -1,0 +1,9 @@
+diff a/Travel/src/main/java/com/Travel/controller/SaleController.java b/Travel/src/main/java/com/Travel/controller/SaleController.java	(rejected hunks)
+@@ -65,6 +65,7 @@
+ 			
+ 		OrderBean ordBean = new OrderBean();
+ 		ordBean.setOrd_date(new Timestamp(System.currentTimeMillis())); // 시간생성
++		ordBean.setOrd_total(total+""); // 스트링으로 변경해줌
+ 		ordBean.setPmt_name("카드"); // 추후에 제어할 예정
+ 		ordBean.setStf_id(stf_id);
+ 		saleService.insertOrder(ordBean); // order insert
