@@ -61,15 +61,12 @@ public class SaleController {
 		for(String i : pdt_priceList) {
 			total += Integer.parseInt(i);
 		}
-		
-		int sale_point = Integer.parseInt(request.getParameter("sale_point"));
+			
 		OrderBean ordBean = new OrderBean();
-		ordBean.setOrd_discount(sale_point+"");
 		ordBean.setOrd_date(new Timestamp(System.currentTimeMillis())); // 시간생성
-		ordBean.setOrd_total(total-sale_point+""); // 스트링으로 변경해줌
+		ordBean.setOrd_total(total+""); // 스트링으로 변경해줌
+		ordBean.setPmt_name("카드"); // 추후에 제어할 예정
 		ordBean.setStf_id(stf_id);
-		ordBean.setPmt_name(request.getParameter("pay_method"));
-		ordBean.setOrd_memo(request.getParameter("customer_name"));
 		saleService.insertOrder(ordBean); // order insert
 		String order_id = saleService.getOrderId(ordBean); // orderdetail에 들어갈 ord_id값 찾아오기
 		for(int i = 0 ; i < pdt_idList.length ; i++) {  // orderdetail에 구매한 상품들 넣기
@@ -86,12 +83,12 @@ public class SaleController {
 			PointBean potBean = new PointBean();
 			if(pot_point.equals("아이디 없음")) {
 				potBean.setPot_id(pot_id);
-				potBean.setPot_point(total/20); //5% 적립
+				potBean.setPot_point(total/50); //5% 적립
 				saleService.insertPointId(potBean);
 			}
 			else {
 				potBean.setPot_id(pot_id);
-				potBean.setPot_point((Integer.parseInt(pot_point)-sale_point) + (total-sale_point)/20);
+				potBean.setPot_point(Integer.parseInt(pot_point) + total/20);
 				potBean.setOrd_id(order_id);
 				saleService.updatePoint(potBean);
 			}

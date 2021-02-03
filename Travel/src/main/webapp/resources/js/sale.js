@@ -8,13 +8,9 @@ $(function() {
 		$('#phoneNumber').attr("readonly",false);
 		phoneCheck = false;
 		$('#tlt_dist').attr("readonly",true);
-		$('#tlt_dist').val(0);
-		$('#tlt_tax').val(deleteComma($('#sub_total').val())/20);
-		$('#TLT_AMOUNTS').html($('#sub_total').val()+" 원"); 
-		$('#maxPoint').hide();
-		
 	})
 	
+		
 		// 폰번호 정규표현식
 	$('#phoneNumber').keyup(function() {
 		$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") );
@@ -59,7 +55,6 @@ $(function() {
 						$('#phoneNumber').attr("readonly",true);
 						if(data>=1000) {
 						$('#tlt_dist').attr("readonly",false);
-						$('#maxPoint').show();
 						}
 					}
 					$('#resetPhone').show();
@@ -77,36 +72,15 @@ $(function() {
 		}
 	})
 	
-	$('#maxPoint').click(function() {
-		var total_price = deleteComma($('#sub_total').val());
-		var point = $('#balance').val().replace(/[0-9]{2}$/,"00");
-		
-		if(parseInt(total_price) < point ) {
-			point = total_price;
-		}
-
-		$('#tlt_dist').val(point);
-		$('#tlt_tax').val((total_price - point)/20);
-		$('#TLT_AMOUNTS').html(plusComma(total_price - point)+" 원"); 
-	})
 	// 결제 버튼
 	$('#sale_btn').click(function() {
+		alert('결제 되었습니다.');
 		// 판매자 정보
-		var stf_id = $('#stf_id').data('hidden');
-		if(stf_id == ""){
-			alert('판매자 로그인 해주세요.');
-			return false;
-		}
+		var stf_id = 11;
 		// 포인트 적립 정보
 		var pot_id = $('#phoneNumber').val();
 		var pot_point = $('#balance').val();
-		var sale_point = $('#tlt_dist').val();
 		
-		// 결제수단
-		var pay_method = $('#pay_method').val();
-		
-		// 요청 사항
-		var customer_name =$('#customer_name').val();
 		// 넘길 배열 생성
 		var pdt_idList = [];
 		var pdt_nameList = [];
@@ -119,11 +93,6 @@ $(function() {
 			pdt_countList.push($("input[name='pdt_count']").eq(i).val()); //  주문수량
 			pdt_priceList.push(deleteComma($("input[name='pdt_price']").eq(i).val())); // 해당상품 총액
 		});
-		if($('#total_items').val() == 0){
-			alert('메뉴가 선택되지 않았습니다.');
-			return false;
-		}
-		alert('결제 되었습니다.');
 		
 		// ajax 데이터 실어서 보내기
 		$.ajax({
@@ -137,10 +106,7 @@ $(function() {
 				pdt_priceList:pdt_priceList,
 				pot_id:pot_id,
 				pot_point:pot_point,
-				stf_id:stf_id,
-				sale_point:sale_point,
-				pay_method:pay_method,
-				customer_name:customer_name
+				stf_id:stf_id
 			},
 			success:function(data){
 			location.href='sale';
@@ -159,19 +125,10 @@ $(function() {
 	
 	// orderlist -> detail menu
 	$(document.body).delegate('#order_list tr','click',function() {
-		if($(this).data('select')=="on"){
-		$('#order_list tr').data('select','');
 		$('#order_list tr').css('background-color',"");
-		$('#manu_detail').hide();
-		$('#save_order').show();
-		}else {
-		$('#order_list tr').data('select','');
-		$('#order_list tr').css('background-color',"");
-		$(this).data('select',"on");
 		$(this).css('background-color','lightyellow');
 		$('#save_order').hide();
 		$('#manu_detail').show();
-		}
 	});
 	
 	// detail menu -> save_order
@@ -219,7 +176,7 @@ $(function() {
 		} else {
 			// 클릭된적 없다면 주문 리스트에 추가 
 		$('#order_list').append("<tr><td><input type='hidden' name='pdt_id' value='"+pdt_id+
-		"'><input type='hidden' name='pdt_name' value='"+pdt_name+"'><div>"+pdt_name+"</div></td>"
+		"'><input type='hidden' name='pdt_name' value='"+pdt_name+"'<div>"+pdt_name+"</div></td>"
 		+"<td><input type='number' id='"+pdt_name+"'name='pdt_count' value='1' oninput='changeCount(this);' ></td>"
 		+"<td><input type='text' name='pdt_cost' value='"+plusComma(pdt_cost)+"' readonly='true'></td>"
 		+"<td><input type='text' name='pdt_discount' value='0'></td>"
@@ -235,20 +192,6 @@ $(function() {
 			$('#tlt_tax').val(order_price/20);
 			$('#TLT_AMOUNTS').html(plusComma(order_price)+" 원"); 
 	});
-
-		// 주문리스트 검색 기능
-		$('#txt_search').keyup(function() {
-			var search = $(this).val();
-			$('#order_list tr').hide();
-			var view = $("#order_list > tr > td > div:contains('"+search+"')");
-			$(view).closest('tr').show();
-		})
-
-		$('.text-center').click(function() {
-			$.ajax({
-			
-			})
-	})
 	
 	
 });
@@ -288,28 +231,12 @@ function deleteComma(won) {
 	return won.replace(/,/g,"");
 }
 	// 포인트 사용제어
-function pointSale(point) { // 포인트 사용량 적을때 동작
-	var total_point = document.getElementById("balance").value.replace(/[0-9]{2}$/,"00");
-	var total_price = deleteComma(document.getElementById("sub_total").value); // 상품총액
-	var regex = /^[0]$|^[1-9][0-9]+[0]{2}$/; // 0 또는 1000이상 100단위 판별 정규표현식
-	
+function pointSale(point) {
+	var pot_point = document.getElementById("balance").value.replace(/[0-9][1-9]$/,"00");
+	alert(pot_point);
+	var regex = /^([1-9])([0-9])+[0]{2}$/;
 	if(regex.exec(point.value)){
-		if(parseInt(point.value) > parseInt(total_price)){
-			point.value = total_price;
-		}
-	} else if (point.value == 900){
-		point.value =0;
-	} else if (point.value < 1000){
-		point.value = 1000;
-	} else {
-		point.value = point.value.replace(/[0-9][1-9]$/,"00");
+		
+		document.getElementById("TLT_AMOUNTS").innerHTML = plusComma(deleteComma(document.getElementById("sub_total").value)-point.value) +" 원"; // 주문 총액 적용
 	}
-		if(parseInt(point.value) > parseInt(total_point)) {
-			point.value = total_point;
-		}
-	
-	document.getElementById("tlt_tax").value = (total_price-point.value)/20;
-	document.getElementById("TLT_AMOUNTS").innerHTML = plusComma(total_price-point.value) +" 원"; //상품총액-포인트=주문총액 적용
 }
-
-
