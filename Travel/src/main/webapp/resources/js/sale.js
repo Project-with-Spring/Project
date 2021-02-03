@@ -235,6 +235,11 @@ $(function() {
 			$('#tlt_tax').val(order_price/20);
 			$('#TLT_AMOUNTS').html(plusComma(order_price)+" 원"); 
 	});
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> 2bf5759da91b0a15d8cdedc999a98c93df72f082
 
 		// 주문리스트 검색 기능
 		$('#txt_search').keyup(function() {
@@ -246,9 +251,21 @@ $(function() {
 
 		$('.text-center').click(function() {
 			$.ajax({
+<<<<<<< HEAD
 			
 			})
 	})
+=======
+				url : "saveOrder",
+				type : "post",
+				traditional : "true",
+				data : {
+					phoneNumber:phoneNumber
+				},
+			})
+	})
+>>>>>>> origin/je
+>>>>>>> 2bf5759da91b0a15d8cdedc999a98c93df72f082
 	
 	
 });
