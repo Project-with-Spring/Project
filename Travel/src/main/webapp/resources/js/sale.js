@@ -236,10 +236,13 @@ $(function() {
 			$('#TLT_AMOUNTS').html(plusComma(order_price)+" 원"); 
 	});
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 =======
 >>>>>>> 2bf5759da91b0a15d8cdedc999a98c93df72f082
+=======
+>>>>>>> origin/jh2
 
 		// 주문리스트 검색 기능
 		$('#txt_search').keyup(function() {
@@ -264,8 +267,11 @@ $(function() {
 				},
 			})
 	})
+<<<<<<< HEAD
 >>>>>>> origin/je
 >>>>>>> 2bf5759da91b0a15d8cdedc999a98c93df72f082
+=======
+>>>>>>> origin/jh2
 	
 	
 });
@@ -327,6 +333,10 @@ function pointSale(point) { // 포인트 사용량 적을때 동작
 	
 	document.getElementById("tlt_tax").value = (total_price-point.value)/20;
 	document.getElementById("TLT_AMOUNTS").innerHTML = plusComma(total_price-point.value) +" 원"; //상품총액-포인트=주문총액 적용
+<<<<<<< HEAD
 }
 
 
+=======
+}
+>>>>>>> origin/jh2
