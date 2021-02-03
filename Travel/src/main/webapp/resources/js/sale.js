@@ -101,10 +101,17 @@ $(function() {
 		var pot_id = $('#phoneNumber').val();
 		var pot_point = $('#balance').val();
 		var sale_point = $('#tlt_dist').val();
+<<<<<<< HEAD
 		
 		// 결제수단
 		var pay_method = $('#pay_method').val();
 		
+=======
+		
+		// 결제수단
+		var pay_method = $('#pay_method').val();
+		
+>>>>>>> origin/pje
 		// 요청 사항
 		var customer_name =$('#customer_name').val();
 		// 넘길 배열 생성
@@ -315,4 +322,10 @@ function pointSale(point) { // 포인트 사용량 적을때 동작
 	
 	document.getElementById("tlt_tax").value = (total_price-point.value)/20;
 	document.getElementById("TLT_AMOUNTS").innerHTML = plusComma(total_price-point.value) +" 원"; //상품총액-포인트=주문총액 적용
+<<<<<<< HEAD
 }
+=======
+}
+
+
+>>>>>>> origin/pje

@@ -76,7 +76,7 @@ public class SaleController {
 			OrderDetailBean odtBean = new OrderDetailBean();
 			odtBean.setOrd_id(order_id);
 			odtBean.setPdt_id(pdt_idList[i]);
-			odtBean.setOdt_count(pdt_countList[i]);
+			odtBean.setOdt_count(pdt_countList[i]); 
 			odtBean.setPdt_name(pdt_nameList[i]);
 			saleService.insertDetail(odtBean);
 		}
