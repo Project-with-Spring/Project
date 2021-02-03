@@ -189,7 +189,7 @@
 							<div class="form-group" style="margin:0px;margin-bottom:0px;">
 								<input type="hidden" name="cust_id" id="cust_id" value="">
 								<div class="col-md-10"><input type="text" name="customer_name" id="customer_name" class="form-control ac_input" placeholder="고객 요청사항" autocomplete="off"></div>
-																								<div class="col-md-2"><a href="new_quick_cust.php" class="btn btn-primary form-control" data-target="#new-customer-modal" data-toggle="modal"><span class="glyphicon glyphicon-plus"></span></a></div>
+																								<div class="col-md-2"><a href="loginOut" class="btn btn-primary form-control" id="stf_id" data-hidden="${sessionScope.stf_id}" >판매자:${sessionScope.stf_name}</a></div>
 																<div id="cust_detail"></div>
 								</div>
 							</div>
