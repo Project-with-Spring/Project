@@ -22,7 +22,10 @@
       <div class="box">
 	  	<div class="box-header with-border">
           <h3 class="box-title">판매내역 리스트</h3>
-          <div class="box-tools pull-right"><a href="<c:url value="saleInfo"/>" class="btn btn-success btn-sm"><i class="fa fa-pie-chart"></i> 판매현황</a> <a id="csvDownloadButton" class="btn btn-success btn-sm">CSV 내보내기</a> <a href="<c:url value="sale"/>" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> 주문받기</a></div>
+          <div class="box-tools pull-right">
+          <a href="<c:url value="saleInfo"/>" class="btn btn-success btn-sm"><i class="fa fa-pie-chart"></i> 판매현황</a> 
+          <a id="csvDownloadButton" class="btn btn-success btn-sm"><i class="fas fa-file-csv"></i> CSV 내보내기</a> 
+          <a href="javascript:add_new();" class="btn btn-success btn-sm"><i class="fas fa-coins"></i> 포인트 적립</a></div>
         </div>
         <div class="box-body">
   	       <div id="my_all">
@@ -206,7 +209,40 @@
 			</div>
              
           </div>
-		  
+          
+ 		  <div id="add_new" class="col-sm-12 col-md-12 col-lg-12" style="display: none;">
+			<form method="POST" action="expense_process.php" class="form-horizontal" name="frm_new" id="frm_new">
+			  <div class="form-group">
+			  <label class="col-md-2 control-label">Category:</label>
+			  <div class="col-md-4"><select name="cat_ids" id="cat_ids" class="form-control required" required>
+				<option value="0">~ Category ~</option>
+								</select></div>
+			</div>
+			  <div class="form-group">
+				  <label class="col-md-2 control-label">Expense Date:</label>
+				  <div class="col-md-4"><input type="text" name="exp_date" id="exp_date" value="17-01-2021" class="form-control datefld txtdate required" readonly="Yes" required></div>
+			  </div>
+			  <div class="form-group">
+				  <label class="col-md-2 control-label">Expense Detail:</label>
+				  <div class="col-md-10"><input type="text" name="pdetail" id="pdetail" placeholder="Expense Detail" class="form-control required" required></div>
+			  </div>
+			  <div class="form-group">
+				  <label class="col-md-2 control-label">Expense Amount:</label>
+				  <div class="col-md-4"><input type="text" name="expense_amt" id="expense_amt" placeholder="0.00" class="form-control required" required></div>
+			  </div>
+			  <div class="form-group">
+					<label for="expiry_date" class="col-sm-2 control-label"></label>
+					<div class="col-xs-6 col-sm-2">
+					  <input type="button" class="form-control btn btn-success btn-sm btn-submit" id="sub_mit" value="ADD NEW">
+					</div>
+					<div class="col-xs-6 col-sm-2">
+					  <input type="button" class="form-control btn btn-danger btn-sm" id="sub_mit" value="CANCEL" onclick="javascript:cancel_new();">
+					</div>
+			  </div>
+				<p class="alert alert-danger" id="err_msg" style="display:none;"></p>
+			  </form>
+          </div>
+          		  
         </div>
       </div>
       <!-- /.box -->
