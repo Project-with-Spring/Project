@@ -246,7 +246,12 @@ $(function() {
 
 		$('.text-center').click(function() {
 			$.ajax({
-			
+				url : "saveOrder",
+				type : "post",
+				traditional : "true",
+				data : {
+					phoneNumber:phoneNumber
+				},
 			})
 	})
 	

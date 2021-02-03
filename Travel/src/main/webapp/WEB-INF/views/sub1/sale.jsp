@@ -58,7 +58,7 @@
 					</c:if>
 					</c:forEach>
 					
-																	</div>
+																	</div	>
 					<div id="save_order">
 					<div class="col-md-9 hidden-xs">
 						<div class="table-responsive" style="border:solid 1px #CCC;padding:5px; background-color: lightyellow;" >
@@ -85,7 +85,7 @@
 						</div>
 																		<div class="col-md-1 col-sm-2 col-xs-2"><a href="new_quick_item.php" class="btn btn-primary form-control" data-target="#new-item-modal" data-toggle="modal" title="ADD NEW PRODUCT"><span class="glyphicon glyphicon-plus"></span></a></div>
 											</div>
-					<div class="table-responsive main_sale_table" style="padding: 5px; min-height: 550px; max-height: 550px;" id="sales_items">
+					<div class="table-responsive main_sale_table" style="padding: 5px; min-height: 550px; max-height: 550px; ove" id="sales_items">
 						<table class="table tbl_narrow table-responsive" style="font-size:10px;" id="inv_detail">
 							<thead>
 							<tr>
