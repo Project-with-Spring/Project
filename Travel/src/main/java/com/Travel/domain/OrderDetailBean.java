@@ -14,5 +14,6 @@ public class OrderDetailBean {
 	private String pdt_name;
 	private String odt_memo;
 	
-	private String date;
+	private String date; // 차트에 날짜 포매팅을 넣기 위한 항목
+	private int pdt_cost; // 판매내역에 가격을 넣기 위한 항목
 }

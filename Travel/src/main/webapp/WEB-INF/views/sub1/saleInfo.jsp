@@ -47,11 +47,15 @@
         	<div id="pie-chart-2" style="width:100%"></div>
         </div>
         
-        <div id="pdtChartBox">
-        <div class="box-header with-border" id="pdtChart">
-          <h3 class="box-title">상품별 판매현황</h3>
+        <div class="box-header with-border">
+          <h3 class="box-title"><c:choose>
+          <c:when test="${param.dateType == 1 }">월별</c:when>
+          <c:when test="${param.dateType == 2 }">연도별</c:when>
+          <c:otherwise>일별</c:otherwise>
+          </c:choose>상품 판매현황</h3>
           <hr>
           <form action="<c:url value='saleInfo'/>" method="get">
+          <input type="hidden" name="dateType" value="${param.dateType }">
        	 	<div class="form-group">
 			  	<div class="col-md-2"><span style="color : rgb(14, 158, 74);">ITEM 1 : </span>
 			  	<select name="pdt_name1" class="form-control select2">
@@ -83,7 +87,6 @@
         
       </div>
       <!-- /.box -->
-      </div>
     
     </section>
     <!-- /.content -->
@@ -245,42 +248,42 @@ $(document).ready(function() {
                 },
                 series: [{
                     name: '${chartBarList1[0].pdt_name}',
-                    data: [${chartBarList1[0].odt_count}, 
-                        ${chartBarList1[1].odt_count}, 
-                        ${chartBarList1[2].odt_count}, 
-                        ${chartBarList1[3].odt_count}, 
-                        ${chartBarList1[4].odt_count}, 
+                    data: [${chartBarList1[6].odt_count}, 
                         ${chartBarList1[5].odt_count}, 
-                        ${chartBarList1[6].odt_count}]
+                        ${chartBarList1[4].odt_count}, 
+                        ${chartBarList1[3].odt_count}, 
+                        ${chartBarList1[2].odt_count}, 
+                        ${chartBarList1[1].odt_count}, 
+                        ${chartBarList1[0].odt_count}]
                 },
                 {
                     name: '${chartBarList2[0].pdt_name}',
-                    data: [${chartBarList2[0].odt_count}, 
-                        ${chartBarList2[1].odt_count}, 
-                        ${chartBarList2[2].odt_count}, 
-                        ${chartBarList2[3].odt_count}, 
-                        ${chartBarList2[4].odt_count}, 
+                    data: [${chartBarList2[6].odt_count}, 
                         ${chartBarList2[5].odt_count}, 
-                        ${chartBarList2[6].odt_count}]
+                        ${chartBarList2[4].odt_count}, 
+                        ${chartBarList2[3].odt_count}, 
+                        ${chartBarList2[2].odt_count}, 
+                        ${chartBarList2[1].odt_count}, 
+                        ${chartBarList2[0].odt_count}]
                 },
                 {
                     name: '${chartBarList3[0].pdt_name}',
-                    data: [${chartBarList3[0].odt_count}, 
-                        ${chartBarList3[1].odt_count}, 
-                        ${chartBarList3[2].odt_count}, 
-                        ${chartBarList3[3].odt_count}, 
-                        ${chartBarList3[4].odt_count}, 
+                    data: [${chartBarList3[6].odt_count}, 
                         ${chartBarList3[5].odt_count}, 
-                        ${chartBarList3[6].odt_count}]
+                        ${chartBarList3[4].odt_count}, 
+                        ${chartBarList3[3].odt_count}, 
+                        ${chartBarList3[2].odt_count}, 
+                        ${chartBarList3[1].odt_count}, 
+                        ${chartBarList3[0].odt_count}]
                 }],
                 xaxis: {
-                    categories: ['${chartBarList1[0].date}', 
-                        '${chartBarList1[1].date}', 
-                        '${chartBarList1[2].date}', 
-                        '${chartBarList1[3].date}', 
-                        '${chartBarList1[4].date}', 
+                    categories: ['${chartBarList1[6].date}', 
                         '${chartBarList1[5].date}', 
-                        '${chartBarList1[6].date}'],
+                        '${chartBarList1[4].date}', 
+                        '${chartBarList1[3].date}', 
+                        '${chartBarList1[2].date}', 
+                        '${chartBarList1[1].date}', 
+                        '${chartBarList1[0].date}'],
                 },
                 yaxis: {
                     title: {

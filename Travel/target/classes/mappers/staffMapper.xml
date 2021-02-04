@@ -9,7 +9,7 @@
 		<![CDATA[
 			select st.*, ps.pst_name pst_name , cm.cnt_go, cm.total_time from staff st 
 			join position ps on st.pst_id = ps.pst_id 
-			left join (select stf_id, count(stf_id) cnt_go, TIMESTAMPDIFF(MINUTE,cmt_go,cmt_leave) AS total_time from commute group by stf_id having  COUNT(stf_id) > 0) as cm 
+			left join (select stf_id, count(distinct(date_format(cmt_go,'%Y-%m-%d'))) cnt_go, TIMESTAMPDIFF(MINUTE,cmt_go,cmt_leave) AS total_time from commute group by stf_id) as cm 
 			on st.stf_id=cm.stf_id 
 		]]>
 			where st.stf_name like CONCAT('%',#{stf_name},'%')
