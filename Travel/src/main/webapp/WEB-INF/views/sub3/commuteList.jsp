@@ -8,14 +8,6 @@
 <link rel="stylesheet" href="<c:url value="/resources/css/staff.css"/>">
 <c:set var="today" value="<%=new java.util.Date()%>" />
 <c:set var="date"><fmt:formatDate value="${today}" pattern="yyyy-MM-dd" /></c:set> 
-<script type="text/javascript">
-	var firstDayCalss = document.getElementById("from2").className = "firstDay";
-
-	var date = new Date();	
-	var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-	firstDayCalss.value=firstDay;
-	
-</script>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -151,7 +143,7 @@
 							<div class="col-md-2"><input type="text" name="from2" id="from2" value="${param.from2}" class="from form-control txtdate" readonly="readonly"></div>
 					    </c:when>
 					    <c:otherwise>
-							<div class="col-md-2"><input type="text" name="from2" id="from2" value='${date}' class="from form-control txtdate firstDay" readonly="readonly"></div>
+							<div class="col-md-2"><input type="text" name="from2" id="from2" value='' class="from form-control txtdate firstDay" readonly="readonly"></div>
 					    </c:otherwise>
 				    </c:choose>
 				    <c:choose>
@@ -195,7 +187,7 @@
 				        		<td class="tac">${stca.stf_name} <!-- 직원이름 출력 --></td>
 				        		<td class="tac">${stca.pst_name} <!-- 직급 출력 --></td>
 				        		<td class="tac">${stca.cnt_go} </td>
-				        		<td class="tac">${stca.total_time} 분</td>
+				        		<td class="tac">${stca.total_hour}</td>
 			            	</tr>		
 												        
 					    </c:when>
@@ -368,6 +360,10 @@
 				changeYear: true,
 				yearRange: "2003:2022"
 			});
+			//첫달1일 
+			var date = new Date();
+			var firstday = new Date(date.getFullYear(), date.getMonth(), "01");
+			$(".firstDay").datepicker('setDate', firstday);
 
 			
 			// 출근

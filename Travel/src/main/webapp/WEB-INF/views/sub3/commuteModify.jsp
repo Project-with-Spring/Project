@@ -38,11 +38,11 @@
 						  
 						  <div class="col-md-6">
 						  <c:choose>							
-							    <c:when test="${commuteBean.cmt_leave != ''} ">
-						        	<input type="text" name="cmt_leave" id="pst_name" value="${commuteBean.cmt_leave} " class="form-control required" >
+							    <c:when test="${null ne commuteBean.cmt_leave} ">
+						        	<input type="text" name="cmt_leave" id="pst_name" value="${commuteBean.cmt_leave}" class="form-control required" >
 							    </c:when>							
 							    <c:otherwise>
-						        	<input type="text" name="pst_name" id="pst_name" value="${commuteBean.cmt_leave} " class="form-control required" disabled="disabled">
+						        	<input type="text" name="pst_name" id="pst_name" class="form-control required" disabled="disabled">
 							    </c:otherwise>
 							
 							

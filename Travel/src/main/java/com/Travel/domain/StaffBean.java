@@ -17,21 +17,9 @@ public class StaffBean {
 	private String pst_name;
 	private int cnt_go;
 	private int total_time;
-
 	private int hour;
+	private String total_hour;
 	
-	
-	public String hour() {
-		
-		int total = total_time;
-		int hour = 0;
-		int min = 0;
-		System.out.println(total);
-		
-		return hour+":"+min;		
-	}
-
-
 	@Override
 	public String toString() {
 		return "StaffBean [stf_id=" + stf_id + ", stf_name=" + stf_name + ", stf_phone=" + stf_phone + ", pst_id="

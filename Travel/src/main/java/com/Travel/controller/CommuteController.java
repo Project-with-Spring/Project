@@ -2,6 +2,7 @@ package com.Travel.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -45,7 +46,13 @@ public class CommuteController {
 				String search= request.getParameter("stf_name")==null ? "" : request.getParameter("stf_name");
 				SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd");
 				Date time = new Date();
-				String from = request.getParameter("from")== null ?  format1.format(time) : request.getParameter("from");
+				//첫달의 1일 구하기
+				DecimalFormat df = new DecimalFormat("00");
+				Calendar cal = Calendar.getInstance();
+				//이번달
+				String year  = df.format(cal.get(Calendar.YEAR));
+				String month  = df.format(cal.get(Calendar.MONTH) + 1);
+				String from = request.getParameter("from")== null ? year+"-"+month+"-01" : request.getParameter("from");
 				String to = request.getParameter("to")== null ?  format1.format(time) : request.getParameter("to");
 
 				HashMap map= new HashMap();
@@ -53,12 +60,7 @@ public class CommuteController {
 				map.put( "from", from);
 				map.put( "to", to);
 				
-				Calendar cal = Calendar.getInstance();
-				Date date = new Date();
-				cal.setTime(date);
-				cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),cal.getActualMinimum(Calendar.DAY_OF_MONTH));
-
-				model.addAttribute("firstDay",cal.getTime());
+			
 				List<CommuteBean> cmtList = commuteService.getStafCommutfList(map);						
 				model.addAttribute("cmtList",cmtList);
 			}else{
@@ -84,7 +86,14 @@ public class CommuteController {
 				Date time = new Date();
 				String from1 = request.getParameter("from1")== null ?  format1.format(time) : request.getParameter("from1");
 				String to1 = request.getParameter("to1")== null ?  format1.format(time) : request.getParameter("to1");
-				String from2 = request.getParameter("from2")== null ?  format1.format(time) : request.getParameter("from2");
+				
+				//첫달의 1일 구하기
+				DecimalFormat df = new DecimalFormat("00");
+				Calendar cal = Calendar.getInstance();
+				//이번달
+				String year  = df.format(cal.get(Calendar.YEAR));
+				String month  = df.format(cal.get(Calendar.MONTH) + 1);
+				String from2 = request.getParameter("from2")== null ?  year+"-"+month+"-01" : request.getParameter("from2");
 				String to2 = request.getParameter("to2")== null ?  format1.format(time) : request.getParameter("to2");
 				//출근시간
 				HashMap map1= new HashMap();
@@ -97,9 +106,13 @@ public class CommuteController {
 				map2.put( "from", from2);
 				map2.put( "to", to2);
 				
-				List<CommuteBean> cmtList = commuteService.getStaffCommut(map1);
+				List<CommuteBean> cmtList = commuteService.getStaffCommut(map1);				
 				StaffBean stca = commuteService.getStaffCommutOnetotal(map2);
-							
+				//총 근무시간 구하기
+				int hour = stca.getTotal_time()/60;
+				int min =  stca.getTotal_time() % 60;	
+				stca.setTotal_hour(hour+"시간 "+min+"분");
+				
 				model.addAttribute("cmtList",cmtList);
 				model.addAttribute("stca",stca);
 			}else{

@@ -45,7 +45,7 @@
 							<div class="col-md-2"><input type="text" name="from" id="from" value="${param.from}" class="from form-control txtdate" readonly="readonly"></div>
 					    </c:when>
 					    <c:otherwise>
-							<div class="col-md-2"><input type="text" name="from" id="from" value="<c:out value="${date}"/>" class="from form-control txtdate" readonly="readonly"></div>
+							<div class="col-md-2"><input type="text" name="from" id="from" value="<c:out value="${date}"/>" class="from form-control txtdate firstDay" readonly="readonly"></div>
 					    </c:otherwise>
 				    </c:choose>
 				    <c:choose>
@@ -257,6 +257,12 @@
 			changeYear: true,
 			yearRange: "2003:2022"
 		});
+
+		//첫달1일 
+		var date = new Date();
+		var firstday = new Date(date.getFullYear(), date.getMonth(), "01");
+		$(".firstDay").datepicker('setDate', firstday);
+	
 		
 	});
 
