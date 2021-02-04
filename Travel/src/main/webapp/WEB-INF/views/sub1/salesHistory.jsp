@@ -81,9 +81,33 @@
 			$(document).on('blur','#ord_id',function(){
 				var ord_id = $('#ord_id').val();
 				$('#ordBox').load('<c:url value="saleDetail?ord_id="/>'+ord_id+' #detailBox',function(){
-					$('#pot_point').val(($('#total').html())*0.05);
+					if($('#isSetpoint').html().indexOf('가능') == -1){
+						alert('이미 적립된 내역입니다.');
+						$('#ordBox').empty();
+						$('#ord_id').val('');
+						$('#ord_id').focus();
+					} else {
+						$('#pot_point').val(($('#total').html())*0.05);
+					}
 				});
-				
+			})
+			$(document).on('blur','#ord_id',function(){
+				var ord_id = $('#ord_id').val();
+				if(ord_id == ""){
+					$('#err_msg_1').css('display','inline');
+					$('#ordBox').empty();
+					$('#pot_point').val('');
+				} else {
+					$('#err_msg_1').css('display','none');
+				}
+			})
+			$(document).on('blur','#phoneNumber',function(){
+				var phoneNumber = $('#phoneNumber').val();
+				if(phoneNumber == ""){
+					$('#err_msg_2').css('display','inline');
+				} else {
+					$('#err_msg_2').css('display','none');
+				}
 			})
 			$(document).on('click','.ord_memo',function(){
 				var ord_id = $(this).attr('id').replaceAll('memo','');
@@ -218,14 +242,16 @@
           </div>
           
  		  <div id="add_new" class="col-sm-12 col-md-12 col-lg-12" style="display: none;">
-			<form method="POST" action="expense_process.php" class="form-horizontal" name="frm_new" id="frm_new">
+			<form method="post" action="<c:url value="setPoint"/>" class="form-horizontal">
 			  <div class="form-group">
 			  <label class="col-md-2 control-label" for="ord_id">주문번호 :</label>
 			  <div class="col-md-4"><input type="number" id="ord_id" name="ord_id" class="form-control"></div>
+			  <div class="col-md-4" style="overflow: hidden;"><span class="alert alert-danger" id="err_msg_1">주문번호를 입력하세요</span></div>
 			</div>
 			<div class="form-group">
 				  <label class="col-md-2 control-label" for="pot_id">고객전화번호 :</label>
-				  <div class="col-md-4"><input type="text" placeholder="'-'를 제외한 전화번호" name="paid_amt" id="phoneNumber" class="form-control" required="required"></div>
+				  <div class="col-md-4"><input type="text" placeholder="'-'를 제외한 전화번호" name="pot_id" id="phoneNumber" class="form-control" required="required"></div>
+				  <div class="col-md-4" style="overflow: hidden;"><span class="alert alert-danger" id="err_msg_2">고객전화번호를 입력하세요</span></div>
 			  </div>
 			  <div class="form-group">
 				  <label class="col-md-2 control-label" for="old_pot_point">잔여포인트 :</label>
@@ -235,13 +261,9 @@
 				  <label class="col-md-2 control-label" for="pot_point">적립포인트 :</label>
 				  <div class="col-md-4"><input type="text" name="pot_point" id="pot_point" class="form-control required" readonly="Yes" required></div>
 			  </div>
-			  <div class="form-group">
-					<label for="expiry_date" class="col-sm-2 control-label"></label>
-					<div class="col-xs-6 col-sm-2">
-					  <input type="button" class="form-control btn btn-success btn-sm btn-submit" id="sub_mit" value="포인트 적립">
-					</div>
+			  <div class="form-group" style="text-align: center;">
+					  <button class="btn btn-success">포인트 적립</button>
 			  </div>
-				<p class="alert alert-danger" id="err_msg" style="display:none;"></p>
 			  </form>
 			  <div id="ordBox"></div>
           </div>

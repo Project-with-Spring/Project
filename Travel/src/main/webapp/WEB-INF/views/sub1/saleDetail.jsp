@@ -19,7 +19,9 @@
     <section class="content">
     	      <!-- Default box -->
       <div id="detailBox" class="box">
-	  	<div class="box-header with-border">
+      <c:choose>
+      <c:when test="${ordInfo != null }">
+      	<div class="box-header with-border">
           <h3 class="box-title">판매 상세내역</h3>
           <div class="box-tools pull-right"><a href="<c:url value="salesHistory"/>" class="btn btn-success btn-sm"><i class="fa fa-list"></i> 판매내역 리스트</a></div>
           <hr>
@@ -30,6 +32,8 @@
           <p class="text-info">판매자 : ${ordInfo.stf_name }</p>
           <p class="text-info">상태 : <c:choose><c:when test="${ordInfo.ord_cancel == 1 }">판매취소</c:when><c:otherwise>판매완료</c:otherwise></c:choose></p>
           <p class="text-info">총금액 : <span id="total">${ordInfo.ord_total }</span>원</p>
+          <p id="isSetpoint" class="<c:choose><c:when test="${ordInfo.pot_id != null}">text-info</c:when><c:otherwise>text-warning</c:otherwise></c:choose>"
+          ><c:choose><c:when test="${ordInfo.pot_id != null}">포인트 적립 완료</c:when><c:otherwise>포인트 적립 가능</c:otherwise></c:choose></p>
           </div>
         </div>
       
@@ -58,6 +62,12 @@
 						
 			</table>
 		</div>
+      </c:when>
+      <c:otherwise>
+      	<p>판매 내역이 없습니다.</p>
+      </c:otherwise>
+      </c:choose>
+	  	
       
       </div>
       <!-- /.box -->    
