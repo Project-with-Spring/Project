@@ -23,4 +23,18 @@
 	<delete id="deleteStock">
 		delete from stock where stc_id=#{stc_id}
 	</delete>
+	
+	<select id="countStock" resultType="int">
+		select count(stc_id) from stock
+	</select>
+	
+	<select id="stcListPage" resultType="stock">
+		select * 
+		from (
+			select row_number() over(order by stc_id) as num, s.*
+			from stock s
+				) stc
+		where num between #{start} AND #{end}
+		order by stc_id;
+	</select>
 </mapper>

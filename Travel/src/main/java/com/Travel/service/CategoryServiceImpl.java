@@ -1,6 +1,8 @@
 package com.Travel.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -25,5 +27,13 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public CategoryBean getCtg(String ctg_id) {
 		return categoryDAO.getCtg(ctg_id);
+	}
+
+	@Override
+	public List<CategoryBean> ctgPdtListPage(int start) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("start", start);
+		
+		return categoryDAO.getCtgPdtList(map);
 	}
 }

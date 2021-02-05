@@ -10,4 +10,15 @@
 	<select id="selectCategory" resultType="category">
 		SELECT * FROM category WHERE ctg_id=#{ctg_id }
 	</select>
+	
+	<select id="selectCtgPdtList" resultType="category">
+		select c.*, p.*
+		from (
+			select row_number() over(order by pdt_id) as num, pdt.*
+			from product pdt
+				) p join category c on c.ctg_id = p.ctg_id
+		where num between #{start} AND #{start+19}
+		order by p.pdt_id;
+	</select>
+	
 </mapper>
