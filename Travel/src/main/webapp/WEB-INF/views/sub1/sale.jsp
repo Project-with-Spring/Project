@@ -72,6 +72,8 @@
 							<div id="saved_sales"></div>
 						</div>
 					</div>
+					
+					
 				</div>
 				<div id="manu_detail" style="display: none;">
 					<input type="button" id="return_save" value="이전"> <input type="button" value="샷추가"> <input type="button" value="사이즈 업"> <input type="button" value="휘핑 추가">
@@ -177,13 +179,13 @@
 									<option value="Credit">Credit Sale</option>
 								</select>
 								</div>
-								<label class="col-md-2 control-label"><input type="button" value="전액" style="display: none;"> 잔여 포인트</label>
+								<label class="col-md-2 control-label"><input type="button" value="전액" id="maxPoint" style="display: none;"> 잔여 포인트</label>
 								<div class="col-md-2"><input type="text" name="balance" id="balance" class="form-control" readonly="Yes"></div>
 							</div>
 							<div class="form-group" style="margin:0px;margin-bottom:5px;">
 								<!--<div class="col-md-2 col-xs-4"><button type="button" name="rtn_btn" id="rtn_btn" class="btn btn-warning" style="width:100%;"><div><span class="glyphicon glyphicon-share-alt"></span></div><div>Return</div></button></div>-->
-								<div class="col-md-3 col-xs-6"><button type="button" name="can_btn" id="can_btn" class="btn btn-danger" onclick="cancel_sale();" style="width:100%;"><div><span class="glyphicon glyphicon-trash"></span></div><div>취소 (F6)</div></button></div>
-								<div class="col-md-3 col-xs-6"><button type="button" name="save_btn" id="save_btn" class="btn btn-primary" onclick="save_sale();" style="width:100%;"><div><span class="glyphicon glyphicon-floppy-disk"></span></div><div>저장 (F7)</div></button></div>
+								<div class="col-md-3 col-xs-6"><button type="button" name="can_btn" id="can_btn" class="btn btn-danger" style="width:100%;"><div><span class="glyphicon glyphicon-trash"></span></div><div>취소 (F6)</div></button></div>
+								<div class="col-md-3 col-xs-6"><button type="button" name="save_btn" id="save_btn" class="btn btn-primary" style="width:100%;"><div><span class="glyphicon glyphicon-floppy-disk"></span></div><div>저장 (F7)</div></button></div>
 								<div class="col-md-6 col-xs-12"><button type="button" name="sale_btn" id="sale_btn" class="btn btn-success" style="width:100%;"><div style="font-weight:bold;">WON</div><div>결제 (F8)</div></button></div>
 							</div>
 							<div class="form-group" style="margin:0px;margin-bottom:0px;">

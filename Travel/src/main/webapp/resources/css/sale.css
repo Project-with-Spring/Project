@@ -4,6 +4,7 @@
 .manu_title li{float: left;width: 150px;height: 32px;text-align: center;line-height: 32px; cursor:pointer; list-style: none;}
 .manu_title li::after{content:''; display:none; clear:both; width:100%; height:3px; background:#48474e;}
 .manu_title li.on::after{display:block;}
+.manu_title li:hover{background-color: lightyellow;}
 
 .pdt{display:none; padding:40px 10px;}
 .pdt.on{display:block; padding:40px 10px;}

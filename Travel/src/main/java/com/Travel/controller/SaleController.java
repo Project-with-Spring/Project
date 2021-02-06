@@ -49,19 +49,16 @@ public class SaleController {
 	public String payment(Model model, HttpServletRequest request) {
 		// 판매자 정보받아오기
 		int stf_id = Integer.parseInt(request.getParameter("stf_id"));
-		
 		// 배열로 보낸 파라미터 값들 받아오기
 		String[] pdt_idList = request.getParameterValues("pdt_idList");
 		String[] pdt_countList = request.getParameterValues("pdt_countList");
 		String[] pdt_priceList = request.getParameterValues("pdt_priceList");
 		String[] pdt_nameList = request.getParameterValues("pdt_nameList"); 
-			
 		int total = 0;
 		// 총 금액 계산
 		for(String i : pdt_priceList) {
 			total += Integer.parseInt(i);
 		}
-		
 		int sale_point = Integer.parseInt(request.getParameter("sale_point"));
 		OrderBean ordBean = new OrderBean();
 		ordBean.setOrd_discount(sale_point+"");
@@ -88,8 +85,7 @@ public class SaleController {
 				potBean.setPot_id(pot_id);
 				potBean.setPot_point(total/20); //5% 적립
 				saleService.insertPointId(potBean);
-			}
-			else {
+			}else {
 				potBean.setPot_id(pot_id);
 				potBean.setPot_point((Integer.parseInt(pot_point)-sale_point) + (total-sale_point)/20);
 				potBean.setOrd_id(order_id);
@@ -99,7 +95,7 @@ public class SaleController {
 		}
 		return "sub1/sale"; 
 	}
-	//http://localhost:8080/go/sale　　
+	//http://localhost:8080/go/pointCheck　　
 	@RequestMapping(value = "/pointCheck", method = RequestMethod.POST,produces = "application/json; charset:utf-8")
 	@ResponseBody
 	public String pointCheck(Model model, HttpServletRequest request) {

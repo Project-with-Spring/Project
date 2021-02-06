@@ -96,15 +96,10 @@ $(function() {
 		if(stf_id == ""){
 			alert('판매자 로그인 해주세요.');
 			return false;
-		}
-		// 포인트 적립 정보
-		var pot_id = $('#phoneNumber').val();
-		var pot_point = $('#balance').val();
-		var sale_point = $('#tlt_dist').val();
-		
+		}// 포인트 적립 정보
+		var pot_id = $('#phoneNumber').val();var pot_point = $('#balance').val();var sale_point = $('#tlt_dist').val();
 		// 결제수단
 		var pay_method = $('#pay_method').val();
-		
 		// 요청 사항
 		var customer_name =$('#customer_name').val();
 		// 넘길 배열 생성
@@ -124,7 +119,68 @@ $(function() {
 			return false;
 		}
 		alert('결제 되었습니다.');
-		
+		// ajax 데이터 실어서 보내기
+		$.ajax({
+			url : "payment",
+			type : "post",
+			traditional : "true",
+			data :	{
+				pdt_idList:pdt_idList,
+				pdt_nameList:pdt_nameList,
+				pdt_countList:pdt_countList,
+				pdt_priceList:pdt_priceList,
+				pot_id:pot_id,
+				pot_point:pot_point,
+				stf_id:stf_id,
+				sale_point:sale_point,
+				pay_method:pay_method,
+				customer_name:customer_name
+			},
+			success:function(data){
+			location.href='sale';
+			}
+			
+		})
+////		 배열에 들어간 정보 확인용
+//		for(var i =0; i < pdt_idList.length; i++){
+//		alert("<배열에 적용된 정보>\n상품 코드(pdt_idList) : " + pdt_idList[i]
+//		+"\n상품 명(pdt_nameList) : " + pdt_nameList[i]
+//		+"\n주문 개수(pdt_countList) : " + pdt_countList[i]
+//		+"\n상품 총 금액(pdt_priceList) : " + pdt_priceList[i]
+//		);
+//		}
+	});
+	
+	// 결제 버튼
+	$('#save_btn').click(function() {
+		// 판매자 정보
+		var stf_id = $('#stf_id').data('hidden');
+		if(stf_id == ""){
+			alert('판매자 로그인 해주세요.');
+			return false;
+		}// 포인트 적립 정보
+		var pot_id = $('#phoneNumber').val();var pot_point = $('#balance').val();var sale_point = $('#tlt_dist').val();
+		// 결제수단
+		var pay_method = $('#pay_method').val();
+		// 요청 사항
+		var customer_name =$('#customer_name').val();
+		// 넘길 배열 생성
+		var pdt_idList = [];
+		var pdt_nameList = [];
+		var pdt_countList = [];
+		var pdt_priceList = [];
+		// 생성한 배열에 값 추가
+		$("input[name='pdt_id']").each(function(i){
+			pdt_idList.push($("input[name='pdt_id']").eq(i).val()); // 상품코드
+			pdt_nameList.push($("input[name='pdt_name']").eq(i).val()); // 상품명
+			pdt_countList.push($("input[name='pdt_count']").eq(i).val()); //  주문수량
+			pdt_priceList.push(deleteComma($("input[name='pdt_price']").eq(i).val())); // 해당상품 총액
+		});
+		if($('#total_items').val() == 0){
+			alert('메뉴가 선택되지 않았습니다.');
+			return false;
+		}
+		alert('결제 되었습니다.');
 		// ajax 데이터 실어서 보내기
 		$.ajax({
 			url : "payment",
@@ -189,6 +245,7 @@ $(function() {
 		$(this).addClass('on');
 		$('#' + onTab).addClass('on');
 	});
+	
 	// 메뉴 클릭시 주문 리스트에 추가
 	$('ul.manu_sel li').click(function() {
 		var pdt_id = $(this).data("hidden");
@@ -198,7 +255,6 @@ $(function() {
 		var changeId = 0;
 		var totalCount = 1;
 		var check = false;
-		
 		// 주문리스트에 해당 메뉴 있는가? 판별
 		$("input[name='pdt_id']").each(function(i) {
 			if(pdt_id==$("input[name='pdt_id']").eq(i).val()){
@@ -209,7 +265,6 @@ $(function() {
 			order_price += deleteComma($("input[name='pdt_price']").eq(i).val())/1;
 			totalCount += $("input[name='pdt_count']").eq(i).val()/1;
 		})
-		
 		// 이미 클릭된 적 있다면?
 		if(check){
 			var count = $("input[name='pdt_count']").eq(changeId).val(); // 지금 수량 몇개인지 불러와서
