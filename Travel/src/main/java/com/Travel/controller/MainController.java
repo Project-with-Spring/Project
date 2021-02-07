@@ -59,10 +59,7 @@ public class MainController {
 		String stf_name = "";
 		String pst_id = "";
 		
-		HashMap map = new HashMap();
-		map.put("pst_id", pst_id);
-		map.put("stf_name", stf_name);
-		List<StaffBean> staffList = staffService.getStaffList(map);
+		List<StaffBean> staffList = staffService.getLoginStaffList();
 		model.addAttribute("staffList",staffList);		
 //		/WEB-INF/views/main/login.jsp
 		return "main/login";

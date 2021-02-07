@@ -83,8 +83,8 @@ public class CommuteDAOImpl implements CommuteDAO{
 
 
 	@Override
-	public void comumteModify(StaffBean sb) {
-		sqlSession.update(namespace + ".updateCmt",sb);
+	public void comumteModify(CommuteBean cmb) {
+		sqlSession.update(namespace + ".updateCmt",cmb);
 		
 	}
 
@@ -100,6 +100,13 @@ public class CommuteDAOImpl implements CommuteDAO{
 	public StaffBean getStaffCommutOnetotal(HashMap map) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace + ".getStaffCommutOnetotal",map);
+	}
+
+
+	@Override
+	public int countCommute(HashMap map) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + ".countCommute",map);
 	}
 
 

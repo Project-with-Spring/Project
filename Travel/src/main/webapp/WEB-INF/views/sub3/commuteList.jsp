@@ -114,7 +114,7 @@
               </table>
              </div>
           </div>
-			  
+		  	  
         </div>
       </div>
       <!-- /.box -->
@@ -127,7 +127,7 @@
 	      </div>
         </div>
         <div class="box-body mg_t20">
-  	       <div id="my_all">
+  	       <div id="my_all" style="overflow-y: auto;max-height: 539px;">
 			<form  method="get" action="<c:url value='/getCommuteList'/>" class=""> 
 				<c:if test="${not empty param.from1}">
 					<input type="hidden" name="from1" value="${param.from1}">

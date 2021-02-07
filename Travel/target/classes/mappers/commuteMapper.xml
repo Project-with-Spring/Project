@@ -12,9 +12,17 @@
 		where date_format(cmt_go,'%Y-%m-%d') 
 		between #{from} and #{to} 
 		and sf.stf_id 
+		like concat('%',#{search},'%') order by cmt_go desc
+		LIMIT #{pageBean.startRow},#{pageBean.pageSize}
+	</select>
+	<select id="countCommute" parameterType="hashMap" resultType="int">
+		SELECT count(*) 
+		FROM commute
+		where date_format(cmt_go,'%Y-%m-%d') 
+		between #{from} and #{to} 
+		and stf_id 
 		like concat('%',#{search},'%') order by cmt_go desc;
 	</select>
-	
 	
 	<select id="getStaffCommutOnetotal" parameterType="hashMap" resultType="staffBean">
 		select st.*, ps.pst_name pst_name , cm.cnt_go cnt_go, cm.total_time total_time from staff st 
@@ -37,6 +45,10 @@
 	<select id="getStaffCommutOne" parameterType="hashMap" resultType="commuteBean">
 		SELECT * from commute where cmt_id=#{cmt_id} and stf_id =#{stf_id}
 	</select>
+	
+	<select id="getCountStaffCommutOne" parameterType="hashMap" resultType="int">
+		SELECT count(*) from commute where cmt_id=#{cmt_id} and stf_id =#{stf_id}
+	</select>
 	<!-- 출근 -->
 	<insert id="cmtgo" parameterType="int" keyProperty="seq">
 		insert into commute (cmt_go,stf_id) value(now(),#{stf_id}) 
@@ -48,7 +60,7 @@
 	</update>
 	
 	<update id="updateCmt" parameterType="commuteBean" >
-		update commuteBean set cmt_go=#{cmt_go}, cmt_leave=#{cmt_leave} where  cmt_id = #{cmt_id}
+		update commute set cmt_go=#{cmt_goS}, cmt_leave=#{cmt_leaveS} where  cmt_id = #{cmt_id} and stf_id=#{stf_id} 
 	</update>
 	
 	<delete  id="commuteDelete" parameterType="int" >

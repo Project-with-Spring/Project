@@ -25,7 +25,7 @@
         <div class="box-body">
       
 	      <div id="add_new" class="col-sm-12 col-md-12 col-lg-12">
-	      	<form method="post" action="staffInsertPro" class="form-horizontal" name="positionModyForm" id="positionModyForm" style="width: 50%;margin: 0 auto;">
+	      	<form method="post" action="staffInsertPro" class="form-horizontal" name="stfInsertForm" id="stfInsertForm" onsubmit="return checkForm();" style="width: 50%;margin: 0 auto;" >
 	      			
 		          	<div class="form-group">
 					  <label class="col-md-2 control-label tal">직원이름 :</label>
@@ -53,7 +53,7 @@
 				  	  <div class="form-group">
 						  <label class="col-md-2 control-label tal">직원 폰번호 :</label>
 						  <div class="col-md-6">
-						  	<input type="text" name="stf_phone" id="stf_phone" class="form-control required" required="required" placeholder="000-0000-0000">
+						  	<input type="text" name="stf_phone" id="stf_phone" class="form-control required phone" required="required" placeholder="000-0000-0000">
 					  	</div>
 				  	</div>
 						  
@@ -73,6 +73,17 @@
     </section>
     <!-- /.content -->
   </div>
+  <script type="text/javascript">
+    //핸드폰, 전화번호 길이,숫자 및 하이픈 자동 체크 
+  	$(document).on("keyup", ".phone", function() {
+  	  	var phoneNum =  $(this).val()
+  	  	$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-"));
+  	  	if($(this).val().length > 15){
+			alert("- 포함 15자리까지 입력 가능합니다.");
+			$(this).val(phoneNum.substring(0,15)); 
+  	  	} 
+  	});
+  </script>
   
   
   <c:import url="/footer"/>

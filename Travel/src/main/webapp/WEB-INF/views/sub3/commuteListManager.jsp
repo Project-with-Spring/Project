@@ -5,12 +5,15 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <c:import url="/header"/>
-<link rel="stylesheet" href="<c:url value="/resources/css/staff.css"/>">
+<link rel="stylesheet" href="<c:url value="/resources/js/DataTables/datatables.css"/>">
 
 
 <c:set var="today" value="<%=new java.util.Date()%>" />
 <c:set var="date"><fmt:formatDate value="${today}" pattern="yyyy-MM-dd" /></c:set> 
 
+<c:set var="thisYear"><fmt:formatDate value="${today}" pattern="yyyy" /></c:set>
+<c:set var="thisMonth"><fmt:formatDate value="${today}" pattern="MM" /></c:set>
+<c:set var="thisMonth1" value="${thisYear}-${thisMonth}-01" />
 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -57,7 +60,7 @@
 						</c:otherwise>
 				    </c:choose>
 					<div class="col-md-1">
-		              	<button type="submit" name="btn_filter" class="btn btn-primary form-control">조회하기</button>
+		              	<button type="submit" class="btn btn-primary form-control">조회하기</button>
 	                </div>  		
 				  	
 	 			</div>		
@@ -96,7 +99,7 @@
 					    <c:otherwise>
 					        <c:forEach var="cmt" items="${cmtList}" varStatus="status">
 					        	<tr>
-					        		<td class="tac">${status.index+1}</td>
+					        		<td class="tac"><c:out value="${(pageBean.count-status.index) - ((pageBean.currentPage - 1) * pageBean.pageBlock)}"/></td>
 					        		<td class="tac">${cmt.stf_id} <!-- 직원ID 출력 --></td>
 					        		<td class="tac">${cmt.stf_name} <!-- 직원이름 출력 --></td>
 					        		<td class="tac">${cmt.pst_name} <!-- 직급 출력 --></td>
@@ -121,7 +124,184 @@
               </table>
              </div>
           </div>
-			  
+          
+          
+		 <div style="margin: 20px 10px 10px 0; text-align: right;">
+			 <c:url value="getCommuteListAll" var="firstPurl">
+				  <c:param name="pageNum" value="${pageBean.startPage}" />
+				  <c:choose>
+					    <c:when test="${not empty param.from}">
+							<c:param name="from" value="${param.from}" />
+					    </c:when>
+					    <c:otherwise>
+					    	<c:param name="from" value="${thisMonth1}" />
+						</c:otherwise>
+				    </c:choose>
+				    <c:choose>
+					    <c:when test="${not empty param.to}">
+							<c:param name="to" value="${param.to}" />
+				  		 </c:when>							
+					    <c:otherwise>
+							<c:param name="to" value="${date}" />
+						</c:otherwise>
+				    </c:choose>
+			</c:url>
+			
+			<c:url value="getCommuteListAll" var="prevPurl1">
+				  <c:param name="pageNum" value="${pageBean.currentPage - 1}" />
+				  <c:choose>
+					    <c:when test="${not empty param.from}">
+							<c:param name="from" value="${param.from}" />
+					    </c:when>
+					    <c:otherwise>
+					    	<c:param name="from" value="${thisMonth1}" />
+						</c:otherwise>
+				    </c:choose>
+				    <c:choose>
+					    <c:when test="${not empty param.to}">
+							<c:param name="to" value="${param.to}" />
+				  		 </c:when>							
+					    <c:otherwise>
+							<c:param name="to" value="${date}" />
+						</c:otherwise>
+				    </c:choose>
+			</c:url>
+			
+			<c:url value="getCommuteListAll" var="prevPurl2">
+				  <c:param name="pageNum" value="${pageBean.startPage}" />
+				  <c:choose>
+					    <c:when test="${not empty param.from}">
+							<c:param name="from" value="${param.from}" />
+					    </c:when>
+					    <c:otherwise>
+					    	<c:param name="from" value="${thisMonth1}" />
+						</c:otherwise>
+				    </c:choose>
+				    <c:choose>
+					    <c:when test="${not empty param.to}">
+							<c:param name="to" value="${param.to}" />
+				  		 </c:when>							
+					    <c:otherwise>
+							<c:param name="to" value="${date}" />
+						</c:otherwise>
+				    </c:choose>
+			</c:url>
+			
+			
+			<c:url value="getCommuteListAll" var="nextPurl1">
+				  <c:param name="pageNum" value="${pageBean.currentPage +1}" />
+				  <c:choose>
+					    <c:when test="${not empty param.from}">
+							<c:param name="from" value="${param.from}" />
+					    </c:when>
+					    <c:otherwise>
+					    	<c:param name="from" value="${thisMonth1}" />
+						</c:otherwise>
+				    </c:choose>
+				    <c:choose>
+					    <c:when test="${not empty param.to}">
+							<c:param name="to" value="${param.to}" />
+				  		 </c:when>							
+					    <c:otherwise>
+							<c:param name="to" value="${date}" />
+						</c:otherwise>
+				    </c:choose>
+			</c:url>
+			<c:url value="getCommuteListAll" var="nextPurl2">
+				  <c:param name="pageNum" value="${pageBean.endPage}" />
+				  <c:choose>
+					    <c:when test="${not empty param.from}">
+							<c:param name="from" value="${param.from}" />
+					    </c:when>
+					    <c:otherwise>
+					    	<c:param name="from" value="${thisMonth1}" />
+						</c:otherwise>
+				    </c:choose>
+				    <c:choose>
+					    <c:when test="${not empty param.to}">
+							<c:param name="to" value="${param.to}" />
+				  		 </c:when>							
+					    <c:otherwise>
+							<c:param name="to" value="${date}" />
+						</c:otherwise>
+				    </c:choose>
+			</c:url>
+			
+			<c:url value="getCommuteListAll" var="endPurl">
+				  <c:param name="pageNum" value="${pageBean.endPage}" />
+				  <c:choose>
+					    <c:when test="${not empty param.from}">
+							<c:param name="from" value="${param.from}" />
+					    </c:when>
+					    <c:otherwise>
+					    	<c:param name="from" value="${thisMonth1}" />
+						</c:otherwise>
+				    </c:choose>
+				    <c:choose>
+					    <c:when test="${not empty param.to}">
+							<c:param name="to" value="${param.to}" />
+				  		 </c:when>							
+					    <c:otherwise>
+							<c:param name="to" value="${date}" />
+						</c:otherwise>
+				    </c:choose>
+			</c:url>
+			
+			<ul class="pagination" style="padding: 0px; margin: 0px;">
+				<li>
+					<a href="<c:url value="${firstPurl}"/>" title="First Page">
+						<span class="glyphicon glyphicon-fast-backward"></span></a></li>
+				<li>
+				<c:choose>
+		            <c:when test="${pageBean.startPage < pbBean.pageBlock}">  
+						<a href='<c:url value="${prevPurl1}"/>' title="Previous Page"><span class="glyphicon glyphicon-backward"></span></a>
+					</c:when>
+					<c:otherwise>
+						<a href='<c:url value="${prevPurl2}"/>' title="Previous Page"><span class="glyphicon glyphicon-backward"></span></a>
+					</c:otherwise>
+				</c:choose>
+				</li>
+				
+				<c:forEach var="i" begin="${pageBean.startPage }" end="${pageBean.endPage }" step="1">
+				<c:url value="getCommuteListAll" var="currentPurl">
+					  <c:param name="pageNum" value="${i}" />
+					  <c:choose>
+						    <c:when test="${not empty param.from}">
+								<c:param name="from" value="${param.from}" />
+						    </c:when>
+						    <c:otherwise>
+						    	<c:param name="from" value="${thisMonth1}" />
+							</c:otherwise>
+					    </c:choose>
+					    <c:choose>
+						    <c:when test="${not empty param.to}">
+								<c:param name="to" value="${param.to}" />
+					  		 </c:when>							
+						    <c:otherwise>
+								<c:param name="to" value="${date}" />
+							</c:otherwise>
+					    </c:choose>
+				</c:url>
+				<li>
+					<a href='<c:url value="${currentPurl}"/>'>${i}</a>
+				</li>
+				</c:forEach>
+				<li>
+					<c:choose>
+			            <c:when test="${pageBean.endPage > pageBean.pageCount}">  
+							<a href='<c:url value="${nextPurl1}"/>' title="Next Page"><span class="glyphicon glyphicon-forward"></span></a>
+						</c:when>
+						<c:otherwise>
+							<a href='<c:url value="${nextPurl2}"/>' title="Next Page"><span class="glyphicon glyphicon-forward"></span></a>
+						</c:otherwise>
+					</c:choose>
+				</li>
+				<li>
+					<a href="<c:url value="${endPurl}"/>" title="Last Page">
+				<span class="glyphicon glyphicon-fast-forward"></span></a></li>
+			</ul>
+		</div>
+			  	  
         </div>
       </div>
       <!-- /.box -->
@@ -262,12 +442,27 @@
 		var date = new Date();
 		var firstday = new Date(date.getFullYear(), date.getMonth(), "01");
 		$(".firstDay").datepicker('setDate', firstday);
-	
+
+		$('#commuteTb').DataTable({
+			//표시 건수기능 숨기기
+			lengthChange: false,
+			// 검색 기능 숨기기
+			searching: false,
+			// 정보 표시 숨기기
+			info: false,
+			// 페이징 기능 숨기기
+			paging: false,
+			//기본 정렬
+			order: [[0, 'asc']]
+			
+		});
 		
 	});
 
 
 
   </script>
+  <script type="text/javascript" src="<c:url value="/resources/js/DataTables/datatables.min.js"/>"></script>
+  
   
 <c:import url="/footer"/>

@@ -4,6 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:import url="/header"/>
 <link rel="stylesheet" href="<c:url value="/resources/css/staff.css"/>">
+<link rel="stylesheet" href="<c:url value="/resources/js/DataTables/datatables.css"/>">
 
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -28,8 +29,38 @@
 
         <div class="box-body mg_t20">
   	       <div id="my_all">
+  	       
 			<div class="form-group clearfix">
 				
+  	       <%-- <form  method="get" action="<c:url value='/getCommuteList'/>" class="float_left" style="width: 50%;"> 
+				<c:if test="${not empty param.from1}">
+					<input type="hidden" name="from1" value="${param.from1}">
+			    </c:if>
+		    	<c:if test="${not empty param.to1}">
+					<input type="hidden" name="to1" value="${param.to1}">
+			    </c:if>
+	  				<c:choose>
+					    <c:when test="${not empty param.from2}">
+							<div class="col-md-3"><input type="date" name="from" id="from" value="${param.from2}" class="from form-control txtdate" readonly="readonly"></div>
+					    </c:when>
+					    <c:otherwise>
+							<div class="col-md-3"><input type="date" name="from" id="from" value='' class="from form-control txtdate firstDay" readonly="readonly"></div>
+					    </c:otherwise>
+				    </c:choose>
+				    <c:choose>
+					    <c:when test="${not empty param.to2}">
+				  			<div class="col-md-3"><input type="date" name="to" id="to" value="<c:out value="${param.to2}" />" class="to form-control txtdate" readonly="readonly"></div>
+					    </c:when>							
+					    <c:otherwise>
+							<div class="col-md-3"><input type="date" name="to" id="to" value="<c:out value="${date}" />" class="to form-control txtdate " readonly="readonly"></div>
+						</c:otherwise>
+				    </c:choose>
+				  	<div class="col-md-2">
+		              	<button type="submit" name="btn_filter" class="btn btn-primary form-control">조회하기</button>
+		              </div> 		
+				  	
+ 			</form> --%>
+			
 				<form  method="get" action="<c:url value='/staffList'/>" class="float_right clearfix" style="width: 24%;">
 					<div class="col-md-5 float_left">
 						<select name="pst_id" id="position_id" class="form-control">
@@ -50,9 +81,8 @@
 	        <div class="table-responsive no-padding mg_t15">
 	          <table class="table table-striped table-responsive tbl_narrow" id="staffList">
 	          	<colgroup>
-	          		<col style="width:5%;">
-	          		<col style="width:12%;">
-	          		<col style="width:8%;">
+	          		<col style="width:15%;">
+	          		<col style="width:10%;">
 	          		<col style="width:15%;">
 	          		<col style="width:18%;">
 	          		<col style="width:15%;">
@@ -60,15 +90,14 @@
 	          		<col style="width:11%;">
 	          	</colgroup>
 	            <thead>
-	                <tr>
-	                	<th class="tac">#</th>
+	                <tr id="tr_top">
 	                    <th class="tac">직원이름</th>
 	                    <th class="tac">직원ID</th>
 						<th class="tac">직급</th>
-						<th class="tac">직원폰번호</th>
+						<th class="tac" data-orderable="false">직원폰번호</th>
 						<th class="tac">근로일수</th>
 						<th class="tac">근로시간</th> 
-						<th class="tac"></th> 
+						<th class="tac" data-orderable="false"></th> 
 	                </tr>
 	  				</thead>
 	  				<tbody id="stf_tb">
@@ -81,13 +110,12 @@
 					    <c:otherwise>
 					        <c:forEach var="stl" items="${staffList}" varStatus="status">
 					        	<tr data-pstid="${stl.pst_id}">
-					        		<td class="tac">${status.index+1}</td>
 					        		<td class="tac">${stl.stf_name} <!-- 직원이름 출력 --></td>
 					        		<td class="tac">${stl.stf_id} <!-- 직원ID 출력 --></td>
 					        		<td class="tac">${stl.pst_name} <!-- 직급 출력 --></td>
 					        		<td class="tac">${stl.stf_phone} <!-- 직원폰번호 출력 --></td>
 					        		<td class="tac">${stl.cnt_go} </td>
-					        		<td class="tac">${stl.total_time} 분</td>
+					        		<td class="tac">${stl.total_hour}</td>
 					        		<td class="text-right">					        			
 										 <a href="<c:url value='staffModify?stf_id=${stl.stf_id}'/>"  class="btn btn-default btn-xs"  title="Update Detail">
 					        			 	<span class="glyphicon glyphicon-pencil"></span>
@@ -99,14 +127,46 @@
 				            	</tr>		
 									
 					        </c:forEach>
+					        
 					    </c:otherwise> 
 					</c:choose>
-				  				
-  				
  				</tbody>	
               </table>
              </div>
           </div>
+         <div style="margin: 20px 10px 10px 0;text-align: right;">
+			<ul class="pagination" style="padding: 0px; margin: 0px;">
+				<li><a href="<c:url value="/staffList?pageNum=${pageBean.startPage}"/>" title="First Page"><span class="glyphicon glyphicon-fast-backward"></span></a></li>
+				<li>
+				<c:choose>
+		            <c:when test="${pageBean.startPage > pbBean.pageBlock}">  
+						<a href='<c:url value="/staffList?pageNum=${pageBean.currentPage - pageBean.currentPage}"/>' title="Previous Page"><span class="glyphicon glyphicon-backward"></span></a>
+					</c:when>
+					<c:otherwise>
+						<a href='<c:url value="/staffList?pageNum=${pageBean.startPage}"/>' title="Previous Page"><span class="glyphicon glyphicon-backward"></span></a>
+					</c:otherwise>
+				</c:choose>
+				</li>
+				
+				<c:forEach var="i" begin="${pageBean.startPage }" end="${pageBean.endPage }" step="1">
+				<li>
+					<a href='<c:url value="/staffList?pageNum=${i}"/>'>${i}</a>
+				</li>
+				</c:forEach>
+				<li>
+					<c:choose>
+			            <c:when test="${pageBean.endPage < pageBean.pageCount}">  
+							<a href='<c:url value="/staffList?pageNum=${pageBean.currentPage + 1}"/>' title="Next Page"><span class="glyphicon glyphicon-forward"></span></a>
+						</c:when>
+						<c:otherwise>
+							<a href='<c:url value="/staffList?pageNum=${pageBean.startPage}"/>' title="Next Page"><span class="glyphicon glyphicon-forward"></span></a>
+						</c:otherwise>
+					</c:choose>
+				</li>
+				<li><a href="<c:url value="/staffList?pageNum=${pageBean.endPage}"/>" title="Last Page">
+					<span class="glyphicon glyphicon-fast-forward"></span></a></li>
+			</ul>
+		</div>
 			  
         </div>
       </div>
@@ -154,6 +214,7 @@
 	<script type="text/javascript">
 
 	$(function() {
+		
 		//직급별 리스트만 띄우기 
 	    $(document).on("change", "#position_id", function() {
 	        var selPosion = $("#position_id option");
@@ -240,7 +301,84 @@
 	    new ToCSV()
 	});	
 
+	$(function() {
+		$( ".from" ).datepicker({
+			dateFormat: "yy-mm-dd",
+			changeYear: true,
+			yearRange: "2003:2021"
+		});
+		$( ".to" ).datepicker({
+			dateFormat: "yy-mm-dd",
+			changeYear: true,
+			yearRange: "2003:2022"
+		});
+		$( "#dob" ).datepicker({
+			dateFormat: "yy-mm-dd",
+			changeYear: true,
+			yearRange: "1940:2021"
+		});
+		$( "#date_join" ).datepicker({
+			dateFormat: "yy-mm-dd",
+			changeYear: true,
+			yearRange: "1970:2021"
+		});
+		$( "#open_date" ).datepicker({
+			dateFormat: "yy-mm-dd",
+			changeYear: true,
+			yearRange: "2003:2021"
+		});
+		$( "#pdate" ).datepicker({
+			dateFormat: "yy-mm-dd",
+			changeYear: true,
+			yearRange: "2003:2022"
+		});
+		$( "#leave_from" ).datepicker({
+			dateFormat: "yy-mm-dd",
+			changeYear: true,
+			yearRange: "2003:2022"
+		});
+		$( "#leave_to" ).datepicker({
+			dateFormat: "yy-mm-dd",
+			changeYear: true,
+			yearRange: "2003:2022"
+		});
+		$( "#holiday_date" ).datepicker({
+			dateFormat: "yy-mm-dd",
+			changeYear: true,
+			yearRange: "2003:2022"
+		});
+		$( "#v_date" ).datepicker({
+			dateFormat: "yy-mm-dd",
+			changeYear: true,
+			yearRange: "2003:2022"
+		});
+		$(".datefld").datepicker({
+			dateFormat: "yy-mm-dd",
+			changeYear: true,
+			yearRange: "2003:2022"
+		});
+		$(".date_box").datepicker({
+			dateFormat: "yy-mm-dd",
+			changeYear: true,
+			yearRange: "2003:2022"
+		});
+
+		$('#staffList').DataTable({
+			//표시 건수기능 숨기기
+			lengthChange: false,
+			// 검색 기능 숨기기
+			searching: false,
+			// 정보 표시 숨기기
+			info: false,
+			// 페이징 기능 숨기기
+			paging: false,
+			//기본 정렬
+			order: [[0, 'asc']]
+			
+		});
+	});
 	</script>
+	
+	<script type="text/javascript" src="<c:url value="/resources/js/DataTables/datatables.min.js"/>"></script>
   
-<%-- <script src="<c:url value="/resources/js/salesHistory.js"/>"></script> --%>
 <c:import url="/footer"/>

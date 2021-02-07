@@ -7,7 +7,7 @@ import com.Travel.domain.StaffBean;
 
 public interface StaffService {
 
-	public List<StaffBean> getStaffList(HashMap map);
+	public List<StaffBean> getStaffList(HashMap<String, Object> map);
 
 	public void insertStaff(StaffBean sf);
 
@@ -18,6 +18,10 @@ public interface StaffService {
 	public StaffBean getStaff(int stf_id);
 
 	public void updateStaff(StaffBean sb);
+
+	public int countStaff(HashMap map);
+
+	public List<StaffBean> getLoginStaffList();
 
 
 }
