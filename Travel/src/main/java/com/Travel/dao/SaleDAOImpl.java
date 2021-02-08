@@ -30,7 +30,11 @@ public class SaleDAOImpl implements SaleDAO {
 		}
 		@Override
 		public void insertOrder(OrderBean orderBean) {
-			sqlSession.insert(namespace+".insertOrder",orderBean);
+			if(orderBean.getOrd_cancel()=="1") {
+				sqlSession.insert(namespace+".insertSaveOrder",orderBean);
+			}else {
+				sqlSession.insert(namespace+".insertOrder",orderBean);
+			}
 		}
 		@Override
 		public String getOrderId(OrderBean orderBean) {
@@ -56,6 +60,23 @@ public class SaleDAOImpl implements SaleDAO {
 		@Override
 		public void updateOrdPoint(PointBean potBean) {
 			sqlSession.update(namespace+".updateOrdPoint", potBean);
+		}
+		@Override
+		public List<OrderBean> getSaveOrderList() {
+			return sqlSession.selectList(namespace+".getSaveOrderList");
+		}
+		@Override
+		public void deleteOrder(String ord_id) {
+			sqlSession.delete(namespace+".deleteOrder", ord_id);
+			
+		}
+		@Override
+		public OrderBean getSaveOrder(String ord_id) {
+			return sqlSession.selectOne(namespace+".getSaveOrder",ord_id);
+		}
+		@Override
+		public List<OrderDetailBean> getSaveOrderDetail(String ord_id) {
+			return sqlSession.selectList(namespace+".getSaveOrderDetail",ord_id);
 		}
 
 }

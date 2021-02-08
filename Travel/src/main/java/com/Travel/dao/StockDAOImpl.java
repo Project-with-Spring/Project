@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.Travel.domain.StockBean;
+import com.Travel.utill.Pagination;
 
 @Repository
 public class StockDAOImpl implements StockDAO {
@@ -40,6 +41,16 @@ public class StockDAOImpl implements StockDAO {
 	@Override
 	public void delete(Long stc_id) {
 		sqlSession.delete(namespace + ".deleteStock", stc_id);
+	}
+
+	@Override
+	public int countStock() {
+		return sqlSession.selectOne(namespace + ".countStock");
+	}
+
+	@Override
+	public List<StockBean> selectStcListPage(Pagination pagination) {
+		return sqlSession.selectList(namespace + ".stcListPage", pagination);
 	} 
 	
 	

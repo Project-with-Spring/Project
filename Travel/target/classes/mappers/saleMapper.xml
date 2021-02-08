@@ -14,8 +14,8 @@
 	</select>
 	
 	<insert id="insertOrder">
-		insert into `order`(ord_date,ord_total,pmt_name,stf_id,ord_memo)
-		values(#{ord_date},#{ord_total},#{pmt_name},#{stf_id},#{ord_memo})
+		insert into `order`(ord_date,ord_total,pmt_name,stf_id,ord_memo,ord_discount)
+		values(#{ord_date},#{ord_total},#{pmt_name},#{stf_id},#{ord_memo},#{ord_discount})
 	</insert>
 	
 	<select id="getOrderId" resultType="java.lang.String">
@@ -23,8 +23,8 @@
 	</select>
 	
 	<insert id="insertOrderDetail">
-		insert into orderdetail(odt_count,ord_id,pdt_id,pdt_name)
-		values(#{odt_count},#{ord_id},#{pdt_id},#{pdt_name})
+		insert into orderdetail(odt_count,ord_id,pdt_id,pdt_name,dt_price,odt_memo)
+		values(#{odt_count},#{ord_id},#{pdt_id},#{pdt_name},#{dt_price},#{odt_memo})
 	</insert>
 	
 	<select id="getPoint" resultType="java.lang.String">
@@ -43,4 +43,26 @@
 	<update id="updateOrdPoint">
 		update `order` set pot_id = #{pot_id} where ord_id = #{ord_id}
 	</update>
+	
+	<insert id="insertSaveOrder">
+		insert into `order`(ord_date,ord_total,pmt_name,stf_id,ord_memo,ord_cancel)
+		values(#{ord_date},#{ord_total},#{pmt_name},#{stf_id},#{ord_memo},#{ord_cancel})
+	</insert>
+	
+	<select id="getSaveOrderList" resultType="orderBean">
+		select * from `order` where ord_cancel='1'
+	</select>
+	
+	<select id="deleteOrder">
+		delete from `order` where ord_id=#{ord_id}
+	</select>
+	
+	<select id="getSaveOrder" resultType="orderBean">
+		select * from `order` where ord_id=#{ord_id}
+	</select>
+	
+	<select id="getSaveOrderDetail" resultType="com.Travel.domain.OrderDetailBean">
+		select * from orderdetail where ord_id=#{ord_id}
+	</select>
+	
 </mapper>

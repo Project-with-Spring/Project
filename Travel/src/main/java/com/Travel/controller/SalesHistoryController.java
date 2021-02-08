@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.Travel.domain.OrderBean;
 import com.Travel.domain.OrderDetailBean;
 import com.Travel.domain.PageBean;
+import com.Travel.domain.PointBean;
 import com.Travel.service.ProductService;
+import com.Travel.service.SaleService;
 import com.Travel.service.SalesHistoryService;
 import com.Travel.service.StaffService;
 
@@ -33,6 +35,9 @@ public class SalesHistoryController {
 	
 	@Inject
 	private ProductService ProductService;
+	
+	@Inject
+	private SaleService saleService;
 	
 	@RequestMapping(value = "/salesHistory", method = RequestMethod.GET)
 	public String saleHistory(Model model, HttpServletRequest request) {
@@ -151,5 +156,33 @@ public class SalesHistoryController {
 		model.addAttribute("odtList", salesHistoryService.getOdtList(ord_id));
 		model.addAttribute("ordInfo", salesHistoryService.getOrdList(ord_id));
 		return "sub1/saleDetail";
+	}
+	
+	@RequestMapping(value = "/setPoint", method = RequestMethod.POST)
+	public String setPoint(Model model, HttpServletRequest request) {
+		System.out.println("SalesHistoryController setPoint()");
+		String pot_id = request.getParameter("pot_id");
+		String balance = request.getParameter("balance");
+		String ord_id = request.getParameter("ord_id");
+		int pot_point = 0;
+		if(request.getParameter("pot_point") != null) {
+			pot_point = Integer.parseInt(request.getParameter("pot_point"));
+		}
+		
+		if(pot_id != "") {
+			PointBean potBean = new PointBean();
+			if(balance.equals("아이디 없음")) {
+				potBean.setPot_id(pot_id);
+				potBean.setPot_point(pot_point); //5% 적립
+				saleService.insertPointId(potBean);
+			} else {
+				potBean.setPot_id(pot_id);
+				potBean.setPot_point(pot_point+Integer.parseInt(balance));
+				saleService.updatePoint(potBean);
+			}
+			potBean.setOrd_id(ord_id);
+			saleService.updateOrdPoint(potBean);
+		}
+		return "redirect:/salesHistory";
 	}
 }

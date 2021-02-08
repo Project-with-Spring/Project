@@ -9,11 +9,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.Travel.domain.CategoryBean;
 import com.Travel.domain.StockBean;
 import com.Travel.service.CategoryService;
 import com.Travel.service.StockService;
+import com.Travel.utill.Pagination;
 
 @Controller
 //http://localhost:8080/go/stc
@@ -27,8 +29,15 @@ public class StockController {
 	
 	//http://localhost:8080/go/stc/list
 	@RequestMapping("/list")
-	public String list(Model model) {
-		List<StockBean> stcList = stockService.getStcList();
+	public String list(Model model, Pagination page, @RequestParam(value="nowPage", required=false)String nowPage) {
+		int stcTotal = stockService.countStock();
+		if(nowPage == null) {
+			nowPage = "1";
+		}
+		page = new Pagination(stcTotal, Integer.parseInt(nowPage), 20);
+		model.addAttribute("stcPage", page);
+		
+		List<StockBean> stcList = stockService.selectStcListPage(page);
 		model.addAttribute("stcList", stcList);
 		
 		return "sub2/stockList";

@@ -66,4 +66,26 @@ public class SaleServiceImpl implements SaleService {
 		saleDAO.updateOrdPoint(potBean);
 	}
 
+	@Override
+	public List<OrderBean> getSaveOrderList() {
+		return saleDAO.getSaveOrderList();
+	}
+
+	@Override
+	public void deleteOrder(String ord_id) {
+		saleDAO.deleteOrder(ord_id);
+		
+	}
+
+	@Override
+	public OrderBean getSaveOrder(String ord_id) {
+		return saleDAO.getSaveOrder(ord_id);
+	}
+
+	@Override
+	public List<OrderDetailBean> getOrderDetail(String ord_id) {
+		// TODO Auto-generated method stub
+		return saleDAO.getSaveOrderDetail(ord_id);
+	}
+
 }

@@ -58,25 +58,73 @@
 					</c:if>
 					</c:forEach>
 					
-																	</div	>
+																	</div>
 					<div id="save_order">
 					<div class="col-md-9 hidden-xs">
-						<div class="table-responsive" style="border:solid 1px #CCC;padding:5px; background-color: lightyellow;" >
+						<div class="table-responsive" style="border:solid 1px #CCC;padding:5px; background-color: #cffbcf;" >
 							<h4 class="text-center" style="margin-top:0px;">최근 저장된 주문</h4>
 							<div id="recent_sales"></div>
 						</div>
 					</div>
 					<div class="col-md-3 hidden-xs">
-						<div class="table-responsive" style="border:solid 1px #CCC;padding:5px;">
-							<h4 class="text-center" style="margin-top:0px;margin-bottom:5px;">주문 불러오기</h4>
-							<div id="saved_sales"></div>
+						<div class="table-responsive" id="getSaveOrder" style="border:solid 1px #CCC;padding:7.4px;">
+							<h4 class="text-center" style="margin-top:0px;margin-bottom:5px; ">주문 불러오기</h4>
 						</div>
+					</div>
+					<div class="table-responsive" style="border:solid 1px #CCC; overflow: hidden scroll; padding:5px;">
+					<table>
+						<tr><td>주문 번호</td><td>날짜</td><td>금액</td><td>메모</td></tr>
+						<tbody id="save_order_list" >
+						<c:forEach var="ord" items="${ordList }" varStatus="vs">
+						<tr><td>${ord.ord_id }</td><td>${ord.ord_date }</td><td>${ord.ord_total }</td><td>${ord.ord_memo }</td>
+						<td><a id="delete_saveorder" href="#" data-hidden="${ord.ord_id }"class="btn btn-danger btn-xs btnDelete"><span class="glyphicon glyphicon-remove"></span></a></td></tr>
+						</c:forEach>
+						</tbody>
+					</table>
+						
 					</div>
 					
 					
 				</div>
 				<div id="manu_detail" style="display: none;">
-					<input type="button" id="return_save" value="이전"> <input type="button" value="샷추가"> <input type="button" value="사이즈 업"> <input type="button" value="휘핑 추가">
+				<div class="clearfix menubtn">
+				<div class="col-md-3 col-xs-6" style="height: 55px; margin-top: 10px">
+			              	<button type="button" id="return_save" name="btn_filter" class="btn btn-success form-control dateBtn"style="height: 100%;">이전</button>
+			             </div>
+				<div class="col-md-3 col-xs-6" style="height: 55px; margin-top: 10px">
+			              	<button type="button" name="btn_filter" class="btn btn-primary form-control dateBtn"style="height: 100%;" value="shot" data-hidden="500">샷 추가</button>
+			             </div>
+			    <div class="col-md-3 col-xs-6" style="height: 55px; margin-top: 10px">
+			              	<button type="button" name="btn_filter" class="btn btn-primary form-control dateBtn"style="height: 100%;" value="doubleShot" data-hidden="1000">샷 더블 추가</button>
+			             </div>
+			             <div class="col-md-3 col-xs-6" style="height: 55px; margin-top: 10px">
+			              	<button type="button" name="btn_filter" class="btn btn-primary form-control dateBtn"style="height: 100%;" value="iceUp" data-hidden="0">얼음 많이</button>
+			             </div>
+			             <div class="col-md-3 col-xs-6" style="height: 55px; margin-top: 10px">
+			              	<button type="button" name="btn_filter" class="btn btn-primary form-control dateBtn"style="height: 100%;" value="minshot" data-hidden="-500">샷 빼기</button>
+			             </div>
+			             <div class="col-md-3 col-xs-6" style="height: 55px; margin-top: 10px">
+			              	<button type="button" name="btn_filter" class="btn btn-primary form-control dateBtn"style="height: 100%;" value="cream" data-hidden="500">휘핑 추가</button>
+			             </div>
+			             <div class="col-md-3 col-xs-6" style="height: 55px; margin-top: 10px">
+			              	<button type="button" name="btn_filter" class="btn btn-primary form-control dateBtn"style="height: 100%;" value="sizeUp" data-hidden="500">사이즈 업</button>
+			             </div>
+			             <div class="col-md-3 col-xs-6" style="height: 55px; margin-top: 10px">
+			              	<button type="button" name="btn_filter" class="btn btn-primary form-control dateBtn"style="height: 100%;" value="iceDown" data-hidden="0">얼음 작게</button>
+			             </div>
+			             <div class="col-md-3 col-xs-6" style="height: 55px; margin-top: 10px">
+			              	<button type="button" name="btn_filter" class="btn btn-primary form-control dateBtn"style="height: 100%;" value="milk" data-hidden="600">우유 추가</button>
+			             </div>
+			             <div class="col-md-3 col-xs-6" style="height: 55px; margin-top: 10px">
+			              	<button type="button" name="btn_filter" class="btn btn-primary form-control dateBtn"style="height: 100%;" value="pearl" data-hidden="600">펄 추가</button>
+			             </div>
+			             <div class="col-md-3 col-xs-6" style="height: 55px; margin-top: 10px">
+			              	<button type="button" name="btn_filter" class="btn btn-primary form-control dateBtn"style="height: 100%;" value="syrup" data-hidden="0">시럽 추가</button>
+			             </div>
+			             <div class="col-md-3 col-xs-6" style="height: 55px; margin-top: 10px">
+			              	<button type="button" name="btn_filter" class="btn btn-primary form-control dateBtn"style="height: 100%;" value="money" data-hidden="1000">사장님 용돈주기</button>
+			             </div>
+				</div>
 				</div>
 				</div>
 				<div class="col-md-6 col-sm-6">
@@ -87,14 +135,14 @@
 						</div>
 																		<div class="col-md-1 col-sm-2 col-xs-2"><a href="new_quick_item.php" class="btn btn-primary form-control" data-target="#new-item-modal" data-toggle="modal" title="ADD NEW PRODUCT"><span class="glyphicon glyphicon-plus"></span></a></div>
 											</div>
-					<div class="table-responsive main_sale_table" style="padding: 5px; min-height: 550px; max-height: 550px; ove" id="sales_items">
-						<table class="table tbl_narrow table-responsive" style="font-size:10px;" id="inv_detail">
+					<div class="table-responsive main_sale_table" style="padding: 5px; min-height: 550px; max-height: 550px; overflow: hidden scroll;" id="sales_items">
+						<table class="table tbl_narrow table-responsive" style="font-size:12px;" id="inv_detail">
 							<thead>
 							<tr>
 								<th width="50%" style="min-width:200px;">메뉴 이름</th>
-								<th style="min-width:40px;">수량</th>
 								<th style="min-width:50px;">가격</th>
 								<th style="min-width:40px;">할인(%)</th>
+								<th style="min-width:40px;">수량</th>
 								<th style="min-width:60px;">상품 총액</th>
 								<th style="width:30px;"></th>
 							</tr>
@@ -121,11 +169,12 @@
 						<input type="hidden" name="item_atrr_1" id="item_atrr_1" value="">
 						<input type="hidden" name="is_group_1" id="is_group_1" value="No">
 						<div style="font-weight:bold;">Americano</div>
-						</td><td><input type="number" name="qty_1" id="qty_1" value="1" class="form-control" oninput="changeCount(this.name,this)"></td>
-						<td><input type="text" name="prate_1" id="prate_1" value="0.00" class="form-control" onkeyup="cals(1);"></td>
-						<td><input type="text" name="dist_1" id="dist_1" value="0" class="form-control" oninput="cals(1);"></td>
+						</td>
+						<td><input type="text" name="prate_1" id="prate_1" value="0.00" class="form-control" ></td>
+						<td><input type="number" name="dist_1" id="dist_1" value="0" class="form-control" ></td>
+						<td><input type="number" name="qty_1" id="qty_1" value="1" class="form-control" oninput="changeCount(this.name,this)"></td>
 						<td><input type="text" name="total_1" id="total_1" value="견본(삭제금지)" class="form-control" readonly="Yes"></td>
-						<td><a href="#" class="btn btn-danger btn-xs btnDelete"><span class="glyphicon glyphicon-remove"></span></a></td></tr>
+						<td><a id="delete_order" href="#" class="btn btn-danger btn-xs btnDelete"><span class="glyphicon glyphicon-remove"></span></a></td></tr>
 						</tbody>
 						
 						</table>
@@ -190,7 +239,7 @@
 							</div>
 							<div class="form-group" style="margin:0px;margin-bottom:0px;">
 								<input type="hidden" name="cust_id" id="cust_id" value="">
-								<div class="col-md-10"><input type="text" name="customer_name" id="customer_name" class="form-control ac_input" placeholder="고객 요청사항" autocomplete="off"></div>
+								<div class="col-md-10"><input type="text" name="customer_name" id="ord_memo" class="form-control ac_input" placeholder="고객 요청사항" autocomplete="off"></div>
 																								<div class="col-md-2"><a href="loginOut" class="btn btn-primary form-control" id="stf_id" data-hidden="${sessionScope.stf_id}" >판매자:${sessionScope.stf_name}</a></div>
 																<div id="cust_detail"></div>
 								</div>
