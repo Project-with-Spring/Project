@@ -59,8 +59,8 @@
 					</c:forEach>
 					
 																	</div>
-					<div id="save_order">
-					<div class="col-md-9 hidden-xs">
+					<div id="save_order" class="clearfix">
+					<div class="col-md-9 hidden-xs" style=" margin-bottom: 10px;">
 						<div class="table-responsive" style="border:solid 1px #CCC;padding:5px; background-color: #cffbcf;" >
 							<h4 class="text-center" style="margin-top:0px;">최근 저장된 주문</h4>
 							<div id="recent_sales"></div>
@@ -71,17 +71,21 @@
 							<h4 class="text-center" style="margin-top:0px;margin-bottom:5px; ">주문 불러오기</h4>
 						</div>
 					</div>
-					<div class="table-responsive" style="border:solid 1px #CCC; overflow: hidden scroll; padding:5px;">
-					<table>
-						<tr><td>주문 번호</td><td>날짜</td><td>금액</td><td>메모</td></tr>
+					<div style="padding: 5px; width: 100%;">
+					<div class="table-responsive" style="border:solid 1px #CCC;overflow-y: auto;padding:5px;width: 100%;height: 171px;max-height: 171px;">
+					<table style="width: 100%;" class="saveOrder">
+						<thead>
+						<tr><td class="tac">주문 번호</td><td class="tac">날짜</td><td class="tac">금액</td><td class="tac">메모</td><td></td></tr>
+						</thead>
 						<tbody id="save_order_list" >
 						<c:forEach var="ord" items="${ordList }" varStatus="vs">
-						<tr><td>${ord.ord_id }</td><td>${ord.ord_date }</td><td>${ord.ord_total }</td><td>${ord.ord_memo }</td>
-						<td><a id="delete_saveorder" href="#" data-hidden="${ord.ord_id }"class="btn btn-danger btn-xs btnDelete"><span class="glyphicon glyphicon-remove"></span></a></td></tr>
+						<tr><td class="tac">${ord.ord_id }</td><td class="tac">${ord.ord_date }</td><td class="tac">${ord.ord_total }</td><td class="tac">${ord.ord_memo }</td>
+						<td class="tac"><a id="delete_saveorder" href="#" data-hidden="${ord.ord_id }"class="btn btn-danger btn-xs btnDelete"><span class="glyphicon glyphicon-remove"></span></a></td></tr>
 						</c:forEach>
 						</tbody>
 					</table>
 						
+					</div>
 					</div>
 					
 					
@@ -157,24 +161,6 @@
 							</tr> -->
 							
 						<tbody id="order_list">
-<!-- 						<tr> -->
-<!-- 						<td> -->
-<!-- 						<div id="order_list"></div> -->
-<!-- 						</td> -->
-<!-- 						</tr> -->
-						<tr id="1">
-						<td><input type="hidden" name="pdt_id1" id="item_id_1" value="3642">
-						<input type="hidden" name="item_name_1" id="item_name_1" value="Americano">
-						<input type="hidden" name="item_code_1" id="item_code_1" value="coffee01">
-						<input type="hidden" name="item_atrr_1" id="item_atrr_1" value="">
-						<input type="hidden" name="is_group_1" id="is_group_1" value="No">
-						<div style="font-weight:bold;">Americano</div>
-						</td>
-						<td><input type="text" name="prate_1" id="prate_1" value="0.00" class="form-control" ></td>
-						<td><input type="number" name="dist_1" id="dist_1" value="0" class="form-control" ></td>
-						<td><input type="number" name="qty_1" id="qty_1" value="1" class="form-control" oninput="changeCount(this.name,this)"></td>
-						<td><input type="text" name="total_1" id="total_1" value="견본(삭제금지)" class="form-control" readonly="Yes"></td>
-						<td><a id="delete_order" href="#" class="btn btn-danger btn-xs btnDelete"><span class="glyphicon glyphicon-remove"></span></a></td></tr>
 						</tbody>
 						
 						</table>
