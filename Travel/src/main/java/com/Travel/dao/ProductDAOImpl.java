@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.Travel.domain.ProductBean;
+import com.Travel.utill.Pagination;
 
 @Repository
 public class ProductDAOImpl implements ProductDAO {
@@ -20,6 +21,36 @@ public class ProductDAOImpl implements ProductDAO {
 	// Product 전체 목록 뽑아오기
 	public List<ProductBean> getPdtList() {
 		return sqlSession.selectList(namespace + ".selectProductList");
+	}
+
+	@Override
+	public ProductBean getPdt(Long pdt_id) {
+		return sqlSession.selectOne(namespace + ".selectProduct", pdt_id);
+	}
+
+	@Override
+	public void add(ProductBean pdt) {
+		sqlSession.insert(namespace + ".insertProduct", pdt);
+	}
+
+	@Override
+	public void update(ProductBean pdt) {
+		sqlSession.update(namespace + ".updateProduct", pdt);
+	}
+
+	@Override
+	public void delete(Long pdt_id) {
+		sqlSession.delete(namespace + ".deleteProduct", pdt_id);
+	}
+
+	@Override
+	public int countProduct() {
+		return sqlSession.selectOne(namespace + ".countProduct");
+	}
+
+	@Override
+	public List<ProductBean> selectProductListPage(Pagination pagination) {
+		return sqlSession.selectList(namespace + ".pdtListPage", pagination);
 	} 
 
 }

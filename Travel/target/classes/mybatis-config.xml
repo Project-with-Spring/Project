@@ -21,6 +21,9 @@
  		
 		<!-- 판매내역 -->
 		<typeAlias alias="orderBean" type="com.Travel.domain.OrderBean"/>
+		
+		<!-- 판매상세내역 -->
+		<typeAlias alias="orderDetailBean" type="com.Travel.domain.OrderDetailBean"/>
 		<!-- 페이지 -->
 		<typeAlias alias="pageBean" type="com.Travel.domain.PageBean"/>
 		

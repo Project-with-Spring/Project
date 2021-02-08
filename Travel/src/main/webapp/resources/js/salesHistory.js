@@ -1,4 +1,5 @@
 $(function() {
+
 		$('#historyTable').DataTable({
 			//표시 건수기능 숨기기
 			lengthChange: false,

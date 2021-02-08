@@ -21,16 +21,12 @@
 	      <!-- Default box -->
       <div class="box">
 	  	<div class="box-header with-border">
-          <h3 class="box-title"></h3>
-          <div class="box-tools pull-right"><a id="csvDownloadButton" class="btn btn-success btn-sm">CSV 내보내기</a> <a href="<c:url value="sales"/>" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> 주문받기</a></div>
+          <h3 class="box-title">판매내역 리스트</h3>
+          <div class="box-tools pull-right">
+          <a href="<c:url value="saleInfo"/>" class="btn btn-success btn-sm"><i class="fa fa-pie-chart"></i> 판매현황</a> 
+          <a id="csvDownloadButton" class="btn btn-success btn-sm"><i class="fas fa-file-csv"></i> CSV 내보내기</a> 
+          <a href="javascript:add_new();" class="btn btn-success btn-sm"><i class="fas fa-coins"></i> 포인트 적립</a></div>
         </div>
-		<script>
-		function print_opt()
-		{
-			var URL = 'sales_print.php?txt_search='+$('#txt_search').val()+'&from='+$('#from').val()+'&to='+$('#to').val()+'&branch_id='+$('#branch_id').val()+'&cust_id='+$('#cust_id').val()+'&user_id='+$('#user_id').val()+'&pstatus='+$('#pstatus').val();
-			print_sub(URL,800,600);
-		}
-		</script>
         <div class="box-body">
   	       <div id="my_all">
 			<form name="frm_filter" id="frm_filter" method="get" action="<c:url value="/salesHistory"/>" class="form-horizontal">
@@ -49,8 +45,12 @@
 			  <div class="col-md-3">
 			  	<select name="pmt_search" id="pmt_search" class="form-control select2" style="width:100%;">
 					<option value="">결제타입</option>
-					<option value="현금" <c:if test="${param.pmt_search eq '현금' }">selected</c:if>>현금</option>
-					<option value="카드" <c:if test="${param.pmt_search eq '카드' }">selected</c:if>>카드</option>
+					<option value="cash" <c:if test="${param.pmt_search eq 'cash' }">selected</c:if>>현금</option>
+					<option value="card" <c:if test="${param.pmt_search eq 'card' }">selected</c:if>>카드</option>
+					<option value="samsungpay" <c:if test="${param.pmt_search eq 'samsungpay' }">selected</c:if>>삼성페이</option>
+					<option value="kakaopay" <c:if test="${param.pmt_search eq 'kakaopay' }">selected</c:if>>카카오페이</option>
+					<option value="payco" <c:if test="${param.pmt_search eq 'payco' }">selected</c:if>>페이코</option>
+				
 				</select>
 			  </div>
               <div class="col-md-2">
@@ -78,6 +78,37 @@
         </form>
 		<script>
 		$(document).ready(function(){
+			$(document).on('blur','#ord_id',function(){
+				var ord_id = $('#ord_id').val();
+				$('#ordBox').load('<c:url value="saleDetail?ord_id="/>'+ord_id+' #detailBox',function(){
+					if($('#isSetpoint').html().indexOf('가능') == -1){
+						alert('이미 적립된 내역입니다.');
+						$('#ordBox').empty();
+						$('#ord_id').val('');
+						$('#ord_id').focus();
+					} else {
+						$('#pot_point').val(($('#total').html())*0.05);
+					}
+				});
+			})
+			$(document).on('blur','#ord_id',function(){
+				var ord_id = $('#ord_id').val();
+				if(ord_id == ""){
+					$('#err_msg_1').css('display','inline');
+					$('#ordBox').empty();
+					$('#pot_point').val('');
+				} else {
+					$('#err_msg_1').css('display','none');
+				}
+			})
+			$(document).on('blur','#phoneNumber',function(){
+				var phoneNumber = $('#phoneNumber').val();
+				if(phoneNumber == ""){
+					$('#err_msg_2').css('display','inline');
+				} else {
+					$('#err_msg_2').css('display','none');
+				}
+			})
 			$(document).on('click','.ord_memo',function(){
 				var ord_id = $(this).attr('id').replaceAll('memo','');
 				var memo = $(this).html();
@@ -115,7 +146,7 @@
             <thead>
                 <tr id="tr_top">
                   <th width="5%">#</th>
-                    <th width="10%">판매날짜</th>
+                    <th width="15%">판매날짜</th>
 					<th width="10%">판매자</th>
 					<th width="10%">판매금액</th>
 					<th width="10%">결제타입</th>
@@ -139,7 +170,7 @@
 						<td>${ord_discount }</td>
 						<td>${list.pot_id }</td>
 						<td><c:choose><c:when test="${list.ord_cancel == 0}">판매완료</c:when><c:otherwise>판매취소</c:otherwise></c:choose></td>
-						<td>상세보기</td>
+						<td><a href="<c:url value="saleDetail?ord_id=${list.ord_id }"/>">상세보기</a></td>
 						<td class="text-right ord_memo" style="cursor: pointer" width="10%" id="memo${list.ord_id }">${list.ord_memo }</td>
 						</tr>
 		  				</c:forEach>
@@ -209,11 +240,37 @@
 			</div>
              
           </div>
-		  
+          
+ 		  <div id="add_new" class="col-sm-12 col-md-12 col-lg-12" style="display: none;">
+			<form method="post" action="<c:url value="setPoint"/>" class="form-horizontal">
+			  <div class="form-group">
+			  <label class="col-md-2 control-label" for="ord_id">주문번호 :</label>
+			  <div class="col-md-4"><input type="number" id="ord_id" name="ord_id" class="form-control"></div>
+			  <div class="col-md-4" style="overflow: hidden;"><span class="alert alert-danger" id="err_msg_1">주문번호를 입력하세요</span></div>
+			</div>
+			<div class="form-group">
+				  <label class="col-md-2 control-label" for="pot_id">고객전화번호 :</label>
+				  <div class="col-md-4"><input type="text" placeholder="'-'를 제외한 전화번호" name="pot_id" id="phoneNumber" class="form-control" required="required"></div>
+				  <div class="col-md-4" style="overflow: hidden;"><span class="alert alert-danger" id="err_msg_2">고객전화번호를 입력하세요</span></div>
+			  </div>
+			  <div class="form-group">
+				  <label class="col-md-2 control-label" for="old_pot_point">잔여포인트 :</label>
+				  <div class="col-md-4"><input type="text" name="balance" id="balance" class="form-control" readonly="Yes"></div>
+			  </div>
+			  <div class="form-group">
+				  <label class="col-md-2 control-label" for="pot_point">적립포인트 :</label>
+				  <div class="col-md-4"><input type="text" name="pot_point" id="pot_point" class="form-control required" readonly="Yes" required></div>
+			  </div>
+			  <div class="form-group" style="text-align: center;">
+					  <button class="btn btn-success">포인트 적립</button>
+			  </div>
+			  </form>
+			  <div id="ordBox"></div>
+          </div>
+          		  
         </div>
       </div>
       <!-- /.box -->
-
     </section>
     <!-- /.content -->
   </div>
@@ -226,4 +283,5 @@
 <script src="<c:url value="/resources/js/salesHistory.js"/>"></script>
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/js/DataTables/datatables.min.css?ver=1"/>"/>
 <script type="text/javascript" src="<c:url value="/resources/js/DataTables/datatables.min.js"/>"></script>
+<script src="<c:url value="/resources/js/sale.js"/>"></script>
 <c:import url="/footer"/>
