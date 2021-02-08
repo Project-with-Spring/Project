@@ -67,8 +67,10 @@ public class SaleController {
 		for(String i : pdt_priceList) {
 			total += Integer.parseInt(i);
 		}
-		for(String i : dt_price) {
-			total += Integer.parseInt(i);
+		if(dt_price != null) {
+			for(String i : dt_price) {
+				total += Integer.parseInt(i);
+			}
 		}
 		int sale_point = Integer.parseInt(request.getParameter("sale_point"));
 		OrderBean ordBean = new OrderBean();
@@ -91,8 +93,8 @@ public class SaleController {
 						odt_memo += dt_name[j]+"("+dt_count[j]+")"; 
 					}
 				}
-				System.out.println(odt_memo+"============================================================");
-				System.out.println(odt_price+"============================================================");
+				odtBean.setOdt_memo(odt_memo);
+				odtBean.setDt_price(odt_price);
 			}
 			odtBean.setOrd_id(order_id);
 			odtBean.setPdt_id(pdt_idList[i]);
@@ -179,13 +181,10 @@ public class SaleController {
 		String ord_id = request.getParameter("ord_id");
 		OrderBean ordBean = saleService.getSaveOrder(ord_id);
 		List<OrderDetailBean> odtBean = saleService.getOrderDetail(ord_id);
-//		model.addAttribute("ordBean",ordBean);
-//		model.addAttribute("odtBean",odtBean);
 		
 		Map<String, Object> bean = new HashMap<>();
-		bean.put("ordBean", ordBean);
-		bean.put("odtBeanList", odtBean);
-		
+		bean.put("odtBean",odtBean);
+		bean.put("ordBean",ordBean);
 		return bean;
 //		List<Map> list2 = new ArrayList<>();
 //		list2.add(map);

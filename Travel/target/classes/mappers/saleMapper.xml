@@ -50,7 +50,7 @@
 	</insert>
 	
 	<select id="getSaveOrderList" resultType="orderBean">
-		select * from `order` where ord_cancel='1'
+		select * from `order` where ord_cancel='1' order by ord_id desc
 	</select>
 	
 	<select id="deleteOrder">
@@ -62,7 +62,7 @@
 	</select>
 	
 	<select id="getSaveOrderDetail" resultType="com.Travel.domain.OrderDetailBean">
-		select * from orderdetail where ord_id=#{ord_id}
+		SELECT * FROM orderdetail odt JOIN product pdt ON odt.pdt_id = pdt.pdt_id WHERE odt.ord_id = #{ord_id};
 	</select>
 	
 </mapper>

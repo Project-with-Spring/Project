@@ -25,5 +25,8 @@
 .manu_sel::after{content:''; display:block; clear:both;}
 
 .manu_sel > li::before {display:none !important;}
-#save_order_list tr{cursor: pointer;}
+#save_order_list tr{cursor: pointer;border-top: 1px solid #eee;}
 #save_order_list tr:hover { background-color: lightyellow; }
+#save_order_list > tr > td{padding: 5px 0; text-align:center;}
+.saveOrder > thead > tr > td{padding: 10px 0;}
+
