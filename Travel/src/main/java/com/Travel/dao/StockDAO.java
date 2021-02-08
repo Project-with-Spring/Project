@@ -3,6 +3,7 @@ package com.Travel.dao;
 import java.util.List;
 
 import com.Travel.domain.StockBean;
+import com.Travel.utill.Pagination;
 
 public interface StockDAO {
 
@@ -15,5 +16,9 @@ public interface StockDAO {
 	public void update(StockBean stc);
 
 	public void delete(Long stc_id);
+
+	public int countStock();
+
+	public List<StockBean> selectStcListPage(Pagination pagination);
 
 }

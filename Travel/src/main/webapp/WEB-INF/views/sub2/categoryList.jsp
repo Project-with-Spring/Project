@@ -163,88 +163,120 @@
 				
 					<div id="tabs-1"> <!-- 상품 리스트 탭 -->
 					
-					<table class="table table-striped table-responsive tbl_narrow" id="table">
+					<table class="table table-striped table-responsive tbl_narrow">
 						<thead>
 						<tr>
-							<th>No.</th>
-							<th>Category Type</th>
+							<th>Product No.</th>
 							<th>Category Name</th>
 							<th>Name</th>
 							<th>Status</th>
 							<th>Detail</th>
 						</tr>
 						</thead>
-						<tbody>
-						<c:set var="num" value="1" />
-						<c:forEach items="${ctgList }" var="ctg">
-
+						<tbody id="pdt-tbody">
+						
 						<!-- 테이블에 들어갈 행 추가 -->
 
 						<c:forEach items="${pdtList }" var="pdt">
+						
+						<c:forEach items="${ctgList }" var="ctg">
+						
 						<!-- 카테고리타입에 따른 상품/재고 이름 출력 -->
 							<c:if test="${ctg.ctg_id eq pdt.ctg_id }">
 							<tr>
-								<td class="scrolling" data-num="${ctg.ctg_id }">${num}</td> 
-								<td>${ctg.ctg_type}: 상품</td>
+								<td>${pdt.pdt_id}</td>
 								<td>${ctg.ctg_name}</td>
 								<td>${pdt.pdt_name}</td>
 								<td>${pdt.pdt_status}</td>
 								<td><a href="<c:url value='/pdt/list/${pdt.pdt_id }' />">상세페이지</a></td>
 							</tr>
-							<c:set var="num" value="${num+1 }" />
 							</c:if>
-						</c:forEach> <!-- pdtList 반복 닫음 -->
 						
 						</c:forEach> <!-- ctgList 반복 닫음 -->
-						
-						<tr>
-							<td colspan="6"> <input type="button" value="상품 더보기" class="btn btn-primary form-control"> </td>
-						</tr>
-						
+
+						</c:forEach> <!-- pdtList 반복 닫음 -->
+
 						</tbody>
 					</table>
 					
+					<div style="display: block; text-align: center;">		
+						<c:if test="${pdtPage.startPage != 1 }">
+							<a href="<c:url value='/ctg/list?nowPage=${pdtPage.startPage - 1 }' />">&lt;</a>
+						</c:if>
+						<c:forEach begin="${pdtPage.startPage }" end="${pdtPage.endPage }" var="p">
+							<c:choose>
+								<c:when test="${p == pdtPage.nowPage }">
+									<b>${p }</b>
+								</c:when>
+								<c:when test="${p != pdtPage.nowPage }">
+									<a href="<c:url value='/ctg/list?nowPage=${p }' />">${p }</a>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+						<c:if test="${pdtPage.endPage != pdtPage.lastPage}">
+							<a href="<c:url value='/ctg/list?nowPage=${pdtPage.endPage+1 }' />">&gt;</a>
+						</c:if>
+					</div>
+	
 					</div>
 					
 					<div id="tabs-2"> <!-- 재고 리스트 탭 -->
 					
-					<table class="table table-striped table-responsive tbl_narrow" id="table">
+					<table class="table table-striped table-responsive tbl_narrow">
 						<thead>
 						<tr>
-							<th>No.</th>
-							<th>Category Type</th>
+							<th>Stock No.</th>
 							<th>Category Name</th>
 							<th>Name</th>
 							<th>Detail</th>
 						</tr>
 						</thead>
 						<tbody>
-						<c:set var="num" value="1" />
-						<c:forEach items="${ctgList }" var="ctg">
 
 						<!-- 테이블에 들어갈 행 추가 -->
 						<c:forEach items="${stcList }" var="stc">
+						
+						<c:forEach items="${ctgList }" var="ctg">
 							<c:if test="${ctg.ctg_id eq stc.ctg_id }">
 							<tr>
-								<td class="scrolling" data-num="${ctg.ctg_id }">${num}</td> 
-								<td>${ctg.ctg_type}: 재고</td>
+								<td>${stc.stc_id}</td> 
 								<td>${ctg.ctg_name}</td>
 								<td>${stc.stc_name}</td>
 								<td><a href="<c:url value='/stc/list/${stc.stc_id }' />">상세페이지</a></td>
 							</tr>
-							<c:set var="num" value="${num+1 }" />
-							</c:if>
-						</c:forEach> <!-- stcList 반복 닫음 -->
-						
+							
+							
+							</c:if>						
 						</c:forEach> <!-- ctgList 반복 닫음 -->
 						
+						</c:forEach> <!-- stcList 반복 닫음 -->
 						
-						<tr>
-							<td colspan="5"> <input type="button" value="재고 더보기" class="btn btn-primary form-control"> </td>
-						</tr>
 						
 						</tbody>
 					</table>
+					
+					
+					
+					<div style="display: block; text-align: center;">		
+						<c:if test="${stcPage.startPage != 1 }">
+							<a href="<c:url value='/ctg/list?nowPage=${stcPage.startPage - 1 }' />">&lt;</a>
+						</c:if>
+						<c:forEach begin="${stcPage.startPage }" end="${stcPage.endPage }" var="p">
+							<c:choose>
+								<c:when test="${p == stcPage.nowPage }">
+									<b>${p }</b>
+								</c:when>
+								<c:when test="${p != stcPage.nowPage }">
+									<a href="<c:url value='/ctg/list?nowPage=${p }' />">${p }</a>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+						<c:if test="${stcPage.endPage != stcPage.lastPage}">
+							<a href="<c:url value='/ctg/list?nowPage=${paging.endPage+1 }' />">&gt;</a>
+						</c:if>
+					</div>
+	
+					
 					
 					</div>
 					
@@ -272,7 +304,129 @@
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script src="<c:url value="/resources/js/app.min.js" />"></script>
 <!-- 	categoryList.jsp 탭 뷰 script 끝 -->
+
+
+<script>
+
+$('#ctg_type').on('click', function() {
+	// json형태로 controller에서 받아온 list를 js에서 활용
+	var ctgList = (${ctgListByJson});
+	// select 안에 달릴 option 내용
+	var option = "<option value='" + 0 + "'>카테고리 이름 선택하기 (카테고리 타입)</option>";
+		
+
+	if($('#ctg_type').val() == 1) {
+		$('#pdt_insert').css('display', 'block');
+		$('#stc_insert').css('display', 'none');
+		
+		// 입력된 내용, 카테고리 select 초기화
+		$('#category').empty();
+		$('#category').append(option);
+		$('input:text[name=pdt_name]').prop('value', '');
+		$('input:text[name=pdt_cost]').prop('value', '');
+		
+		for(var i=0; i<ctgList.length; i++) {
+			var ctg = ctgList[i];
+
+			if(ctg.ctg_type == 1) {
+				option = "<option value='" + ctg.ctg_id + "'>" + 
+					ctg.ctg_name + "(" + ctg.ctg_type + ", 상품)</option>";
+				$('#category').append(option);
+			}
+		}
+		
+	} else if($('#ctg_type').val() == 2) {
+		$('#pdt_insert').css('display', 'none');
+		$('#stc_insert').css('display', 'block');
+
+		// 입력된 내용, 카테고리 select 초기화
+		$('#category').empty();
+		$('#category').append(option);
+		$('input:text[name=stc_name]').prop('value', '');
+		$('input:text[name=stc_cost]').prop('value', '');
+		$('input:text[name=stc_count]').prop('value', '');
+
+		for(var i=0; i<ctgList.length; i++) {
+			var ctg = ctgList[i];
+			
+			if(ctg.ctg_type == 2) {
+				option = "<option value='" + ctg.ctg_id + "'>" + 
+					ctg.ctg_name + "(" + ctg.ctg_type + ", 재고)</option>";
+				$('#category').append(option);
+			}
+			
+		}
+	} else {
+		$('#pdt_insert').css('display', 'none');
+		$('#stc_insert').css('display', 'none');
+	}
+});
+
+
+
+
+//한 상품에 대한 재고 사용량 입력
+//$('#btn-stc-pdt').on('click', function() {
+//	var stc = "재료명";
+//	var usage = "사용량";
+//	var html = "선택된 재료명&사용량 입력할 tag 저장 변수";
+//
+//	if($('#stc_pdt').val() == 0) {
+//		alert('재료를 선택하세요');
+//		return ;
+//	} else if($('#stc_usage').val() == "") {
+//		alert('사용량을 입력하세요');
+//		return ;
+//	} else {
+//		stc = $('#stc_pdt option:selected').text();
+//		usage = $('#stc_usage').val();
+//
+//		html = "<input type='text' value='" + stc + "' name='stc_pdt' readonly> " +
+//			"<input type='text' value='" + usage + "' name='stc_usage' readonly> " + 
+//			"<input type='button' value='선택 옵션 삭제' name='stc_pdt_del' class='form-control btn btn-danger btn-sm' > <br>";
+//		
+//		$('#stc_input').html(html);
+//
+//		$('#stc_pdt').prop('value', 0);
+//		$('#stc_usage').prop('value', '');
+//	}
+//});
+//
+//function stc_del() {
+////	구현하다맘..
+//}
+
+
+//form action 변경
+var action = "";
+
+$('#sub_mit').on('click', function() {
+	// ctg_id 를 hidden으로 form안에 넣어서 보낼게용
+	var ctg_id = $('#category option:selected').val();
+	var html = "<input type='hidden' name='ctg_id' value='" + ctg_id + "' >";
+	$('#frm_new').append(html);
 	
+	if($('#ctg_type').val() == 1) {
+		action = "/go/pdt/add";
+	} else if($('#ctg_type').val() == 2) {
+		action = "/go/stc/add";
+	}
+
+	// action 값 변경
+	$('#frm_new').attr('action', action);
+
+	// form submit
+	$('#frm_new').submit();
+});
+
+
+//탭 화면 전환
+$(function() {
+	$('#tabs').tabs();
+});
+
+
+</script>
 
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.Travel.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -24,6 +25,11 @@ public class CategoryDAOImpl implements CategoryDAO {
 	@Override
 	public CategoryBean getCtg(String ctg_id) {
 		return sqlSession.selectOne(namespace + ".selectCategory", ctg_id);
+	}
+
+	@Override
+	public List<CategoryBean> getCtgPdtList(Map<String, Object> map) {
+		return sqlSession.selectList(namespace + ".selectCtgPdtList", map);
 	}
 	
 

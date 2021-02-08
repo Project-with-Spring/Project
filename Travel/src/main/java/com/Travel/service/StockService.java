@@ -3,6 +3,7 @@ package com.Travel.service;
 import java.util.List;
 
 import com.Travel.domain.StockBean;
+import com.Travel.utill.Pagination;
 
 public interface StockService {
 
@@ -16,4 +17,7 @@ public interface StockService {
 
 	public void delete(Long stc_id);
 
+	public int countStock();
+	
+	public List<StockBean> selectStcListPage(Pagination pagination);
 }

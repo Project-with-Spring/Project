@@ -3,6 +3,7 @@ package com.Travel.dao;
 import java.util.List;
 
 import com.Travel.domain.ProductBean;
+import com.Travel.utill.Pagination;
 
 public interface ProductDAO {
 
@@ -15,5 +16,9 @@ public interface ProductDAO {
 	public void update(ProductBean pdt);
 
 	public void delete(Long pdt_id);
+
+	public int countProduct();
+
+	public List<ProductBean> selectProductListPage(Pagination pagination);
 
 }

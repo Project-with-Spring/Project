@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.Travel.domain.CategoryBean;
 import com.Travel.domain.ProductBean;
 import com.Travel.domain.StockBean;
 import com.Travel.service.CategoryService;
 import com.Travel.service.ProductService;
+import com.Travel.utill.Pagination;
 
 @Controller
 //http://localhost:8080/go/pdt
@@ -30,8 +32,15 @@ public class ProductController {
 	
 	// http://localhost:8080/go/pdt/list
 	@RequestMapping("/list")
-	public String list(Model model) {
-		List<ProductBean> pdtList = productService.getPdtList();
+	public String list(Model model, Pagination page, @RequestParam(value="nowPage", required=false)String nowPage) {
+		int pdtTotal = productService.countProduct();
+		if(nowPage == null) {
+			nowPage = "1";
+		}
+		page = new Pagination(pdtTotal, Integer.parseInt(nowPage), 20);
+		model.addAttribute("pdtPage", page);
+		
+		List<ProductBean> pdtList = productService.selectProductListPage(page);
 		model.addAttribute("pdtList", pdtList);
 		
 		return "sub2/productList";
