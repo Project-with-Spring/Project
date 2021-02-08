@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 import com.Travel.dao.StaffDAO;
+import com.Travel.domain.PageBean;
 import com.Travel.domain.StaffBean;
 
 @Service
@@ -16,7 +17,7 @@ public class StaffServiceImpl implements StaffService{
 	private StaffDAO staffDAO;
 
 	@Override
-	public List<StaffBean> getStaffList(HashMap map) {		
+	public List<StaffBean> getStaffList(HashMap<String, Object> map) {		
 		return  staffDAO.getStaffList(map);
 	}
 
@@ -45,6 +46,17 @@ public class StaffServiceImpl implements StaffService{
 	public void updateStaff(StaffBean sb) {
 		staffDAO.updateStaff(sb);
 		
+	}
+
+	@Override
+	public int countStaff(HashMap map) {
+		return staffDAO.countStaff(map);
+	}
+
+	@Override
+	public List<StaffBean> getLoginStaffList() {
+		// TODO Auto-generated method stub
+		return staffDAO.getLoginStaffList();
 	}
 	
 }

@@ -81,8 +81,8 @@ public class CommuteServiceImpl implements CommuteService{
 	}
 
 	@Override
-	public void comumteModify(StaffBean sb) {
-		 commuteDAO.comumteModify(sb);
+	public void comumteModify(CommuteBean cmb) {
+		 commuteDAO.comumteModify(cmb);
 		
 	}
 
@@ -96,6 +96,11 @@ public class CommuteServiceImpl implements CommuteService{
 	public StaffBean getStaffCommutOnetotal(HashMap map) {
 		// TODO Auto-generated method stub
 		return commuteDAO.getStaffCommutOnetotal(map);
+	}
+
+	@Override
+	public int countCommute(HashMap map) {
+		return commuteDAO.countCommute(map);
 	}
 
 }
