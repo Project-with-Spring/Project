@@ -15,7 +15,7 @@
 			where st.stf_name like CONCAT('%',#{stf_name},'%')
 			<!-- where st.stf_name like CONCAT('%',#{stf_name},'%')and st.pst_id=#{pst_id} ; -->		
 			<if test='pst_id != "" and pst_id != null'>
-				and st.pst_id=#{pst_id} ;
+				and st.pst_id=#{pst_id} 
 			</if>
 			<if test="pageBean.pageNum != null and pageBean.pageNum != ''" >
 				LIMIT #{pageBean.startRow},#{pageBean.pageSize}
@@ -42,7 +42,7 @@
 			where st.stf_name like CONCAT('%',#{stf_name},'%')
 			<!-- where st.stf_name like CONCAT('%',#{stf_name},'%')and st.pst_id=#{pst_id} ; -->		
 			<if test="pst_id != ''">
-				and st.pst_id=#{pst_id} ;
+				and st.pst_id=#{pst_id} 
 			</if>
 	</select>
 		
