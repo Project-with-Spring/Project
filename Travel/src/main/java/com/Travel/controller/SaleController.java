@@ -179,31 +179,13 @@ public class SaleController {
 	public Map<String, Object> getSaveOrder(Model model, HttpServletRequest request) {
 		System.out.println("saveOrder도착");
 		String ord_id = request.getParameter("ord_id");
-		OrderBean ordBean = saleService.getSaveOrder(ord_id);
+//		OrderBean ordBean = saleService.getSaveOrder(ord_id);
 		List<OrderDetailBean> odtBean = saleService.getOrderDetail(ord_id);
 		
 		Map<String, Object> bean = new HashMap<>();
 		bean.put("odtBean",odtBean);
-		bean.put("ordBean",ordBean);
+//		bean.put("ordBean",ordBean);
 		return bean;
-//		List<Map> list2 = new ArrayList<>();
-//		list2.add(map);
-//		
-//		Map<String, Object> list = new HashMap<>();
-//		list.put("list", list2);
-//
-//		System.out.println("list : " + bean);
-//		System.out.println("list.get(list) : " + list.get("list"));
-//		
-//		List<Map> temp = (List<Map>) list.get("list");
-//		
-//		System.out.println("temp :" + temp);
-//		System.out.println("temp.get(0) :" + temp.get(0));
-//		
-//		Map<String, Object> tMap = temp.get(0);
-//		
-//		System.out.println("tMap :" + tMap);
-//		System.out.println("tMap.get(Seq) :" + tMap.get("Seq"));
 		
 	}
 	

@@ -226,12 +226,66 @@ $(function() {
 	});
 	// 메뉴 삭제
 	$(document.body).delegate('#delete_order','click',function() {
+		var phone = $("input[name='paid_amt']").val();
+		if(phone != ""){
+			alert('회원번호를 초기화 해주세요.');
+			return false;
+		}
+		
 		if($(this).closest('tr').data('select')=="on"){
 		$('#manu_detail').hide();
 		$('#save_order').show();
 		}
 		$(this).closest('tr').remove();
+		var pdt_id = $(this).closest('tr').find("input[name='pdt_id']").val();
+		var dt_price = 0;
+		$("input[name='dt_pdt_id']").each(function(i) {
+			if(pdt_id == $(this).val()){
+				$(this).closest('tr').remove();
+				var plus_dt_price = parseInt(deleteComma($(this).closest('tr').find("input[name='dt_price']").val()));
+				dt_price += plus_dt_price;
+//				alert("상품 가격 : " + plus_dt_price + "\n총 상품가격 :" + dt_price);
+			}
+		})
+		
+		var minusPrice = deleteComma($(this).closest('tr').find("input[name='pdt_price']").val());
+		var minusCount = parseInt($(this).closest('tr').find("input[name='pdt_count']").val());
+		var total_sale = deleteComma($('#sub_total').val());
+		var total_items = $('#total_items').val();
+		var totalCount = parseInt($('#total_qty').val());
+		total_sale -= minusPrice;
+		total_sale -= dt_price;
+		total_items --;
+		$('#total_items').val(total_items);
+		$('#total_qty').val(totalCount-minusCount);
+		$('#sub_total').val(plusComma(total_sale));
+		$('#tlt_tax').val(total_sale/20);
+		$('#TLT_AMOUNTS').html(plusComma(total_sale)+" 원"); 
 	})
+	
+	// 디테일 메뉴 삭제
+	$(document.body).delegate('#delete_orderDetail','click',function() {
+		var phone = $("input[name='paid_amt']").val();
+		if(phone != ""){
+			alert('회원번호를 초기화 해주세요.');
+			return false;
+		}
+		
+		if($(this).closest('tr').data('select')=="on"){
+		$('#manu_detail').hide();
+		$('#save_order').show();
+		}
+		$(this).closest('tr').remove();
+		
+		var minusPrice = deleteComma($(this).closest('tr').find("input[name='dt_price']").val());
+		var total_sale = deleteComma($('#sub_total').val());
+		total_sale -= minusPrice
+		total_items --;
+		$('#sub_total').val(plusComma(total_sale));
+		$('#tlt_tax').val(total_sale/20);
+		$('#TLT_AMOUNTS').html(plusComma(total_sale)+" 원"); 
+	})
+	
 	var selectsaveorder ="";
 	$('#save_order_list tr').click(function() {
 		if($(this).closest('tr').data('select')=="on"){
@@ -248,7 +302,6 @@ $(function() {
 	})
 	$('#getSaveOrder').click(function() {
 		var ord_id = selectsaveorder.find('#delete_saveorder').data('hidden');
-		alert(ord_id);
 		$.ajax({
 			url : "getSaveOrder",
 			type : "post",
@@ -258,17 +311,11 @@ $(function() {
 				ord_id:ord_id
 			},
 			success:function(data){
-				var ordBean = data.ordBean;
+//				var ordBean = data.ordBean;
 				var odtBeanList = data.odtBean;
 				var total_sale =0;
 				var totalItems = 0;
 				var totalCount = 0;
-				alert("됐냐?\n주문번호 : " + ordBean.ord_id +
-				"\n상품가격 : " + ordBean.ord_total+
-				"\n내용 : " + ordBean.pmt_name+
-				"\n상품 1:" + odtBeanList[0].pdt_name+
-				"\n상품 2:" + odtBeanList[1].pdt_name
-				);
 				$('#order_list').html("");
 				$.each(odtBeanList, function(i) {
 					var pdt_name = odtBeanList[i].pdt_name;
@@ -334,10 +381,10 @@ $(function() {
 			count ++;$(check+"count").val(count);
 		}else {
 		selectmenu.after("<tr><td><input type ='hidden' id='"+detailmenu+pdt_id+"' name='dt_pdt_id' value='"+pdt_id+"'</td><td colspan='2'><div>"+$(this).text()+"</div></td>"
-		+"<td><input type='number' id='"+detailmenu+pdt_id+"count' name='dt_count' value='1'></td>"
+		+"<td><input type='number' id='"+detailmenu+pdt_id+"count' name='dt_count' value='1' readonly='true'></td>"
 		+"<td><input type='text' id='"+detailmenu+pdt_id+"price' name='dt_price' value='"+plusComma(cost)+"' readonly='true'></td>"
-		+"<td><a id='delete_order' href='#' class='btn btn-danger btn-xs btnDelete'>"
-		+"<span class='glyphicon glyphicon-remove'></span></a></td><tr>");
+		+"<td><a id='delete_orderDetail' href='#' class='btn btn-danger btn-xs btnDelete'>"
+		+"<span class='glyphicon glyphicon-remove'></span></a></td></tr>");
 			
 		}
 			var total_sale = parseInt(deleteComma($('#sub_total').val()));
@@ -397,7 +444,7 @@ $(function() {
 		"'><input type='hidden' name='pdt_name' value='"+pdt_name+"'><div>"+pdt_name+"</div></td>"
 		+"<td><input type='text' name='pdt_cost' value='"+plusComma(pdt_cost)+"' readonly='true'></td>"
 		+"<td><input type='number' name='pdt_discount' value='0' oninput='productDiscount(this);' min='0' max='100' step='5'></td>"
-		+"<td><input type='number' id='"+pdt_name+"' name='pdt_count' value='1' oninput='changeCount(this);' ></td>"
+		+"<td><input type='number' id='"+pdt_name+"' name='pdt_count' value='1' oninput='changeCount(this);' min='1'></td>"
 		+"<td><input type='text' name='pdt_price' value='"+plusComma(pdt_cost)+"' readonly='true'></td>"
 		+"<td><a id='delete_order' href='#' class='btn btn-danger btn-xs btnDelete'>"
 		+"<span class='glyphicon glyphicon-remove'></span></a></td></tr>");
@@ -406,10 +453,20 @@ $(function() {
 		$("input[name='detail_price']").each(function(i){
 			order_price += parseInt(deleteComma($("input[name='detail_price']").eq(i).val()));
 		})
+			// 추가메뉴 주문계산
+		var dt_price = 0;
+		$("input[name='dt_price']").each(function(i) {
+			var plus_dt_price = parseInt(deleteComma($(this).val()));
+			dt_price += plus_dt_price 
+		})
 		var totalItems = $("input[name='pdt_price']").length;
+		order_price += dt_price;
+		var point = parseInt($("#tlt_dist").val());
+		
 			$('#total_items').val(totalItems);
 			$('#total_qty').val(totalCount);
 			$('#sub_total').val(plusComma(order_price));
+			order_price -= point;
 			$('#tlt_tax').val(order_price/20);
 			$('#TLT_AMOUNTS').html(plusComma(order_price)+" 원"); 
 	});
@@ -421,7 +478,9 @@ $(function() {
 			var view = $("#order_list > tr > td > div:contains('"+search+"')");
 			$(view).closest('tr').show();
 		})
-
+		
+		
+		// 저장 주문 삭제 기능
 		$('#save_order_list tr td a').click(function() {
 			var ord_id = $(this).data('hidden');
 			$.ajax({
@@ -451,7 +510,7 @@ function productDiscount(discount){
 	}
 	var cost = parseInt(deleteComma(document.getElementsByName("pdt_cost")[i].value));
 	var count = parseInt(deleteComma(document.getElementsByName("pdt_count")[i].value));
-	cost = Math.floor(cost * (1-discount.value/100)/10)*10; 
+	cost = Math.floor(cost * (1-discount.value/10)/10)*10; 
 	var sumValue = cost*count; // 상품 총액 계산기
 	document.getElementsByName("pdt_price")[i].value = plusComma(sumValue); //상품 총액 변경
 	var totalItems = document.getElementsByName("pdt_price").length;
@@ -487,19 +546,32 @@ function changeCount(count){
 		totalCost += document.getElementsByName("pdt_count")[j].value/1;
 		
 	}
+	var dt_price = 0;
+	for (var j = 0 ; j < document.getElementsByName("dt_price").length ; j++){
+		dt_price += parseInt(deleteComma(document.getElementsByName("dt_price")[j].value));
+	}
+	price += dt_price;
+	
+	var point = document.getElementById("tlt_dist").value/1;
+	
 	document.getElementById("total_items").value = totalItems;
 	document.getElementById("total_qty").value = totalCost;
 	document.getElementById("sub_total").value = plusComma(price);
+	if(point > price) {
+		document.getElementById("tlt_dist").value = price;
+		point = price;
+	}
+	price -= point ;
 	document.getElementById("tlt_tax").value = price/20;
 	document.getElementById("TLT_AMOUNTS").innerHTML = plusComma(price) +" 원"; // 주문 총액 적용
 }
 
-	// 정규판별식이용해서 3자리 수마다 콤마(,) 삽입
+	// 정규표현식이용해서 3자리 수마다 콤마(,) 삽입
 function plusComma(won) {
 	return won.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
 }
-	// 정규판별식이용해서 콤마(,) 제거
+	// 정규표현식이용해서 콤마(,) 제거
 function deleteComma(won) {
 	return won.replace(/,/g,"");
 }
