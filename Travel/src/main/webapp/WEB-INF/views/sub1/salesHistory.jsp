@@ -167,7 +167,7 @@
 						<td>${list.stf_name }</td>
 						<td>${list.ord_total }</td>
 						<td>${list.pmt_name }</td>
-						<td>${ord_discount }</td>
+						<td>${list.ord_discount }</td>
 						<td>${list.pot_id }</td>
 						<td><c:choose><c:when test="${list.ord_cancel == 0}">판매완료</c:when><c:otherwise>판매취소</c:otherwise></c:choose></td>
 						<td><a href="<c:url value="saleDetail?ord_id=${list.ord_id }"/>">상세보기</a></td>

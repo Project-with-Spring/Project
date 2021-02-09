@@ -45,6 +45,8 @@
 					<th style="min-width:40px;">수량</th>
 					<th style="min-width:50px;">가격</th>
 					<th style="min-width:60px;">상품 총액</th>
+					<th style="min-width:60px;">추가</th>
+					<th style="min-width:40px;">추가금액</th>
 				</tr>
 			</thead>	
 					
@@ -55,6 +57,8 @@
 					<td>${odt.odt_count }</td>
 					<td>${odt.pdt_cost }</td>
 					<td>${odt.pdt_cost * odt.odt_count}</td>
+					<td>${odt.odt_memo }</td>
+					<td>${odt.dt_price }</td>
 				</tr>
 			</c:forEach>
 				
