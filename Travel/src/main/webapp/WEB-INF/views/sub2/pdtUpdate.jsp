@@ -36,20 +36,20 @@
 						</tr>
 						
 						<!-- 들어가는 재료 기입 -->
-						<tr>
-							<td colspan="3"><label>사용 재료</label></td>
-						</tr>
-						<tr>
-							<th>재료명</th>
-							<th>1회 사용량</th>
-							<th>Detail</th>
-						</tr>
+<!-- 						<tr> -->
+<!-- 							<td colspan="3"><label>사용 재료</label></td> -->
+<!-- 						</tr> -->
+<!-- 						<tr> -->
+<!-- 							<th>재료명</th> -->
+<!-- 							<th>1회 사용량</th> -->
+<!-- 							<th>Detail</th> -->
+<!-- 						</tr> -->
 						
-						<tr>
-							<td>stock name</td>
-							<td>stock usage</td>
-							<td>stock detail</td>
-						</tr>
+<!-- 						<tr> -->
+<!-- 							<td>stock name</td> -->
+<!-- 							<td>stock usage</td> -->
+<!-- 							<td>stock detail</td> -->
+<!-- 						</tr> -->
 					</table>
 					
 					<div id="add-new-btn">

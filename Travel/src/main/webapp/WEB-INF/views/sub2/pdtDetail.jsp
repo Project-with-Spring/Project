@@ -44,7 +44,6 @@
 					<table class="table table-striped table-responsive tbl_narrow" id="table">
 						<!-- 테이블에 들어갈 행 추가 -->
 						<tr>
-							<td rowspan="3"><img alt="상품이미지 태그하기" src="" height="300px"></td>
 							<td><label>상&nbsp;&nbsp;품&nbsp;&nbsp;명</label></td>
 							<td>${pdt.pdt_name }</td>
 						</tr>
@@ -58,20 +57,20 @@
 						</tr>
 						
 						<!-- 들어가는 재료 기입 -->
-						<tr>
-							<td colspan="3"><label>사용 재료</label></td>
-						</tr>
-						<tr>
-							<th>재료명</th>
-							<th>1회 사용량</th>
-							<th>Detail</th>
-						</tr>
+<!-- 						<tr> -->
+<!-- 							<td colspan="3"><label>사용 재료</label></td> -->
+<!-- 						</tr> -->
+<!-- 						<tr> -->
+<!-- 							<th>재료명</th> -->
+<!-- 							<th>1회 사용량</th> -->
+<!-- 							<th>Detail</th> -->
+<!-- 						</tr> -->
 						
-						<tr>
-							<td>stock name</td>
-							<td>stock usage</td>
-							<td>stock detail</td>
-						</tr>
+<!-- 						<tr> -->
+<!-- 							<td>stock name</td> -->
+<!-- 							<td>stock usage</td> -->
+<!-- 							<td>stock detail</td> -->
+<!-- 						</tr> -->
 					</table>
 					
 					<div id="add-new-btn">

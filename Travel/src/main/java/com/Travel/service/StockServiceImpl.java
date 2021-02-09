@@ -10,17 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.Travel.dao.StockDAO;
 import com.Travel.domain.StockBean;
 import com.Travel.utill.Pagination;
+import com.Travel.utill.Search;
 
 @Service
 public class StockServiceImpl implements StockService {
 	@Inject
 	private StockDAO stockDAO;
-
-	@Override
-	// 재고 전체 목록 뽑아오기
-	public List<StockBean> getStcList() {
-		return stockDAO.getStcList();
-	}
 
 	@Override
 	@Transactional
@@ -44,13 +39,14 @@ public class StockServiceImpl implements StockService {
 	}
 
 	@Override
-	public int countStock() {
-		return stockDAO.countStock();
+	public int countStock(Search search) {
+		return stockDAO.countStock(search);
 	}
 
 	@Override
-	public List<StockBean> selectStcListPage(Pagination pagination) {
-		return stockDAO.selectStcListPage(pagination);
+	// 재고 전체 목록 뽑아오기
+	public List<StockBean> selectStcListPage(Search search) {
+		return stockDAO.selectStcListPage(search);
 	}
 	
 	

@@ -12,9 +12,9 @@ public class Pagination {
 		private int nowPage, startPage, endPage, total, cntPerPage, lastPage, start, end;
 		private int cntPage = 20;
 		
-		public Pagination(int total, int nowPage, int cntPerPage) {
+		public Pagination(int total, int nowPage) {
 			setNowPage(nowPage);
-			setCntPerPage(cntPerPage);
+			setCntPerPage(20);
 			setTotal(total);
 			calcLastPage(getTotal(), getCntPerPage());
 			calcStartEndPage(getNowPage(), cntPage);
@@ -30,15 +30,15 @@ public class Pagination {
 			if (getLastPage() < getEndPage()) {
 				setEndPage(getLastPage());
 			}
-			setStartPage(getEndPage() - cntPage + 1);
+			setStartPage(getEndPage() - cntPage);
 			if (getStartPage() < 1) {
-				setStartPage(1);
+				setStartPage(0);
 			}
 		}
 		// DB 쿼리에서 사용할 start, end값 계산
 		public void calcStartEnd(int nowPage, int cntPerPage) {
 			setEnd(nowPage * cntPerPage);
-			setStart(getEnd() - cntPerPage + 1);
+			setStart(getEnd() - cntPerPage);
 		}
 		@Override
 		public String toString() {

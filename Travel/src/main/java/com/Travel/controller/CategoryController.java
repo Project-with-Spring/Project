@@ -17,6 +17,7 @@ import com.Travel.service.CategoryService;
 import com.Travel.service.ProductService;
 import com.Travel.service.StockService;
 import com.Travel.utill.Pagination;
+import com.Travel.utill.Search;
 
 import net.sf.json.JSONArray;
 
@@ -36,38 +37,74 @@ public class CategoryController {
 	// http://localhost:8080/go/ctg/list
 	@RequestMapping("/list")
 	public String ctgList( Model model,
-			@RequestParam(value="nowPage", required=false)String nowPage) {
+			@RequestParam(value="nowPage", required=false, defaultValue="1")String nowPage,
+			@RequestParam(value="searchType", required=false, defaultValue="ctg_name")String searchType,
+			@RequestParam(value="searchText", required=false)String searchText) {
 
-		Pagination pdtPage, stcPage;
+		
+		// 검색 설정
+		Search search = new Search();
+		search.setSearchType(searchType);
+		
+		// 카테고리, 상품, 재고 의 저장된 총 갯수를 저장할 변수
+		int ctgTotal = 0, pdtTotal = 0, stcTotal = 0;
+		if(search.getSearchType() == "ctg_name" || search.getSearchType() == "ctg_type") {
+			ctgTotal = categoryService.countCategory(search);
+		}
+		
+//		Pagination pdtPage, stcPage;
 		// 카테고리 목록 불러오기
-		List<CategoryBean> ctgList = categoryService.getCtgList();
+		// 페이징
+		search = new Search(ctgTotal, Integer.parseInt(nowPage));
+		
+		search.setSearchType(searchType);
+		if(searchType=="ctg_type") {
+			if(searchText == "재고") searchText = "2";
+			else searchText = "1";
+		}
+		search.setSearchText(searchText);
+		
+		List<CategoryBean> ctgList = categoryService.getCtgList(search);
 		model.addAttribute("ctgList", ctgList);
 		// 카테고리 목록을 json형태로 넘겨주기
 		JSONArray jsonArray = new JSONArray();
 		model.addAttribute("ctgListByJson", jsonArray.fromObject(ctgList));
 		
-		// tabs-1 Product List 페이징
-		int pdtTotal = productService.countProduct();
-		if(nowPage == null) {
-			nowPage = "1";
-		}
-		pdtPage = new Pagination(pdtTotal, Integer.parseInt(nowPage), 20);
-		model.addAttribute("pdtPage", pdtPage);
 		
-		List<ProductBean> pdtList = productService.selectProductListPage(pdtPage);
+		// tabs-1 Product List 페이징
+		
+		if(search.getSearchType() == "pdt_name") {
+			pdtTotal = productService.countProduct(search);
+		}
+		
+		// 검색 설정
+		search = new Search(pdtTotal, Integer.parseInt(nowPage));
+		search.setSearchType(searchType);
+		search.setSearchText(searchText);
+		
+		model.addAttribute("pdtPage", search);
+		
+		
+		List<ProductBean> pdtList = productService.selectProductListPage(search);
 		model.addAttribute("pdtList", pdtList);
 		
+		
 		// tabs-2 Stock List 페이징
-		int stcTotal = stockService.countStock();
-		if(nowPage == null) {
-			nowPage = "1";
+		if(search.getSearchType() == "stc_name") {
+			stcTotal = stockService.countStock(search);
 		}
-		stcPage = new Pagination(stcTotal, Integer.parseInt(nowPage), 20);
-		model.addAttribute("stcPage", stcPage);
+		
+		// 검색 설정
+		search = new Search(pdtTotal, Integer.parseInt(nowPage));
+		search.setSearchType(searchType);
+		search.setSearchText(searchText);
+		
+		model.addAttribute("stcPage", search);
 		
 		
-		List<StockBean> stcList = stockService.selectStcListPage(stcPage);
+		List<StockBean> stcList = stockService.selectStcListPage(search);
 		model.addAttribute("stcList", stcList);
+		
 		
 		return "sub2/categoryList";
 	}

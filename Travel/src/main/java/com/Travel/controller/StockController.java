@@ -15,7 +15,7 @@ import com.Travel.domain.CategoryBean;
 import com.Travel.domain.StockBean;
 import com.Travel.service.CategoryService;
 import com.Travel.service.StockService;
-import com.Travel.utill.Pagination;
+import com.Travel.utill.Search;
 
 @Controller
 //http://localhost:8080/go/stc
@@ -29,15 +29,22 @@ public class StockController {
 	
 	//http://localhost:8080/go/stc/list
 	@RequestMapping("/list")
-	public String list(Model model, Pagination page, @RequestParam(value="nowPage", required=false)String nowPage) {
-		int stcTotal = stockService.countStock();
-		if(nowPage == null) {
-			nowPage = "1";
-		}
-		page = new Pagination(stcTotal, Integer.parseInt(nowPage), 20);
-		model.addAttribute("stcPage", page);
+	public String list(Model model,
+			@RequestParam(value="nowPage", required=false, defaultValue="1")String nowPage,
+			@RequestParam(value="searchText", required=false)String searchText) {
 		
-		List<StockBean> stcList = stockService.selectStcListPage(page);
+		Search search = new Search();
+		search.setSearchType("stc_name");
+		
+		int stcTotal = stockService.countStock(search);
+		
+		search = new Search(stcTotal, Integer.parseInt(nowPage));
+		search.setSearchType("stc_name");
+		search.setSearchText(searchText);
+		
+		model.addAttribute("stcPage", search);
+
+		List<StockBean> stcList = stockService.selectStcListPage(search);
 		model.addAttribute("stcList", stcList);
 		
 		return "sub2/stockList";

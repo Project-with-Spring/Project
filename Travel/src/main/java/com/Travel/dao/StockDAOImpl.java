@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.Travel.domain.StockBean;
 import com.Travel.utill.Pagination;
+import com.Travel.utill.Search;
 
 @Repository
 public class StockDAOImpl implements StockDAO {
@@ -17,12 +18,6 @@ public class StockDAOImpl implements StockDAO {
 	private SqlSession sqlSession;
 	private static final String namespace="com.Travel.mapper.StockMapper";
 	
-	@Override
-	// 재고 전체 목록 뽑아오기
-	public List<StockBean> getStcList() {
-		return sqlSession.selectList(namespace + ".selectStockList");
-	}
-
 	@Override
 	public void add(StockBean stc) {
 		sqlSession.insert(namespace + ".insertStock", stc);
@@ -44,13 +39,14 @@ public class StockDAOImpl implements StockDAO {
 	}
 
 	@Override
-	public int countStock() {
+	public int countStock(Search search) {
 		return sqlSession.selectOne(namespace + ".countStock");
 	}
 
 	@Override
-	public List<StockBean> selectStcListPage(Pagination pagination) {
-		return sqlSession.selectList(namespace + ".stcListPage", pagination);
+	// 재고 전체 목록 뽑아오기
+	public List<StockBean> selectStcListPage(Search search) {
+		return sqlSession.selectList(namespace + ".stcListPage", search);
 	} 
 	
 	

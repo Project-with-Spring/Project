@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.Travel.dao.CategoryDAO;
 import com.Travel.domain.CategoryBean;
+import com.Travel.utill.Search;
 
 
 @Service
@@ -19,21 +20,26 @@ public class CategoryServiceImpl implements CategoryService {
 	private CategoryDAO categoryDAO;
 
 	@Override
-	public List<CategoryBean> getCtgList() {
-		
-		return categoryDAO.getCtgList();
-	}
-
-	@Override
 	public CategoryBean getCtg(String ctg_id) {
 		return categoryDAO.getCtg(ctg_id);
 	}
+//
+//	@Override
+//	public List<CategoryBean> ctgPdtListPage(int start) {
+//		Map<String, Object> map = new HashMap<>();
+//		map.put("start", start);
+//		
+//		return categoryDAO.getCtgPdtList(map);
+//	}
 
 	@Override
-	public List<CategoryBean> ctgPdtListPage(int start) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("start", start);
-		
-		return categoryDAO.getCtgPdtList(map);
+	public int countCategory(Search search) {
+		return categoryDAO.countCategory(search);
 	}
+
+	@Override
+	public List<CategoryBean> getCtgList(Search search) {
+		return categoryDAO.getCtgList(search);
+	}
+
 }
