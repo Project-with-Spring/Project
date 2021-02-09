@@ -136,23 +136,30 @@
 			
 			
 			<div id="my_all">
-				<form name="frm_filter" id="frm_filter" method="get"
-					action="/active/products/categories.php" class="form-horizontal">
+			<!-- 검색창 -->
+				<form name="frmSearch" id="frmSearch" method="post"
+					action="<c:url value='/ctg/list'/>" class="form-horizontal">
 					<div class="form-group">
-						<div class="col-md-4">
-							<input type="text" name="txt_search" id="txt_search" value=""
-								class="form-control" placeholder="Search any Item">
-						</div>
 						<div class="col-md-2">
-							<select name="branch_id" id="branch_id" class="form-control">
-								<option value="94" selected>enter :</option>
+							
+							<select name="searchType" id="searchType" class="form-control">
+								<option value="ctg_name">Category Name</option>
+								<option value="ctg_type">Category Type</option>
+								<option value="pdt_name">Product Name</option>
+								<option value="stc_name">Stock Name</option>
 							</select>
 						</div>
+						<div class="col-md-4">
+							<input type="text" name="searchText" id="searchText" class="form-control"
+								placeholder="검색할 단어를 입력하세요">
+						</div>
 						<div class="col-md-1">
-							<button name="btn_filter" class="btn btn-primary form-control">Filter</button>
+							<button name="btnSearch" class="btn btn-primary form-control">Search</button>
 						</div>
 					</div>
 				</form>
+			<!-- 검색창 -->
+			
 				<div class="table-responsive no-padding">
 				
 				<div id="tabs">
@@ -200,7 +207,7 @@
 					</table>
 					
 					<div style="display: block; text-align: center;">		
-						<c:if test="${pdtPage.startPage != 1 }">
+						<c:if test="${pdtPage.startPage != 1 && pdtPage.startPage > 0}">
 							<a href="<c:url value='/ctg/list?nowPage=${pdtPage.startPage - 1 }' />">&lt;</a>
 						</c:if>
 						<c:forEach begin="${pdtPage.startPage }" end="${pdtPage.endPage }" var="p">
@@ -208,7 +215,7 @@
 								<c:when test="${p == pdtPage.nowPage }">
 									<b>${p }</b>
 								</c:when>
-								<c:when test="${p != pdtPage.nowPage }">
+								<c:when test="${p != pdtPage.nowPage && p > 0}">
 									<a href="<c:url value='/ctg/list?nowPage=${p }' />">${p }</a>
 								</c:when>
 							</c:choose>
@@ -258,7 +265,7 @@
 					
 					
 					<div style="display: block; text-align: center;">		
-						<c:if test="${stcPage.startPage != 1 }">
+						<c:if test="${stcPage.startPage != 1 && stcPage.startPage > 0}">
 							<a href="<c:url value='/ctg/list?nowPage=${stcPage.startPage - 1 }' />">&lt;</a>
 						</c:if>
 						<c:forEach begin="${stcPage.startPage }" end="${stcPage.endPage }" var="p">
@@ -266,7 +273,7 @@
 								<c:when test="${p == stcPage.nowPage }">
 									<b>${p }</b>
 								</c:when>
-								<c:when test="${p != stcPage.nowPage }">
+								<c:when test="${p != stcPage.nowPage && p > 0}">
 									<a href="<c:url value='/ctg/list?nowPage=${p }' />">${p }</a>
 								</c:when>
 							</c:choose>
@@ -294,8 +301,6 @@
 
 <%@ include file="../include/footer.jsp"%>
 
-
-<script src="<c:url value="/resources/js/sub2.js"/>"></script>
 
 	
 <!-- 	categoryList.jsp 탭 뷰 script -->
@@ -418,6 +423,23 @@ $('#sub_mit').on('click', function() {
 	// form submit
 	$('#frm_new').submit();
 });
+
+
+// 검색
+$('#searchType').on('click', function() {
+
+	if($('#searchType option:selected').val() == 'ctg_type') {
+		$('#searchText').attr('placeholder', '상품 / 재고 중 하나를 입력하세요');
+	} else {
+		$('#searchText').attr('placeholder', '검색할 단어를 입력하세요');
+	}
+})
+$(document).on('click', '#btnSearch', function(e) {
+	e.preventDefault();
+
+	$('#frmSearch').submit();
+});
+
 
 
 //탭 화면 전환

@@ -32,12 +32,29 @@
 				</div>
 				<div class="box-body">
 					<div id="my_all">
-						<form name="frm_filter" id="frm_filter" method="get"
-							action="/active/products/items.php" class="form-horizontal">
+						<!-- 검색창 -->
+						<form name="frmSearch" id="frmSearch" method="get"
+							action="<c:url value='/stc/list'/>" class="form-horizontal">
+							<div class="form-group">
+								<div class="col-md-2">
+									<label>Stock Name: </label>
+								</div>
+								<div class="col-md-4">
+									<input type="text" name="searchText" id="searchText" class="form-control"
+										placeholder="검색할 단어를 입력하세요">
+								</div>
+								<div class="col-md-1">
+									<button name="btnSearch" class="btn btn-primary form-control">Search</button>
+								</div>
+							</div>
+						</form>
+						<!-- 검색창 -->
+						
+						<form name="frmFilter" id="frmFilter" method="post"
+							action="<c:url value='/stc/list'/>" class="form-horizontal">
 							<div class="form-group">
 								<div class="col-md-3">
-									<select name="ctg_show" id="ctg_show"
-										class="form-control select2">
+									<select name="ctgSort" id="ctgSort" class="form-control select2">
 										<option value="">카테고리 모두 보기</option>
 										<option value="5">커피원두</option>
 										<option value="6">냉장/냉동</option>
@@ -46,7 +63,7 @@
 									</select>
 								</div>
 								<div class="col-md-3">
-									<select name="branch_id" id="branch_id" class="form-control">
+									<select name="stcSort" id="stcSort" class="form-control">
 										<option value="" selected>정렬 기준</option>
 										<option value="new">최신 등록순</option>
 										<option value="cost">가격순</option>
@@ -58,6 +75,7 @@
 								</div>
 							</div>
 						</form>
+						
 
 						<div class="table-responsive no-padding">
 							<table class="table table-striped table-responsive tbl_narrow">
@@ -102,7 +120,7 @@
 
 
 							<div style="display: block; text-align: center;">
-								<c:if test="${stcPage.startPage != 1 }">
+								<c:if test="${stcPage.startPage != 1 && stcPage.startPage > 0}">
 									<a
 										href="<c:url value='/stc/list?nowPage=${stcPage.startPage - 1 }' />">&lt;</a>
 								</c:if>
@@ -111,7 +129,7 @@
 										<c:when test="${p == stcPage.nowPage }">
 											<b>${p }</b>
 										</c:when>
-										<c:when test="${p != stcPage.nowPage }">
+										<c:when test="${p != stcPage.nowPage && p > 0}">
 											<a href="<c:url value='/stc/list?nowPage=${p }' />">${p }</a>
 										</c:when>
 									</c:choose>
@@ -140,6 +158,14 @@
 
 <%@ include file="../include/footer.jsp"%>
 
+<script>
+// 검색
+$(document).on('click', '#btnSearch', function(e) {
+	e.preventDefault();
+
+	$('#frmSearch').submit();
+});
+</script>
 
 </body>
 </html>

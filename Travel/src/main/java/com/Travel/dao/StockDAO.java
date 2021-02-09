@@ -4,10 +4,10 @@ import java.util.List;
 
 import com.Travel.domain.StockBean;
 import com.Travel.utill.Pagination;
+import com.Travel.utill.Search;
 
 public interface StockDAO {
 
-	public List<StockBean> getStcList();
 
 	public void add(StockBean stc);
 
@@ -17,8 +17,8 @@ public interface StockDAO {
 
 	public void delete(Long stc_id);
 
-	public int countStock();
+	public int countStock(Search search);
 
-	public List<StockBean> selectStcListPage(Pagination pagination);
+	public List<StockBean> selectStcListPage(Search search);
 
 }

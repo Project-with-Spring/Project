@@ -4,10 +4,9 @@ import java.util.List;
 
 import com.Travel.domain.ProductBean;
 import com.Travel.utill.Pagination;
+import com.Travel.utill.Search;
 
 public interface ProductDAO {
-
-	public List<ProductBean> getPdtList();
 
 	public ProductBean getPdt(Long pst_id);
 
@@ -17,8 +16,10 @@ public interface ProductDAO {
 
 	public void delete(Long pdt_id);
 
-	public int countProduct();
+	public int countProduct(Search search);
 
-	public List<ProductBean> selectProductListPage(Pagination pagination);
+	public List<ProductBean> selectProductListPage(Search search);
+
+	public List<ProductBean> getPdtList();
 
 }

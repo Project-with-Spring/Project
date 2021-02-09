@@ -5,20 +5,33 @@
 <mapper namespace="com.Travel.mapper.CategoryMapper">
 	<select id="selectCategoryList" resultType="category">
 		SELECT * FROM category
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchType=='ctg_name' and searchText != null and searchText != ''">
+				AND ctg_name like CONCAT('%', #{searchText}, '%')
+			</if>
+			<if test="searchType=='ctg_type' and searchText != null and searchText != ''">
+				AND ctg_type like CONCAT('%', #{searchText}, '%')			
+			</if>
+		</trim>
 	</select>
 	
 	<select id="selectCategory" resultType="category">
 		SELECT * FROM category WHERE ctg_id=#{ctg_id }
 	</select>
 	
-	<select id="selectCtgPdtList" resultType="category">
-		select c.*, p.*
-		from (
-			select row_number() over(order by pdt_id) as num, pdt.*
-			from product pdt
-				) p join category c on c.ctg_id = p.ctg_id
-		where num between #{start} AND #{start+19}
-		order by p.pdt_id;
+	<select id="countCategory" resultType="int">
+		select count(ctg_id) from category
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchText != null and searchText != ''">
+				<if test="searchType == 'ctg_name'">
+					AND ctg_name like CONCAT('%', #{searchText}, '%')
+				</if>
+				<if test="searchType == 'ctg_type'">
+					AND ctg_type like CONCAT('%', #{searchText}, '%')
+				</if>
+			</if>
+		</trim>
 	</select>
+	
 	
 </mapper>

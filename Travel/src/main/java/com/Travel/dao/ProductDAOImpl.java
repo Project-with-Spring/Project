@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.Travel.domain.ProductBean;
 import com.Travel.utill.Pagination;
+import com.Travel.utill.Search;
 
 @Repository
 public class ProductDAOImpl implements ProductDAO {
@@ -17,12 +18,6 @@ public class ProductDAOImpl implements ProductDAO {
 	private SqlSession sqlSession;
 	private static final String namespace="com.Travel.mapper.ProductMapper";
 	
-	@Override
-	// Product 전체 목록 뽑아오기
-	public List<ProductBean> getPdtList() {
-		return sqlSession.selectList(namespace + ".selectProductList");
-	}
-
 	@Override
 	public ProductBean getPdt(Long pdt_id) {
 		return sqlSession.selectOne(namespace + ".selectProduct", pdt_id);
@@ -44,13 +39,19 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Override
-	public int countProduct() {
-		return sqlSession.selectOne(namespace + ".countProduct");
+	public int countProduct(Search search) {
+		return sqlSession.selectOne(namespace + ".countProduct", search);
 	}
 
 	@Override
-	public List<ProductBean> selectProductListPage(Pagination pagination) {
-		return sqlSession.selectList(namespace + ".pdtListPage", pagination);
+	// Product 전체 목록 뽑아오기
+	public List<ProductBean> selectProductListPage(Search search) {
+		return sqlSession.selectList(namespace + ".pdtListPage", search);
+	}
+
+	@Override
+	public List<ProductBean> getPdtList() {
+		return sqlSession.selectList(namespace + ".selectPdtList");
 	} 
 
 }

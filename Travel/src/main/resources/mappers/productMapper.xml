@@ -4,28 +4,53 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.Travel.mapper.ProductMapper">
-	<select id="selectProductList" resultType="product">
+	<select id="selectPdtList" resultType="product">
 		select * from product
 	</select>
-	
+
 	<select id="pdtListPage" resultType="product">
 		select * 
 		from (
 			select row_number() over(order by pdt_id) as num, p.*
 			from product p
 				) pdt
-		where num between #{start} AND #{end}
-		order by pdt_id;
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchType=='pdt_name' and searchText != null and searchText != ''">
+				AND pdt_name like CONCAT('%', #{searchText}, '%')
+			</if>
+			<if test="ctgSort != null and ctgSort != ''">
+				AND ctg_id = #{ctgSort }
+			</if>
+		</trim>
+		
+		<trim prefix="ORDER BY" prefixOverrides="AND|OR">
+			<if test="pdtSort != null and pdtSort != ''">
+				<if test="pdtSort == 'new'">
+					AND pdt_id
+				</if>
+				<if test="pdtSort == 'cost'">
+					AND pdt_cost
+				</if>
+<!-- 				<if test="pdtSort == 'like'"> -->
+<!-- 					AND pdt_id -->
+<!-- 				</if> -->
+			</if>
+		</trim>
+		LIMIT #{start}, #{end}
 	</select>
 	
 	<select id="countProduct" resultType="int">
 		select count(pdt_id) from product
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchText != null and searchText != ''">
+				<if test="searchType == 'pdt_name'">
+					AND pdt_name like CONCAT('%', #{searchText}, '%')
+				</if>
+			</if>
+		</trim>
 	</select>
 	
 	<select id="selectProduct" resultType="product">
-<!-- 		select p.*, c.* -->
-<!-- 		from product p join category c on p.ctg_id = c.ctg_id -->
-<!-- 		where p.pdt_id = #{pdt_id} -->
 		select * from product where pdt_id = #{pdt_id }
 	</select>
 	
