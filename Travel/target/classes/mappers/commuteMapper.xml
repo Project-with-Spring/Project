@@ -31,7 +31,6 @@
 			select stf_id, count(distinct(date_format(cmt_go,'%Y-%m-%d'))) cnt_go, sum(TIMESTAMPDIFF(MINUTE,cmt_go,cmt_leave)) AS total_time 
 			from commute where date_format(cmt_go,'%Y-%m-%d') 
 			between #{from} and #{to} 
-			<!-- between LAST_DAY(NOW() - interval 2 month) + interval 1 DAY and #{to}  -->
 			group by stf_id
 		) as cm 
 		on st.stf_id=cm.stf_id where  st.stf_id=#{stf_id} ;

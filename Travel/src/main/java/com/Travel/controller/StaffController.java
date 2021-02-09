@@ -46,7 +46,6 @@ public class StaffController {
 			String stf_name = request.getParameter("stf_name")==null ? "" : request.getParameter("stf_name");
 			//페이징 처리
 			PageBean pageBean = new PageBean();
-			
 			pageBean.setPageSize(10);
 			String page = request.getParameter("pageNum");
 			if(page==null) {
@@ -54,21 +53,17 @@ public class StaffController {
 			} else {
 				pageBean.setPageNum(page);	
 			}
-			
 			int currentPage=Integer.parseInt(pageBean.getPageNum());
 			pageBean.setCurrentPage(currentPage);
-			
 			// 디비 startRow-1
 			int startRow= (currentPage-1)*pageBean.getPageSize()+1-1;
 			pageBean.setStartRow(startRow);
-			
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("pst_id", pst_id);
 			map.put("stf_name", stf_name);
 			map.put("pageBean", pageBean);
 			List<StaffBean> staffList = staffService.getStaffList(map);
 			pageBean.setCount(staffService.countStaff(map));
-			
 			List<PositionBean> positionList = positionService.getPositionList();
 			for(int i=0; i < staffList.size(); i++) {
 				//총 근무시간 구하기
@@ -79,9 +74,7 @@ public class StaffController {
 				}else {
 					staffList.get(i).setTotal_hour(min+"분");
 				}
-				
 			}
-
 			model.addAttribute("pageBean", pageBean);
 			model.addAttribute("staffList",staffList);
 			model.addAttribute("positionList",positionList);

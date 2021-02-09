@@ -32,15 +32,13 @@ public class CommuteController {
 	@Inject
 	private CommuteService commuteService;
 	
-	//전체 출근리스트 보기
+	//전체 근태리스트 보기
 	//http://localhost:8080/go/getCommuteList　　
 	@RequestMapping(value = "/getCommuteListAll", method = RequestMethod.GET)
 	public String getCommuteListAll(Model model, HttpServletRequest request,HttpSession session,HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("utf-8");		
-			int stf_id = (int) session.getAttribute("stf_id");
-			
-			
+			int stf_id = (int) session.getAttribute("stf_id");			
 			if(stf_id >= 0){
 				String search= request.getParameter("stf_name")==null ? "" : request.getParameter("stf_name");
 				//페이징 처리
@@ -54,7 +52,6 @@ public class CommuteController {
 				}
 				int currentPage=Integer.parseInt(pageBean.getPageNum());
 				pageBean.setCurrentPage(currentPage);
-				
 				// 디비 startRow-1
 				int startRow= (currentPage-1)*pageBean.getPageSize()+1-1;
 				pageBean.setStartRow(startRow);
@@ -80,7 +77,7 @@ public class CommuteController {
 				model.addAttribute("pageBean", pageBean);
 				model.addAttribute("cmtList",cmtList);
 			}else{
-				ScriptUtils.alertAndMovePage(response, "로그인 후 사용가능 합니다..","/go/login");	
+				ScriptUtils.alertAndMovePage(response, "로그인 후 사용가능 합니다.","/go/login");	
 			}
 		} catch (Exception e) {			
 			e.printStackTrace();
@@ -89,7 +86,7 @@ public class CommuteController {
 		return "sub3/commuteListManager";
 	}
 	
-	//나의출퇴근 
+	//나의 근태목록 
 	//http://localhost:8080/go/getCommuteList　　
 	@RequestMapping(value = "/getCommuteList", method = RequestMethod.GET)
 	public String getCommuteList(Model model, HttpServletRequest request,HttpSession session,HttpServletResponse response) {
@@ -149,7 +146,7 @@ public class CommuteController {
 	}
 	
 	//나의출근
-	//http://localhost:8080/go/getCommuteList　　
+	//http://localhost:8080/go/cmt_go　　
 	@RequestMapping(value = "/cmt_go", method = RequestMethod.GET)
 	public String cmt_go(Model model,HttpServletRequest request,HttpSession session,HttpServletResponse response) {
 
@@ -169,24 +166,21 @@ public class CommuteController {
 						commuteService.insertcmtgoList(stf_id);
 						
 					}else {
-						 erroCode = "cmt02"; //cmt02 : 출근등록에 실패하였습니다
-					
+						 erroCode = "cmt02"; //cmt02 : 출근등록에 실패하였습니다.
 					}
 				}
 			}else {
 				 erroCode = "cmt3";//cmt03 : 로그인 후 사용가능 합니다
 			}
 			out.print(erroCode);
-
 		} catch (Exception e) {			
 			e.printStackTrace();
 		}
-		// /WEB-INF/views/sub3/commuteList.jsp
 		return null;
 	}
 	
 	//나의퇴근
-	//http://localhost:8080/go/getCommuteList　　
+	//http://localhost:8080/go/cmt_leave　　
 	@RequestMapping(value = "/cmt_leave", method = RequestMethod.GET)
 	public String cmt_leave(Model model,HttpServletRequest request,HttpSession session,HttpServletResponse response) {
 		
@@ -203,11 +197,8 @@ public class CommuteController {
 					int leaveInsertcnt = commuteService.cmt_leave(stf_id);
 					if(leaveInsertcnt > 0) {
 						commuteService.deletecmtgoList(stf_id);
-//							commuteService.insertcmtleaveList(stf_id);							
 					}else {
 						erroCode= "cmt04"; //cmt04 : 퇴근등록에 실패하였습니다. 오류사항 문의바랍니다.		
-						
-//						ScriptUtils.alertAndMovePage(response, "퇴근등록에 실패하였습니다. 오류사항 문의바랍니다.","/getCommuteList");
 					}
 				}else {
 					erroCode="cmt05"; //cmt05 : 이미 퇴근하셨습니다.
@@ -219,7 +210,6 @@ public class CommuteController {
 		} catch (Exception e) {			
 			e.printStackTrace();
 		}
-		// /WEB-INF/views/sub3/commuteList.jsp
 		return  null;
 	}
 	
@@ -267,12 +257,7 @@ public class CommuteController {
 		} catch (Exception e) {			
 			e.printStackTrace();
 		}
-		// /WEB-INF/views/sub3/commuteList.jsp
 		return  null;
-		
-		
-		// /WEB-INF/views/sub3/commuteModify.jsp
-		//return "redirect:/commuteModify?stf_id="+Integer.parseInt(request.getParameter("stf_id"))+"&cmt_id="+Integer.parseInt(request.getParameter("cmt_id"));
 	}
 	
 		
