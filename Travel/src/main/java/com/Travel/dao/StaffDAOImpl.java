@@ -19,7 +19,7 @@ public class StaffDAOImpl implements StaffDAO{
 		private static final String namespace="com.Travel.mapper.StaffMapper";
 		
 		@Override
-		public List<StaffBean> getStaffList(HashMap map) {
+		public List<StaffBean> getStaffList(HashMap<String, Object> map) {
 			return sqlSession.selectList(namespace+".getStaffList",map);
 		}
 
@@ -47,5 +47,16 @@ public class StaffDAOImpl implements StaffDAO{
 		public void updateStaff(StaffBean sb) {
 			sqlSession.update(namespace+".updateStaff",sb);
 			
+		}
+
+		@Override
+		public int countStaff(HashMap map) {
+			int countStaff = 0;
+			return sqlSession.selectOne(namespace+".countStaff",map);
+		}
+
+		@Override
+		public List<StaffBean> getLoginStaffList() {
+			return sqlSession.selectList(namespace+".getLoginStaffList");
 		}
 }

@@ -28,4 +28,12 @@ public interface SaleDAO {
 
 	public void updateOrdPoint(PointBean potBean);
 
+	public List<OrderBean> getSaveOrderList();
+
+	public void deleteOrder(String ord_id);
+
+	public OrderBean getSaveOrder(String ord_id);
+
+	public List<OrderDetailBean> getSaveOrderDetail(String ord_id);
+
 }

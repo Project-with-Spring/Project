@@ -14,11 +14,37 @@
 		]]>
 			where st.stf_name like CONCAT('%',#{stf_name},'%')
 			<!-- where st.stf_name like CONCAT('%',#{stf_name},'%')and st.pst_id=#{pst_id} ; -->		
+			<if test='pst_id != "" and pst_id != null'>
+				and st.pst_id=#{pst_id} ;
+			</if>
+			<if test="pageBean.pageNum != null and pageBean.pageNum != ''" >
+				LIMIT #{pageBean.startRow},#{pageBean.pageSize}
+			</if>
+			
+			
+	</select>
+	
+	<select id="getLoginStaffList" resultType="staffBean">
+		
+			select st.*, ps.pst_name pst_name from staff st 
+			join position ps on st.pst_id = ps.pst_id
+			
+			
+	</select>
+	
+	<select id="countStaff" parameterType="hashMap" resultType="int">
+		<![CDATA[
+			select count(*) from staff st 
+			join position ps on st.pst_id = ps.pst_id 
+			left join (select stf_id, count(distinct(date_format(cmt_go,'%Y-%m-%d'))) cnt_go, TIMESTAMPDIFF(MINUTE,cmt_go,cmt_leave) AS total_time from commute group by stf_id) as cm 
+			on st.stf_id=cm.stf_id 
+		]]>
+			where st.stf_name like CONCAT('%',#{stf_name},'%')
+			<!-- where st.stf_name like CONCAT('%',#{stf_name},'%')and st.pst_id=#{pst_id} ; -->		
 			<if test="pst_id != ''">
 				and st.pst_id=#{pst_id} ;
 			</if>
 	</select>
-	
 		
 	<select id="getStaff" parameterType="int" resultType="staffBean">
 		select sf.*, p.pst_name from staff sf LEFT OUTER JOIN position p on sf.pst_id= p.pst_id where stf_id=#{stf_id}

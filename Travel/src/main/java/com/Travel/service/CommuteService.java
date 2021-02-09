@@ -30,11 +30,14 @@ public interface CommuteService {
 
 	public CommuteBean getStaffCommutOne(HashMap map);
 
-	public void comumteModify(StaffBean sb);
+	public void comumteModify(CommuteBean cmb);
 
 	public void commuteDelete(int cm_id);
 
 	public StaffBean getStaffCommutOnetotal(HashMap map);
 
+	public int countCommute(HashMap map);
+
+	
 
 }

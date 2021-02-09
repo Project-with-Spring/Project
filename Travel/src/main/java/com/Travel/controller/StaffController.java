@@ -16,7 +16,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.Travel.domain.PageBean;
 import com.Travel.domain.PositionBean;
 import com.Travel.domain.StaffBean;
 import com.Travel.service.PositionService;
@@ -42,11 +44,45 @@ public class StaffController {
 			request.setCharacterEncoding("utf-8");
 			String pst_id = request.getParameter("pst_id")==null ? "" : request.getParameter("pst_id");
 			String stf_name = request.getParameter("stf_name")==null ? "" : request.getParameter("stf_name");
-			HashMap map = new HashMap();
+			//페이징 처리
+			PageBean pageBean = new PageBean();
+			
+			pageBean.setPageSize(10);
+			String page = request.getParameter("pageNum");
+			if(page==null) {
+				pageBean.setPageNum("1");
+			} else {
+				pageBean.setPageNum(page);	
+			}
+			
+			int currentPage=Integer.parseInt(pageBean.getPageNum());
+			pageBean.setCurrentPage(currentPage);
+			
+			// 디비 startRow-1
+			int startRow= (currentPage-1)*pageBean.getPageSize()+1-1;
+			pageBean.setStartRow(startRow);
+			
+			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("pst_id", pst_id);
 			map.put("stf_name", stf_name);
+			map.put("pageBean", pageBean);
 			List<StaffBean> staffList = staffService.getStaffList(map);
+			pageBean.setCount(staffService.countStaff(map));
+			
 			List<PositionBean> positionList = positionService.getPositionList();
+			for(int i=0; i < staffList.size(); i++) {
+				//총 근무시간 구하기
+				int hour = staffList.get(i).getTotal_time()/60;
+				int min =  staffList.get(i).getTotal_time() % 60;	
+				if(hour > 0) {
+					staffList.get(i).setTotal_hour(hour+"시간 "+min+"분");
+				}else {
+					staffList.get(i).setTotal_hour(min+"분");
+				}
+				
+			}
+
+			model.addAttribute("pageBean", pageBean);
 			model.addAttribute("staffList",staffList);
 			model.addAttribute("positionList",positionList);
 		} catch (Exception e) {
@@ -68,7 +104,8 @@ public class StaffController {
 	//직원등록
 	//http://localhost:8080/go/staffInsert.jsp　　
 	@RequestMapping(value = "/staffInsertPro", method = RequestMethod.POST)
-	public String insertStaffPro(StaffBean sf, HttpServletRequest request) {		
+	public String insertStaffPro(StaffBean sf, HttpServletRequest request) {	
+		
 		staffService.insertStaff(sf);
 		// /WEB-INF/views/sub3/staffList.jsp
 		return "redirect:/staffList";

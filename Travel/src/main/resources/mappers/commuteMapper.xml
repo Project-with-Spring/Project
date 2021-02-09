@@ -6,14 +6,34 @@
 <mapper namespace="com.Travel.mapper.CommuteMapper">
 
 	<select id="selectCommutList" parameterType="hashMap" resultType="commuteBean">
-		SELECT sf.stf_name stf_name , ps.pst_name pst_name, cm.* FROM  staff sf JOIN commute cm on cm.stf_id=sf.stf_id join position ps on sf.pst_id = ps.pst_id where date_format(cmt_go,'%Y-%m-%d') between #{from} and #{to} and sf.stf_id like concat('%',#{search},'%') order by cmt_go desc;
+		SELECT sf.stf_name stf_name , ps.pst_name pst_name, cm.* 
+		FROM  staff sf JOIN commute cm on cm.stf_id=sf.stf_id 
+		join position ps on sf.pst_id = ps.pst_id 
+		where date_format(cmt_go,'%Y-%m-%d') 
+		between #{from} and #{to} 
+		and sf.stf_id 
+		like concat('%',#{search},'%') order by cmt_go desc
+		LIMIT #{pageBean.startRow},#{pageBean.pageSize}
 	</select>
-	
+	<select id="countCommute" parameterType="hashMap" resultType="int">
+		SELECT count(*) 
+		FROM commute
+		where date_format(cmt_go,'%Y-%m-%d') 
+		between #{from} and #{to} 
+		and stf_id 
+		like concat('%',#{search},'%') order by cmt_go desc;
+	</select>
 	
 	<select id="getStaffCommutOnetotal" parameterType="hashMap" resultType="staffBean">
 		select st.*, ps.pst_name pst_name , cm.cnt_go cnt_go, cm.total_time total_time from staff st 
 		join position ps on st.pst_id = ps.pst_id 
-		left join (select stf_id, count(distinct(date_format(cmt_go,'%Y-%m-%d'))) cnt_go, TIMESTAMPDIFF(MINUTE,cmt_go,cmt_leave) AS total_time from commute where date_format(cmt_go,'%Y-%m-%d') between LAST_DAY(NOW() - interval 2 month) + interval 1 DAY and #{to} group by stf_id) as cm 
+		left join (
+			select stf_id, count(distinct(date_format(cmt_go,'%Y-%m-%d'))) cnt_go, TIMESTAMPDIFF(MINUTE,cmt_go,cmt_leave) AS total_time 
+			from commute where date_format(cmt_go,'%Y-%m-%d') 
+			between #{from} and #{to} 
+			<!-- between LAST_DAY(NOW() - interval 2 month) + interval 1 DAY and #{to}  -->
+			group by stf_id
+		) as cm 
 		on st.stf_id=cm.stf_id where  st.stf_id=#{stf_id} ;
 		
 	</select>
@@ -24,6 +44,10 @@
 	
 	<select id="getStaffCommutOne" parameterType="hashMap" resultType="commuteBean">
 		SELECT * from commute where cmt_id=#{cmt_id} and stf_id =#{stf_id}
+	</select>
+	
+	<select id="getCountStaffCommutOne" parameterType="hashMap" resultType="int">
+		SELECT count(*) from commute where cmt_id=#{cmt_id} and stf_id =#{stf_id}
 	</select>
 	<!-- 출근 -->
 	<insert id="cmtgo" parameterType="int" keyProperty="seq">
@@ -36,7 +60,7 @@
 	</update>
 	
 	<update id="updateCmt" parameterType="commuteBean" >
-		update commuteBean set cmt_go=#{cmt_go}, cmt_leave=#{cmt_leave} where  cmt_id = #{cmt_id}
+		update commute set cmt_go=#{cmt_goS}, cmt_leave=#{cmt_leaveS} where  cmt_id = #{cmt_id} and stf_id=#{stf_id} 
 	</update>
 	
 	<delete  id="commuteDelete" parameterType="int" >
