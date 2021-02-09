@@ -77,6 +77,7 @@ $(function() {
 		}
 	})
 	
+		// 포인트 최대사용 버튼(편의성)
 	$('#maxPoint').click(function() {
 		var total_price = deleteComma($('#sub_total').val());
 		var point = $('#balance').val().replace(/[0-9]{2}$/,"00");
@@ -286,6 +287,7 @@ $(function() {
 		$('#TLT_AMOUNTS').html(plusComma(total_sale)+" 원"); 
 	})
 	
+	// 저장 주문 선택
 	var selectsaveorder ="";
 	$('#save_order_list tr').click(function() {
 		if($(this).closest('tr').data('select')=="on"){
@@ -300,6 +302,7 @@ $(function() {
 			$(this).closest('tr').css('background-color','lightyellow');
 		}
 	})
+	// 저장 주문 선택 후 불러오기
 	$('#getSaveOrder').click(function() {
 		var ord_id = selectsaveorder.find('#delete_saveorder').data('hidden');
 		$.ajax({
@@ -346,6 +349,7 @@ $(function() {
 			}
 		})
 	})
+	// 추가 요청 메뉴 선택!
 	var selectmenu = "";
 	// orderlist -> detail menu
 	$(document.body).delegate('#order_list tr div','click',function() {
@@ -365,7 +369,7 @@ $(function() {
 		$('#manu_detail').show();
 		}
 	});
-	// 디테일 메뉴 조작 ..ㅠ
+	// 추가요청 메뉴 조작!
 	$('#manu_detail button').click(function() {
 		var pdt_id = selectmenu.find("input[name='pdt_id']").val();
 		var detailmenu = $(this).val();
@@ -396,6 +400,7 @@ $(function() {
 			$('#TLT_AMOUNTS').html(plusComma(total_sale-point)+" 원"); 
 	})
 	
+	// 추가요청 해제
 	// detail menu -> save_order
 	$('#return_save').click(function() {
 		selectmenu ="";
