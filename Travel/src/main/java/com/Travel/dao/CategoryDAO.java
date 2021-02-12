@@ -14,6 +14,12 @@ public interface CategoryDAO {
 	public CategoryBean getCtg(String ctg_id);
 
 	public int countCategory(Search search);
+
+	public void delete(String ctg_id);
+
+	public void add(CategoryBean ctg);
+
+	public void update(CategoryBean ctg);
 	
 
 }

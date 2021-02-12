@@ -42,8 +42,24 @@
 			<if test="searchType=='stc_name' and searchText != null and searchText != ''">
 				AND stc_name like CONCAT('%', #{searchText}, '%')
 			</if>
+			<if test="ctgSort != null and ctgSort != ''">
+				AND ctg_id = #{ctgSort }
+			</if>
 		</trim>
-		order by stc_id
+		
+		<trim prefix="ORDER BY" prefixOverrides="AND|OR">
+			<if test="stcSort != null and stcSort != ''">
+				<if test="stcSort == 'new'">
+					AND stc_id
+				</if>
+				<if test="stcSort == 'cost'">
+					AND stc_cost
+				</if>
+<!-- 				<if test="pdtSort == 'like'"> -->
+<!-- 					AND pdt_id -->
+<!-- 				</if> -->
+			</if>
+		</trim>
 		LIMIT #{start}, #{end}
 	</select>
 </mapper>

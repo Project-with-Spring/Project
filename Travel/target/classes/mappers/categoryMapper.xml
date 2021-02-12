@@ -33,5 +33,16 @@
 		</trim>
 	</select>
 	
+	<insert id="insertCtg">
+		insert into category values(#{ctg_id}, #{ctg_name}, #{ctg_type})
+	</insert>
+	
+	<update id="updateCtg">
+		update category set ctg_name=#{ctg_name}, ctg_type=#{ctg_type} where ctg_id=#{ctg_id}
+	</update>
+	
+	<delete id="deleteCtg">
+		delete from category where ctg_id = #{ctg_id}
+	</delete>
 	
 </mapper>

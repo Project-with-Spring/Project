@@ -32,6 +32,21 @@ public class CategoryDAOImpl implements CategoryDAO {
 	public List<CategoryBean> getCtgList(Search search) {
 		return sqlSession.selectList(namespace + ".selectCategoryList", search);
 	}
+
+	@Override
+	public void delete(String ctg_id) {
+		sqlSession.delete(namespace + ".deleteCtg", ctg_id);
+	}
+
+	@Override
+	public void add(CategoryBean ctg) {
+		sqlSession.insert(namespace + ".insertCtg", ctg);
+	}
+
+	@Override
+	public void update(CategoryBean ctg) {
+		sqlSession.update(namespace + ".updateCtg", ctg);
+	}
 	
 
 }

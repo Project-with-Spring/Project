@@ -15,4 +15,10 @@ public interface CategoryService {
 //	public List<CategoryBean> ctgPdtListPage(int start);
 
 	public int countCategory(Search search);
+
+	public void delete(String ctg_id);
+
+	public void add(CategoryBean ctg);
+	
+	public void update(CategoryBean ctg);
 }

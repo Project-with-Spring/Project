@@ -42,4 +42,19 @@ public class CategoryServiceImpl implements CategoryService {
 		return categoryDAO.getCtgList(search);
 	}
 
+	@Override
+	public void delete(String ctg_id) {
+		categoryDAO.delete(ctg_id);
+	}
+
+	@Override
+	public void add(CategoryBean ctg) {
+		categoryDAO.add(ctg);
+	}
+
+	@Override
+	public void update(CategoryBean ctg) {
+		categoryDAO.update(ctg);
+	}
+
 }

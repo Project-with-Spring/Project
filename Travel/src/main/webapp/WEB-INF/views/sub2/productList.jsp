@@ -22,10 +22,8 @@
 			<div class="box-header with-border">
 				<h3 class="box-title"></h3>
 				<div class="box-tools pull-right">
-					<a href="<c:url value='/ctg/list' />"
-						class="btn btn-success btn-sm">Category List</a> <a
-						href="<c:url value='/stc/list' />" class="btn btn-success btn-sm">Stock
-						List</a> <br>
+					<a href="<c:url value='/ctg/list' />" class="btn btn-success btn-sm">Category List</a>
+					<a href="<c:url value='/stc/list' />" class="btn btn-success btn-sm">Stock List</a> <br>
 				</div>
 				<div>
 					* 상품, 재고의 추가는 <strong>카테고리 목록</strong>에서 가능합니다.
@@ -67,7 +65,7 @@
 										<option value="" selected>정렬 기준</option>
 										<option value="new">최신 등록순</option>
 										<option value="cost">가격순</option>
-										<option value="like">판매순</option>
+<!-- 										<option value="like">판매순</option> -->
 									</select>
 								</div>
 								<div class="col-md-1">

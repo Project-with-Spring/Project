@@ -67,7 +67,7 @@
 										<option value="" selected>정렬 기준</option>
 										<option value="new">최신 등록순</option>
 										<option value="cost">가격순</option>
-										<option value="like">사용 빈도순</option>
+<!-- 										<option value="like">사용 빈도순</option> -->
 									</select>
 								</div>
 								<div class="col-md-1">
@@ -97,10 +97,10 @@
 												<c:when test="${stc.ctg_id eq 5 }">
 													<td>커피원두</td>
 												</c:when>
-												<c:when test="${pdt.ctg_id eq 6 }">
+												<c:when test="${stc.ctg_id eq 6 }">
 													<td>냉장/냉동</td>
 												</c:when>
-												<c:when test="${pdt.ctg_id eq 7 }">
+												<c:when test="${stc.ctg_id eq 7 }">
 													<td>시럽/소스</td>
 												</c:when>
 												<c:otherwise>

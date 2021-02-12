@@ -7,7 +7,9 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.Travel.domain.CategoryBean;
@@ -107,6 +109,28 @@ public class CategoryController {
 		
 		
 		return "sub2/categoryList";
+	}
+	
+	@RequestMapping(value="/add", method=RequestMethod.POST)
+	public String ctgAdd(CategoryBean ctg) {
+		categoryService.add(ctg);
+		return "redirect:/ctg/list";
+	}
+	
+	@RequestMapping(value="/update/{ctg_id}", method=RequestMethod.POST)
+	public String update(@PathVariable String ctg_id, CategoryBean ctg) {
+		if(ctg_id.equals(ctg.getCtg_id())) {
+			categoryService.update(ctg);
+		}
+		
+		return "redirect:/ctg/list";
+	}
+	
+	@RequestMapping("/delete/{ctg_id}")
+	public String delete(@PathVariable String ctg_id) {
+		categoryService.delete(ctg_id);
+		
+		return "redirect:/ctg/list";
 	}
 
 	
