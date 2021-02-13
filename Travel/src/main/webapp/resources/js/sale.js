@@ -1,5 +1,129 @@
 $(function() {
 		var phoneCheck = false; // 전화번호 정규표현식 변수
+		
+	$(document).keydown(function(key) {
+		if(key.which == 117){
+			location.href='sale';
+			key.preventDefault();
+		} else if(key.which == 118){
+			// 판매자 정보
+		var stf_id = $('#stf_id').data('hidden');
+		if(stf_id == ""){
+			alert('판매자 로그인 해주세요.');
+			return false;
+		}
+		// 결제수단
+		var pay_method = "저장";
+		// 요청 사항
+		var ord_memo =$('#ord_memo').val();
+		// 넘길 배열 생성
+		var pdt_idList = [];
+		var pdt_nameList = [];
+		var pdt_countList = [];
+		var pdt_priceList = [];
+		// 생성한 배열에 값 추가
+		$("input[name='pdt_id']").each(function(i){
+			pdt_idList.push($("input[name='pdt_id']").eq(i).val()); // 상품코드
+			pdt_nameList.push($("input[name='pdt_name']").eq(i).val()); // 상품명
+			pdt_countList.push($("input[name='pdt_count']").eq(i).val()); //  주문수량
+			pdt_priceList.push(deleteComma($("input[name='pdt_price']").eq(i).val())); // 해당상품 총액
+		});
+		if($('#total_items').val() == 0){
+			alert('메뉴가 선택되지 않았습니다.');
+			return false;
+		}
+		alert('저장 되었습니다.');
+		// ajax 데이터 실어서 보내기
+		$.ajax({
+			url : "saveOrder",
+			type : "post",
+			traditional : "true",
+			data :	{
+				pdt_idList:pdt_idList,
+				pdt_nameList:pdt_nameList,
+				pdt_countList:pdt_countList,
+				pdt_priceList:pdt_priceList,
+				stf_id:stf_id,
+				pay_method:pay_method,
+				ord_memo:ord_memo
+			},
+			success:function(data){
+			location.href='sale';
+			}
+			
+		})
+			key.preventDefault();
+		} else if (key.which == 119){
+			// 판매자 정보
+		var stf_id = $('#stf_id').data('hidden');
+		if(stf_id == ""){
+			alert('판매자 로그인 해주세요.');
+			return false;
+		}// 포인트 적립 정보
+		var pot_id = $('#phoneNumber').val();
+		var pot_point = $('#balance').val();
+		var sale_point = $('#tlt_dist').val();
+		// 결제수단
+		var pay_method = $('#pay_method').val();
+		// 요청 사항
+		var ord_memo =$('#ord_memo').val();
+		// 넘길 배열 생성
+		var pdt_idList = [];
+		var pdt_nameList = [];
+		var pdt_countList = [];
+		var pdt_priceList = [];
+		// 생성한 배열에 값 추가
+		$("input[name='pdt_id']").each(function(i){
+			pdt_idList.push($("input[name='pdt_id']").eq(i).val()); // 상품코드
+			pdt_nameList.push($("input[name='pdt_name']").eq(i).val()); // 상품명
+			pdt_countList.push($("input[name='pdt_count']").eq(i).val()); //  주문수량
+			pdt_priceList.push(deleteComma($("input[name='pdt_price']").eq(i).val())); // 해당상품 총액
+		});
+		var dt_pdt_id = [];
+		var dt_count = [];
+		var dt_price = [];
+		var dt_name = [];
+		$("input[name='dt_pdt_id']").each(function(i){
+			dt_pdt_id.push($("input[name='dt_pdt_id']").eq(i).val());
+			dt_count.push($("input[name='dt_count']").eq(i).val());
+			dt_price.push(deleteComma($("input[name='dt_price']").eq(i).val()));
+			dt_name.push($("input[name='dt_pdt_id']").eq(i).closest('tr').text());
+		})
+		if($('#total_items').val() == 0){
+			alert('메뉴가 선택되지 않았습니다.');
+			return false;
+		}
+		alert('결제 되었습니다.');
+		// ajax 데이터 실어서 보내기
+		$.ajax({
+			url : "payment",
+			type : "post",
+			traditional : "true",
+			data :	{
+				pdt_idList:pdt_idList,
+				pdt_nameList:pdt_nameList,
+				pdt_countList:pdt_countList,
+				pdt_priceList:pdt_priceList,
+				pot_id:pot_id,
+				pot_point:pot_point,
+				stf_id:stf_id,
+				sale_point:sale_point,
+				pay_method:pay_method,
+				ord_memo:ord_memo,
+				dt_pdt_id:dt_pdt_id,
+				dt_count:dt_count,
+				dt_price:dt_price,
+				dt_name:dt_name
+			},
+			success:function(data){
+			location.href='sale';
+			}
+			
+		})
+		key.preventDefault();
+		}
+	})
+		
 		// 포인트적립 초기화
 	$('#resetPhone').click(function() {
 		$(this).hide();

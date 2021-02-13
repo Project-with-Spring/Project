@@ -72,7 +72,7 @@
 						</div>
 					</div>
 					<div style="padding: 5px; width: 100%;">
-					<div class="table-responsive" style="border:solid 1px #CCC;overflow-y: auto;padding:5px;width: 100%;height: 171px;max-height: 171px;">
+					<div class="table-responsive" style="border:solid 1px #CCC;overflow-y: auto;padding:5px;width: 100%;height: 172px;max-height: 172px;">
 					<table style="width: 100%;" class="saveOrder">
 						<thead>
 						<tr><td class="tac">주문 번호</td><td class="tac">날짜</td><td class="tac">금액</td><td class="tac">메모</td><td></td></tr>
