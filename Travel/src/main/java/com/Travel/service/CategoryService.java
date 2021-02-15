@@ -16,7 +16,7 @@ public interface CategoryService {
 
 	public int countCategory(Search search);
 
-	public void delete(String ctg_id);
+	public void delete(Long ctg_id);
 
 	public void add(CategoryBean ctg);
 	

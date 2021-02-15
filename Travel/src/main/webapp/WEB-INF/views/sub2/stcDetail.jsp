@@ -62,24 +62,6 @@
 						</tr>
 						
 					</table>
-<!-- 					<table class="table table-striped table-responsive tbl_narrow"> -->
-<!-- 						<tr> -->
-<!-- 							<th>No.</th> -->
-<!-- 							<th>Date</th> -->
-<!-- 							<th>Product List</th> -->
-<!-- 							<th>Usage</th> -->
-<!-- 						</tr> -->
-<%-- 						<c:set var="num" value="1" /> --%>
-<!-- 						<tr> -->
-<%-- 							<td>${num }</td> --%>
-<%-- 							<c:set var="num" value="${num+1 }" /> --%>
-<!-- 							<td>주문 날짜</td> -->
-<!-- 							<td>주문 목록</td> -->
-<!-- 							<td>사용된 재료의 양</td> -->
-<!-- 						</tr> -->
-						
-<!-- 					</table> -->
-					
 					<div id="add-new-btn">
 						<label for="expiry_date" class="col-sm-2 control-label"></label>
 						<div class="col-xs-6 col-sm-2">

@@ -1,9 +1,22 @@
 function add_new()
 {
+	$('#addNewBtn').toggle();
+	$('#addNewCtgBtn').toggle();
+	
   $('#add_new').toggle();
   $('#my_all').toggle();
-  $('#add-new-btn').css('display', 'block');
+  $('#add-new-btn').toggle();
 }
+
+function add_ctg_new() {
+	$('#addNewCtgBtn').toggle();
+	$('#addNewBtn').toggle();
+	
+	$('#addNewCtg').toggle();
+	$('#my_all').toggle();
+	
+}
+
 function cancel_new()
 {
   $('#my_all').toggle();

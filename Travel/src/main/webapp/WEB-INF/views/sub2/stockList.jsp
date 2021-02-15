@@ -120,23 +120,17 @@
 
 
 							<div style="display: block; text-align: center;">
+							<ul class="pagination" style="padding: 0px; margin: 0px;">
 								<c:if test="${stcPage.startPage != 1 && stcPage.startPage > 0}">
-									<a
-										href="<c:url value='/stc/list?nowPage=${stcPage.startPage - 1 }' />">&lt;</a>
+									<li><a href="<c:url value='/stc/list?nowPage=${stcPage.startPage - 1 }' />"><span class="glyphicon glyphicon-fast-backward"></span></a></li>
 								</c:if>
-								<c:forEach begin="${stcPage.startPage }" end="${stcPage.endPage }" var="p">
-									<c:choose>
-										<c:when test="${p == stcPage.nowPage }">
-											<b>${p }</b>
-										</c:when>
-										<c:when test="${p != stcPage.nowPage && p > 0}">
-											<a href="<c:url value='/stc/list?nowPage=${p }' />">${p }</a>
-										</c:when>
-									</c:choose>
+								<c:forEach begin="${stcPage.startPage+1 }" end="${stcPage.endPage }" var="p">
+								<li><a href="<c:url value='/stc/list?nowPage=${p }' />">${p }</a></li>
 								</c:forEach>
 								<c:if test="${stcPage.endPage != stcPage.lastPage}">
-									<a href="<c:url value='/stc/list?nowPage=${paging.endPage+1 }' />">&gt;</a>
+									<a href="<c:url value='/stc/list?nowPage=${paging.endPage+1 }' />"><span class="glyphicon glyphicon-forward"></span></a>
 								</c:if>
+							</ul>
 							</div>
 
 						</div>

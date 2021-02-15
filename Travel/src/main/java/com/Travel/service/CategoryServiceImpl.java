@@ -43,7 +43,7 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public void delete(String ctg_id) {
+	public void delete(Long ctg_id) {
 		categoryDAO.delete(ctg_id);
 	}
 

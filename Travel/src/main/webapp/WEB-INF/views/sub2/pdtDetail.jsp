@@ -36,10 +36,13 @@
         <li class="active">Product Detail</li>
       </ol>
     </section>
+    
+    
 	<!-- Default box -->
 	<div class="box">
 		<div id="my_all">
 			<div class="table-responsive no-padding">
+			<br><br>
 				<form action="<c:url value='/pdt/update/${pdt.pdt_id }'/>" method="post" id="up-form">
 					<table class="table table-striped table-responsive tbl_narrow" id="table">
 						<!-- 테이블에 들어갈 행 추가 -->
@@ -55,23 +58,18 @@
 							<td><label>상품 가격</label></td>
 							<td>${pdt.pdt_cost }</td>
 						</tr>
+						<tr>
+							<td><label>상품 판매 상태</label></td>
+							<td>
+							<c:choose>
+								<c:when test="${pdt.pdt_status eq '1'}">판매중</c:when>
+								<c:otherwise>판매 종료 (품절)</c:otherwise>
+							</c:choose>
+							</td>
+						</tr>
 						
-						<!-- 들어가는 재료 기입 -->
-<!-- 						<tr> -->
-<!-- 							<td colspan="3"><label>사용 재료</label></td> -->
-<!-- 						</tr> -->
-<!-- 						<tr> -->
-<!-- 							<th>재료명</th> -->
-<!-- 							<th>1회 사용량</th> -->
-<!-- 							<th>Detail</th> -->
-<!-- 						</tr> -->
-						
-<!-- 						<tr> -->
-<!-- 							<td>stock name</td> -->
-<!-- 							<td>stock usage</td> -->
-<!-- 							<td>stock detail</td> -->
-<!-- 						</tr> -->
 					</table>
+					<br><br>
 					
 					<div id="add-new-btn">
 						<label for="expiry_date" class="col-sm-2 control-label"></label>

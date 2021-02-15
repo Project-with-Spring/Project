@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,7 +41,7 @@ public class CategoryController {
 	@RequestMapping("/list")
 	public String ctgList( Model model,
 			@RequestParam(value="nowPage", required=false, defaultValue="1")String nowPage,
-			@RequestParam(value="searchType", required=false, defaultValue="ctg_name")String searchType,
+			@RequestParam(value="searchType", required=false, defaultValue="none")String searchType,
 			@RequestParam(value="searchText", required=false)String searchText) {
 
 		
@@ -50,38 +51,50 @@ public class CategoryController {
 		
 		// 카테고리, 상품, 재고 의 저장된 총 갯수를 저장할 변수
 		int ctgTotal = 0, pdtTotal = 0, stcTotal = 0;
-		if(search.getSearchType() == "ctg_name" || search.getSearchType() == "ctg_type") {
+		if(search.getSearchType().equals("ctg_name") || search.getSearchType().equals("ctg_type")) {
 			ctgTotal = categoryService.countCategory(search);
+		} else if(search.getSearchType().equals("pdt_name")) {
+			pdtTotal = productService.countProduct(search);
+			
+		} else if(search.getSearchType().equals("stc_name")) {
+			stcTotal = stockService.countStock(search);
+			
+		} else if(search.getSearchType().equals("none")) {
+			search.setSearchType("ctg_name");
+			ctgTotal = categoryService.countCategory(search);
+			
+			search.setSearchType("pdt_name");
+			pdtTotal = productService.countProduct(search);
+			
+
+			search.setSearchType("stc_name");
+			stcTotal = stockService.countStock(search);
 		}
 		
-//		Pagination pdtPage, stcPage;
 		// 카테고리 목록 불러오기
 		// 페이징
 		search = new Search(ctgTotal, Integer.parseInt(nowPage));
 		
 		search.setSearchType(searchType);
-		if(searchType=="ctg_type") {
-			if(searchText == "재고") searchText = "2";
+		if(searchType.equals("ctg_type")) {
+			if(searchText.equals("재고")) searchText = "2";
 			else searchText = "1";
 		}
 		search.setSearchText(searchText);
 		
+		model.addAttribute("ctgPage", search);
+		
 		List<CategoryBean> ctgList = categoryService.getCtgList(search);
 		model.addAttribute("ctgList", ctgList);
+		
 		// 카테고리 목록을 json형태로 넘겨주기
 		JSONArray jsonArray = new JSONArray();
 		model.addAttribute("ctgListByJson", jsonArray.fromObject(ctgList));
 		
 		
-		// tabs-1 Product List 페이징
-		
-		if(search.getSearchType() == "pdt_name") {
-			pdtTotal = productService.countProduct(search);
-		}
-		
 		// 검색 설정
 		search = new Search(pdtTotal, Integer.parseInt(nowPage));
-		search.setSearchType(searchType);
+		search.setSearchType("pdt_name");
 		search.setSearchText(searchText);
 		
 		model.addAttribute("pdtPage", search);
@@ -90,15 +103,9 @@ public class CategoryController {
 		List<ProductBean> pdtList = productService.selectProductListPage(search);
 		model.addAttribute("pdtList", pdtList);
 		
-		
-		// tabs-2 Stock List 페이징
-		if(search.getSearchType() == "stc_name") {
-			stcTotal = stockService.countStock(search);
-		}
-		
 		// 검색 설정
-		search = new Search(pdtTotal, Integer.parseInt(nowPage));
-		search.setSearchType(searchType);
+		search = new Search(stcTotal, Integer.parseInt(nowPage));
+		search.setSearchType("stc_name");
 		search.setSearchText(searchText);
 		
 		model.addAttribute("stcPage", search);
@@ -107,19 +114,20 @@ public class CategoryController {
 		List<StockBean> stcList = stockService.selectStcListPage(search);
 		model.addAttribute("stcList", stcList);
 		
-		
 		return "sub2/categoryList";
 	}
 	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public String ctgAdd(CategoryBean ctg) {
+//		ctg.setCtg_name((String) request.getAttribute("ctgName"));
+//		ctg.setCtg_type((String) request.getAttribute("ctgType"));
 		categoryService.add(ctg);
 		return "redirect:/ctg/list";
 	}
 	
 	@RequestMapping(value="/update/{ctg_id}", method=RequestMethod.POST)
-	public String update(@PathVariable String ctg_id, CategoryBean ctg) {
-		if(ctg_id.equals(ctg.getCtg_id())) {
+	public String update(@PathVariable Long ctg_id, CategoryBean ctg) {
+		if(ctg_id == ctg.getCtg_id()) {
 			categoryService.update(ctg);
 		}
 		
@@ -127,7 +135,7 @@ public class CategoryController {
 	}
 	
 	@RequestMapping("/delete/{ctg_id}")
-	public String delete(@PathVariable String ctg_id) {
+	public String delete(@PathVariable Long ctg_id) {
 		categoryService.delete(ctg_id);
 		
 		return "redirect:/ctg/list";

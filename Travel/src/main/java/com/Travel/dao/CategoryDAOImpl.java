@@ -34,7 +34,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 	}
 
 	@Override
-	public void delete(String ctg_id) {
+	public void delete(Long ctg_id) {
 		sqlSession.delete(namespace + ".deleteCtg", ctg_id);
 	}
 
