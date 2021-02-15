@@ -55,7 +55,6 @@ public class SalesHistoryController {
 		} else {
 			pageBean.setPageNum(page);
 		}
-		
 		Map<String, Object> searchMap = new HashMap<String, Object>();
 		searchMap.put("pageBean", pageBean);
 		if(request.getParameter("search") != null && request.getParameter("search").equals("on")) {
@@ -80,6 +79,7 @@ public class SalesHistoryController {
 		HashMap map = new HashMap();
 		map.put("pst_id", "");
 		map.put("stf_name", "");
+		map.put("pageBean", pageBean);
 		
 		model.addAttribute("staffList", staffService.getStaffList(map));
 		return "sub1/salesHistory";
