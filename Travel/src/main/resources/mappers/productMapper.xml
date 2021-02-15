@@ -59,7 +59,7 @@
 	</insert>
 	
 	<update id="updateProduct">
-		update product set pdt_name=#{pdt_name}, pdt_cost=#{pdt_cost} where pdt_id=#{pdt_id}
+		update product set pdt_name=#{pdt_name}, pdt_cost=#{pdt_cost}, pdt_status=#{pdt_status} where pdt_id=#{pdt_id}
 	</update>
 	
 	<delete id="deleteProduct">

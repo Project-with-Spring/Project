@@ -18,45 +18,46 @@
 	<div class="box">
 		<div id="my_all">
 			<div class="table-responsive no-padding">
-				<form action="<c:url value='/pdt/update/${pdt_id }/post'/>" method="POST">
+				<form action="<c:url value='/pdt/update/${pdt_id }/post'/>" method="POST" id="updateForm">
+				<br><br>
 					<table class="table table-striped table-responsive tbl_narrow" id="table">
 						<!-- 테이블에 들어갈 행 추가 -->
+						
+						<input type="hidden" value="${pdt.pdt_name }" name="pdt_name">
+						<input type="hidden" value="${pdt.pdt_id }" name="pdt_id">
 						<tr>
-							<td rowspan="3"><img alt="이미지 태그하기" src="" height="300px"></td>
-							<td><label>상&nbsp;&nbsp;품&nbsp;&nbsp;명</label></td>
-							<td><input type="text" value="${pdt.pdt_name }" name="pdt_name" id="pdt_name"></td>
-						</tr>
-						<tr>
-							<td><label>카테고리 명</label></td>
-							<td>${ctg.ctg_name }</td>
+							<td><label>상품명</label></td>
+							<td>${pdt.pdt_name }</td>
 						</tr>
 						<tr>
 							<td><label>상품 가격</label></td>
-							<td><input type="text" value="${pdt.pdt_cost }" name="pdt_cost" id="pdt_cost"></td>
+							<td><input type="text" value="${pdt.pdt_cost }" name="pdt_cost" id="pdt_cost"> 원</td>
 						</tr>
-						
-						<!-- 들어가는 재료 기입 -->
-<!-- 						<tr> -->
-<!-- 							<td colspan="3"><label>사용 재료</label></td> -->
-<!-- 						</tr> -->
-<!-- 						<tr> -->
-<!-- 							<th>재료명</th> -->
-<!-- 							<th>1회 사용량</th> -->
-<!-- 							<th>Detail</th> -->
-<!-- 						</tr> -->
-						
-<!-- 						<tr> -->
-<!-- 							<td>stock name</td> -->
-<!-- 							<td>stock usage</td> -->
-<!-- 							<td>stock detail</td> -->
-<!-- 						</tr> -->
+						<tr>
+							<td><label>상품 판매 상태</label></td>
+							<td>
+								<select id="pdt_status">
+								<c:choose>
+									<c:when test="${pdt.pdt_status == 1}">
+										<option value="1" selected>판매중</option>
+										<option value="2">판매 완료 (품절)</option>
+									</c:when>
+									<c:otherwise>
+										<option value="1">판매중</option>
+										<option value="2" selected>판매 완료 (품절)</option>
+									</c:otherwise>
+								</c:choose>
+								</select>
+							</td>
+						</tr>
+
 					</table>
-					
+					<br><br>
 					<div id="add-new-btn">
 						<label for="expiry_date" class="col-sm-2 control-label"></label>
 						<div class="col-xs-6 col-sm-2">
-							<input type="submit" class="form-control btn btn-success btn-sm btn-submit"
-								value="UPDATE">
+							<input type="button" class="form-control btn btn-success btn-sm btn-submit"
+								value="UPDATE" onclick = "update()">
 						</div>
 						<div class="col-xs-6 col-sm-2">
 							<input type="button" class="form-control btn btn-danger btn-sm"
@@ -70,6 +71,26 @@
 </div>
 
 <%@ include file="../include/footer.jsp"%>
+
+<script>
+function update() {
+	var statusVal = $("#pdt_status option:selected").val();
+	var pdt_status = 0;
+	
+	if(statusVal == 2) {
+		pdt_status = 2;
+	} else {
+		pdt_status = 1;
+	}
+
+	console.log(pdt_status);
+	
+	var html = "<input type='hidden' value='" + pdt_status + "' name='pdt_status'>";
+	$("#add-new-btn").append(html);
+
+	$('#updateForm').submit();
+}
+</script>
 
 </body>
 </html>

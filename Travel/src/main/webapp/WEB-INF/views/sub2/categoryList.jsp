@@ -22,11 +22,48 @@
 			<div class="box-header with-border">
 				<h3 class="box-title"></h3>
 				<div class="box-tools pull-right">
-					<a href="javascript:add_new();" class="btn btn-success btn-sm">
-					<i class="fa fa-plus"></i> Add New ( 상품 / 재고 ) </a>
+					<a href="<c:url value='/pdt/list' />" class="btn btn-success btn-sm">Product List</a>
+					<a href="<c:url value='/stc/list' />" class="btn btn-success btn-sm">Stock List</a> &nbsp;&nbsp;&nbsp;
+					<a href="javascript:add_ctg_new();" id="addNewCtgBtn" class="btn btn-success btn-sm"> <i class="fa fa-plus"></i> Add New Category </a>
+					<a href="javascript:add_new();" id="addNewBtn" class="btn btn-success btn-sm"> <i class="fa fa-plus"></i> Add New ( 상품 / 재고 ) </a>
 				</div>
 			</div>
+			
+			
 			<div class="box-body">
+			
+				<div id="addNewCtg" class="col-sm-12 col-md-12 col-lg-12" style="display: none;">
+				<form method="POST" class="form-horizontal" name="ctgNewForm" id="ctgNewForm" 
+					action="<c:url value='/ctg/add'/>">
+					<h2>Category Insert</h2>
+					<br>
+					<div class="form-group">
+						<label class="col-md-2 control-label">Category Type: </label>
+						<div class="col-md-4">
+							<select name="ctg_type" id="new_ctg_type" class="form-control">
+								<option value="0">카테고리 타입을 선택하세요 </option>
+								<option value="1">상품</option>
+								<option value="2">재고 </option>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-md-2 control-label">Category:</label>
+						<div class="col-md-4">
+							<input type="text" name="ctg_name" id="new_ctg_name" placeholder="카테고리 이름을 입력하세요">
+						</div>
+					</div>
+
+					<label for="expiry_date" class="col-sm-2 control-label"></label>
+					<div class="col-xs-6 col-sm-2">
+						<input type="button" class="form-control btn btn-success btn-sm btn-submit" id="addNewCtgSubmit" value="ADD NEW">
+					</div>
+					<div class="col-xs-6 col-sm-2">
+						<input type="button" class="form-control btn btn-danger btn-sm" value="CANCEL" onclick="javascript:add_ctg_new()">
+					</div>
+				</form>
+			</div>
 
 				<div id="add_new" class="col-sm-12 col-md-12 col-lg-12" style="display: none;">
 				<form method="POST" class="form-horizontal" name="frm_new" id="frm_new">
@@ -55,10 +92,9 @@
 							</div>
 						</div>
 						
-				</div>
-
 				<!-- 상품 입력 -->
 				<div class="form-group" id="pdt_insert" style="display: none;">
+				<hr>
 					<label class="col-md-2 control-label">Product Name:</label>
 					<div class="col-md-4">
 						<input type="text" name="pdt_name" id="pdt_name"
@@ -70,37 +106,12 @@
 						<input type="text" name="pdt_cost" id="pdt_cost"
 							class="form-control required" required>
 					</div>
-					<hr><hr>
-<!-- 					view에만 입력하는 것 구현해놨습니당, 입력 코드랑 DB 수정해야 함 -->
-					<div id="stc_in_pdt">
-						<label class="col-md-2 control-label">Stock Name:</label>
-						<div class="col-md-4">
-							<select class="form-control" name="stc_pdt" id="stc_pdt">
-								<option value="0">재료를 선택하세요</option>
-
-								<c:set var="num" value="1"/>
-								<c:forEach items="${stcList }" var="stc">
-									<option value="${num }">${stc.stc_name }</option>
-									<c:set var="num" value="${num+1 }"/>
-								</c:forEach>
-							</select>
-						</div>
-						
-						<label class="col-md-2 control-label">Stock Usage:</label>
-						<div class="col-md-4">
-							<input type="text" name="stc_usage" id="stc_usage" class="form-control required" required>
-							<input type="button" id="btn-stc-pdt" value="추가" class="form-control btn btn-success btn-sm btn-submit">
-						</div>
-						
-						<div id="stc_input">
-							
-						</div>
-					</div>
-					<hr><hr>
+				<hr>
 				</div>
 				
 				<!-- 재고 입력 -->
 				<div class="form-group" id="stc_insert" style="display: none;">
+				<hr>
 					<label class="col-md-2 control-label">Stock Name:</label>
 					<div class="col-md-4">
 						<input type="text" name="stc_name" id="stc_name"
@@ -116,7 +127,10 @@
 						<input type="text" name="stc_count" id="stc_count"
 							class="form-control required" required>
 					</div>
+				<hr>
 				</div>
+				
+				<hr>
 
 				<!-- add new, cancel 그룹 -->
 				<div id="add-new-btn" style="display: none;">
@@ -127,10 +141,9 @@
 					</div>
 					<div class="col-xs-6 col-sm-2">
 						<input type="button" class="form-control btn btn-danger btn-sm"
-							id="sub_mit" value="CANCEL" onclick="javascript:cancel_new();">
+							value="CANCEL" onclick="javascript:add_new();">
 					</div>
 				</div>
-				<p class="alert alert-danger" id="err_msg" style="display: none;"></p>
 				</form>
 			</div>
 			
@@ -164,11 +177,71 @@
 				
 				<div id="tabs">
 					<ul>
-						<li><a href="#tabs-1">Product List</a></li>
-						<li><a href="#tabs-2">Stock List</a></li>
+						<li><a href="#tabs-1">Category List</a></li>
+						<li><a href="#tabs-2">Product List</a></li>
+						<li><a href="#tabs-3">Stock List</a></li>
 					</ul>
+					
+					<div id="tabs-1"> <!-- 카테고리 리스트 탭 -->
+					
+					<table class="table table-striped table-responsive tbl_narrow">
+						<thead>
+						<tr>
+							<th>Category No.</th>
+							<th>Category Name</th>
+							<th>Category Type</th>
+							<th>Update</th>
+							<th>Delete</th>
+						</tr>
+						</thead>
+						<tbody id="ctg-tbody">
+						
+						<!-- 테이블에 들어갈 행 추가 -->
+						
+						<c:forEach items="${ctgList }" var="ctg">
+						
+						<!-- 카테고리타입에 따른 상품/재고 이름 출력 -->
+						<tr>
+							<td>${ctg.ctg_id}</td>
+							<td>${ctg.ctg_name}</td>
+							<c:choose>
+								<c:when test="${ctg.ctg_type eq 1 }">
+									<td>상품</td>
+								</c:when>
+								<c:otherwise>
+									<td>재고</td>
+								</c:otherwise>
+							</c:choose>
+							<td>
+								<input type="button" class="form-control btn btn-success btn-sm btn-submit" value="UPDATE" onclick="update($(this).parent())" >
+							</td>
+							<td>
+								<input type="button" class="form-control btn btn-danger btn-sm" value="DELETE" onclick="del($(this).parent())" >
+							</td>
+						</tr>
+						
+						</c:forEach> <!-- ctgList 반복 닫음 -->
+
+						</tbody>
+					</table>
+					
+					<div style="display: block; text-align: center;">
+					<ul class="pagination" style="padding: 0px; margin: 0px;">
+						<c:if test="${ctgPage.startPage != 1 && ctgPage.startPage > 0}">
+							<li><a href="<c:url value='/ctg/list?nowPage=${ctgPage.startPage - 1 }' />"><span class="glyphicon glyphicon-fast-backward"></span></a></li>
+						</c:if>
+						<c:forEach begin="${ctgPage.startPage+1 }" end="${ctgPage.endPage }" var="c">
+						<li><a href="<c:url value='/ctg/list?nowPage=${c }' />">${c }</a></li>
+						</c:forEach>
+						<c:if test="${ctgPage.endPage != ctgPage.lastPage}">
+							<li><a href="<c:url value='/ctg/list?nowPage=${ctgPage.endPage+1 }' />"><span class="glyphicon glyphicon-forward"></span></a></li>
+						</c:if>
+					</ul>
+					</div>
+	
+					</div>
 				
-					<div id="tabs-1"> <!-- 상품 리스트 탭 -->
+					<div id="tabs-2"> <!-- 상품 리스트 탭 -->
 					
 					<table class="table table-striped table-responsive tbl_narrow">
 						<thead>
@@ -206,28 +279,23 @@
 						</tbody>
 					</table>
 					
-					<div style="display: block; text-align: center;">		
+					<div style="display: block; text-align: center;">
+					<ul class="pagination" style="padding: 0px; margin: 0px;">
 						<c:if test="${pdtPage.startPage != 1 && pdtPage.startPage > 0}">
-							<a href="<c:url value='/ctg/list?nowPage=${pdtPage.startPage - 1 }' />">&lt;</a>
+							<li><a href="<c:url value='/ctg/list?nowPage=${pdtPage.startPage - 1 }' />"><span class="glyphicon glyphicon-fast-backward"></span></a></li>
 						</c:if>
-						<c:forEach begin="${pdtPage.startPage }" end="${pdtPage.endPage }" var="p">
-							<c:choose>
-								<c:when test="${p == pdtPage.nowPage }">
-									<b>${p }</b>
-								</c:when>
-								<c:when test="${p != pdtPage.nowPage && p > 0}">
-									<a href="<c:url value='/ctg/list?nowPage=${p }' />">${p }</a>
-								</c:when>
-							</c:choose>
+						<c:forEach begin="${pdtPage.startPage+1 }" end="${pdtPage.endPage }" var="p">
+						<li><a href="<c:url value='/ctg/list?nowPage=${p }' />">${p }</a></li>
 						</c:forEach>
 						<c:if test="${pdtPage.endPage != pdtPage.lastPage}">
-							<a href="<c:url value='/ctg/list?nowPage=${pdtPage.endPage+1 }' />">&gt;</a>
+							<li><a href="<c:url value='/ctg/list?nowPage=${pdtPage.endPage+1 }' />"><span class="glyphicon glyphicon-forward"></span></a></li>
 						</c:if>
+					</ul>
 					</div>
 	
 					</div>
 					
-					<div id="tabs-2"> <!-- 재고 리스트 탭 -->
+					<div id="tabs-3"> <!-- 재고 리스트 탭 -->
 					
 					<table class="table table-striped table-responsive tbl_narrow">
 						<thead>
@@ -264,23 +332,18 @@
 					
 					
 					
-					<div style="display: block; text-align: center;">		
+					<div style="display: block; text-align: center;">
+					<ul class="pagination" style="padding: 0px; margin: 0px;">
 						<c:if test="${stcPage.startPage != 1 && stcPage.startPage > 0}">
-							<a href="<c:url value='/ctg/list?nowPage=${stcPage.startPage - 1 }' />">&lt;</a>
+							<li><a href="<c:url value='/ctg/list?nowPage=${stcPage.startPage - 1 }' />"><span class="glyphicon glyphicon-fast-backward"></span></a></li>
 						</c:if>
-						<c:forEach begin="${stcPage.startPage }" end="${stcPage.endPage }" var="p">
-							<c:choose>
-								<c:when test="${p == stcPage.nowPage }">
-									<b>${p }</b>
-								</c:when>
-								<c:when test="${p != stcPage.nowPage && p > 0}">
-									<a href="<c:url value='/ctg/list?nowPage=${p }' />">${p }</a>
-								</c:when>
-							</c:choose>
+						<c:forEach begin="${stcPage.startPage+1 }" end="${stcPage.endPage }" var="p">
+						<li><a href="<c:url value='/ctg/list?nowPage=${p }' />">${p }</a></li>
 						</c:forEach>
 						<c:if test="${stcPage.endPage != stcPage.lastPage}">
-							<a href="<c:url value='/ctg/list?nowPage=${paging.endPage+1 }' />">&gt;</a>
+							<li><a href="<c:url value='/ctg/list?nowPage=${paging.endPage+1 }' />"><span class="glyphicon glyphicon-forward"></span></a></li>
 						</c:if>
+					</ul>
 					</div>
 	
 					
@@ -368,40 +431,6 @@ $('#ctg_type').on('click', function() {
 });
 
 
-
-
-//한 상품에 대한 재고 사용량 입력
-//$('#btn-stc-pdt').on('click', function() {
-//	var stc = "재료명";
-//	var usage = "사용량";
-//	var html = "선택된 재료명&사용량 입력할 tag 저장 변수";
-//
-//	if($('#stc_pdt').val() == 0) {
-//		alert('재료를 선택하세요');
-//		return ;
-//	} else if($('#stc_usage').val() == "") {
-//		alert('사용량을 입력하세요');
-//		return ;
-//	} else {
-//		stc = $('#stc_pdt option:selected').text();
-//		usage = $('#stc_usage').val();
-//
-//		html = "<input type='text' value='" + stc + "' name='stc_pdt' readonly> " +
-//			"<input type='text' value='" + usage + "' name='stc_usage' readonly> " + 
-//			"<input type='button' value='선택 옵션 삭제' name='stc_pdt_del' class='form-control btn btn-danger btn-sm' > <br>";
-//		
-//		$('#stc_input').html(html);
-//
-//		$('#stc_pdt').prop('value', 0);
-//		$('#stc_usage').prop('value', '');
-//	}
-//});
-//
-//function stc_del() {
-////	구현하다맘..
-//}
-
-
 //form action 변경
 var action = "";
 
@@ -423,6 +452,11 @@ $('#sub_mit').on('click', function() {
 	// form submit
 	$('#frm_new').submit();
 });
+
+// 카테고리 추가 form 전송
+$('#addNewCtgSubmit').on('click', function() {
+	$('#ctgNewForm').submit();
+})
 
 
 // 검색
@@ -446,6 +480,83 @@ $(document).on('click', '#btnSearch', function(e) {
 $(function() {
 	$('#tabs').tabs();
 });
+
+
+// 카테고리 수정 입력 폼으로 변경
+function update(tdObj) {
+	var td = tdObj.parent().children();
+	
+	var ctg_name = td.eq(1).text();
+	var ctg_type = td.eq(2).text();
+	
+	td.eq(1).html("<input type='text' value='" + ctg_name + "' id='editName'>");
+	td.eq(2).html("<input type='text' value='" + ctg_type + "' id='editType'>");
+	td.eq(3).html("<input type='button' id='btnDo' value='수정하기' > &nbsp;" + 
+			"<input type='button' id='btnCancel' value='취소' >");
+}
+
+// 카테고리 수정 ajax
+$(document).on('click', '#btnDo', function() {
+	var td = $(this).parent().parent().children();
+	
+	var ctg_id = td.eq(0).text();
+	var ctg_name = td.eq(1).find('input').val();
+	var ctg_type = td.eq(2).find('input').val();
+
+	if(ctg_name == '') {
+		alert('카테고리 이름을 입력해야 합니다.');
+		td.eq(1).focus();
+		return false;
+	} else if(ctg_type == '') {
+		alert('카테고리 타입을 입력해야 합니다.');
+		td.eq(2).focus();
+		return false;
+	} else {
+		 if(ctg_type != '' || ctg_type != null) 
+			 ctg_type = ctg_type == '재고'? 2 : 1;
+
+		 $.ajax({
+			url: '/go/ctg/update/' + ctg_id,
+			type: 'post',
+			data: {
+				ctg_name: ctg_name,
+				ctg_type: ctg_type
+			},
+			success: function() {
+				location.reload(true);
+			}
+		});
+	}
+
+})
+
+// 카테고리 수정 취소
+$(document).on('click', '#btnCancel', function() {
+	var td = $(this).parent().parent().children();
+	var html = "<input type='button' value='UPDATE' class='form-control btn btn-success btn-sm btn-submit' onclick='update($(this).parent())' />";
+
+	var ctg_name = 
+	
+	td.eq(1).text($("#editName").val());
+	td.eq(2).text($("#editType").val());
+	td.eq(3).html(html);
+})
+
+
+
+// 카테고리 삭제
+function del(tdObj) {
+	var td = tdObj.parent().children();
+	
+	var ctg_id = td.eq(0).text();
+
+	if(confirm('카테고리를 정말 삭제하시겠습니까?') == true) {
+		location.href = "/go/ctg/delete/" + ctg_id;
+	} else {
+		return false;
+	}
+}
+
 
 
 </script>
