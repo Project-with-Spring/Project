@@ -1,7 +1,7 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
-<html>
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org">
 <head>
+	<meta charset="UTF-8">
 	<title>Home</title>
 </head>
 <body>
@@ -9,6 +9,6 @@
 	Hello world!  
 </h1>
 
-<P>  The time on the server is ${serverTime}. </P>
+<P>  The time on the server is <span th:text="${serverTime}">time</span>. </P>
 </body>
 </html>

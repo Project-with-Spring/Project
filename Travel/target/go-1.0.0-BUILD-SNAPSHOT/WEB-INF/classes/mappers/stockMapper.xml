@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.Travel.mapper.StockMapper">
+	
+	<select id="selectStock" resultType="stock">
+		select * from stock where stc_id=#{stc_id}
+	</select>
+	
+	<insert id="insertStock" parameterType="stock" useGeneratedKeys="true" keyProperty="id">
+		insert into stock values(#{stc_id }, #{stc_name }, #{stc_count }, #{stc_cost }, now(), #{ctg_id })
+	</insert>
+	
+	<update id="updateStock">
+		update stock set stc_name=#{stc_name}, stc_count=${stc_count}, stc_cost=#{stc_cost} where stc_id=${stc_id}
+	</update>
+	
+	<delete id="deleteStock">
+		delete from stock where stc_id=#{stc_id}
+	</delete>
+	
+	<select id="countStock" resultType="int">
+		select count(stc_id) from stock
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchText != null and searchText != ''">
+				<if test="searchType == 'stc_name'">
+					AND stc_name like CONCAT('%', #{searchText}, '%')
+				</if>
+			</if>
+		</trim>
+	</select>
+	
+	<select id="stcListPage" resultType="stock">
+		select * 
+		from (
+			select row_number() over(order by stc_id) as num, s.*
+			from stock s
+				) stc
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchType=='stc_name' and searchText != null and searchText != ''">
+				AND stc_name like CONCAT('%', #{searchText}, '%')
+			</if>
+		</trim>
+		order by stc_id
+		LIMIT #{start}, #{end}
+	</select>
+</mapper>

@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.Travel.mapper.SalesHistoryMapper">
+	
+	<select id="getListCount" parameterType="java.util.Map" resultType="int">
+		SELECT COUNT(ord.ord_id) FROM `order` ord JOIN staff stf ON ord.stf_id = stf.stf_id
+		<if test="search == true">
+			WHERE ord.ord_memo LIKE CONCAT('%',#{memo_search},'%')
+			<if test="end_date != null and end_date neq ''">
+			AND ord.ord_date &lt;= #{end_date}
+			</if>
+			<if test="begin_date != null and begin_date neq ''">
+			AND ord.ord_date &gt;= #{begin_date}
+			</if>
+			<if test="min_price != null and min_price neq ''">
+			AND ord.ord_total &gt;= #{min_price}
+			</if>
+			<if test="max_price != null and max_price neq ''">
+			AND ord.ord_total &lt;= #{max_price}
+			</if>
+			<if test="phone_search != null and phone_search neq ''">
+			AND ord.pot_id LIKE CONCAT('%',#{phone_search},'%')
+			</if>
+			<if test="pmt_search != null and pmt_search neq ''">
+			AND ord.pmt_name = #{pmt_search}
+			</if>
+			<if test="staff_search != null and staff_search neq ''">
+			AND ord.stf_id = #{staff_search}
+			</if>
+			<if test="cancel_search != null and cancel_search neq ''">
+			AND ord.ord_cancel = #{cancel_search}
+			</if>
+		</if>
+	</select>
+	
+	<select id="getList" parameterType="java.util.Map" resultType="orderBean">
+		SELECT * FROM `order` ord JOIN staff stf ON ord.stf_id = stf.stf_id 
+		<if test="search == true">
+			WHERE ord.ord_memo LIKE CONCAT('%',#{memo_search},'%')
+			<if test="end_date != null and end_date neq ''">
+			AND ord.ord_date &lt;= #{end_date}
+			</if>
+			<if test="begin_date != null and begin_date neq ''">
+			AND ord.ord_date &gt;= #{begin_date}
+			</if>
+			<if test="min_price != null and min_price neq ''">
+			AND ord.ord_total &gt;= #{min_price}
+			</if>
+			<if test="max_price != null and max_price neq ''">
+			AND ord.ord_total &lt;= #{max_price}
+			</if>
+			<if test="phone_search != null and phone_search neq ''">
+			AND ord.pot_id LIKE CONCAT('%',#{phone_search},'%')
+			</if>
+			<if test="pmt_search != null and pmt_search neq ''">
+			AND ord.pmt_name = #{pmt_search}
+			</if>
+			<if test="staff_search != null and staff_search neq ''">
+			AND ord.stf_id = #{staff_search}
+			</if>
+			<if test="cancel_search != null and cancel_search neq ''">
+			AND ord.ord_cancel = #{cancel_search}
+			</if>
+		</if>
+		ORDER BY ord.ord_id DESC LIMIT #{pageBean.startRow},#{pageBean.pageSize}
+	</select>
+	
+	<select id="getChartList" parameterType="java.util.Map" resultType="orderBean">
+		WITH RECURSIVE date2 AS (SELECT 
+		 <choose>
+		 <when test="dateType == 1">
+		 DATE_FORMAT(sysdate(), '%Y-%c') AS `date`, sysdate() AS `date2`
+		 </when>
+		 <when test="dateType == 2">
+		 DATE_FORMAT(sysdate(), '%Y') AS `date`, sysdate() AS `date2`
+		 </when>
+		 <otherwise>
+		 DATE(sysdate()) AS `date`
+		 </otherwise>
+		 </choose>
+		 
+		 UNION ALL SELECT
+		  
+		 <choose>
+		 <when test="dateType == 1">
+		 DATE_FORMAT(DATE_SUB(`date2`, INTERVAL 1 MONTH), '%Y-%c') AS `date`,
+		 DATE_SUB(`date2`, INTERVAL 1 MONTH)  AS `date2`
+		 </when>
+		 <when test="dateType == 2">
+		 DATE_FORMAT(DATE_SUB(`date2`, INTERVAL 1 YEAR), '%Y') AS `date`,
+		 DATE_SUB(`date2`, INTERVAL 1 YEAR)  AS `date2`
+		 </when>
+		 <otherwise>
+		 DATE_SUB(`date`, INTERVAL 1 DAY)
+		 </otherwise>
+		 </choose>
+		 
+		 FROM date2	LIMIT 0,9)
+		 SELECT dt.`date`, SUM(IFNULL(
+		
+		<choose>
+			<when test="totalType == 1">
+				ord.ord_total
+			</when>
+			<otherwise>
+				(ord.ord_total + ord.ord_discount)
+			</otherwise>
+		</choose>
+		
+		, 0)) AS ord_total FROM date2 dt 
+		LEFT OUTER JOIN `order` ord 
+		ON dt.`date` = 
+		
+		<choose>
+		 <when test="dateType == 1">
+		 DATE_FORMAT(ord.ord_date, '%Y-%c')
+		 </when>
+		 <when test="dateType == 2">
+		 DATE_FORMAT(ord.ord_date, '%Y')
+		 </when>
+		 <otherwise>
+		 DATE(ord.ord_date)
+		 </otherwise>
+		 </choose>
+		
+		GROUP BY dt.`date`; 
+	</select>
+	
+	<select id="getPopularityList" resultType="orderDetailBean">
+	SELECT pdt_name, SUM(odt_count) odt_count FROM orderdetail GROUP BY pdt_name ORDER BY SUM(odt_count) DESC LIMIT 0,5;
+	</select>
+	
+	<select id="getChartBarList" parameterType="java.util.Map" resultType="orderDetailBean">
+	WITH RECURSIVE date2 AS (
+	SELECT 
+	
+	<choose>
+		 <when test="dateType == 1">
+		 DATE_FORMAT(sysdate(), '%Y-%c') AS `date`, sysdate() AS `date2`
+		 </when>
+		 <when test="dateType == 2">
+		 DATE_FORMAT(sysdate(), '%Y') AS `date`, sysdate() AS `date2`
+		 </when>
+		 <otherwise>
+		 DATE(sysdate()) AS `date`
+		 </otherwise>
+	</choose>
+	
+	UNION ALL SELECT
+	
+	<choose>
+		 <when test="dateType == 1">
+		 DATE_FORMAT(DATE_SUB(`date2`, INTERVAL 1 MONTH), '%Y-%c') AS `date`,
+		 DATE_SUB(`date2`, INTERVAL 1 MONTH)  AS `date2`
+		 </when>
+		 <when test="dateType == 2">
+		 DATE_FORMAT(DATE_SUB(`date2`, INTERVAL 1 YEAR), '%Y') AS `date`,
+		 DATE_SUB(`date2`, INTERVAL 1 YEAR)  AS `date2`
+		 </when>
+		 <otherwise>
+		 DATE_SUB(`date`, INTERVAL 1 DAY)
+		 </otherwise>
+	</choose>
+	FROM date2
+	LIMIT 0, 9
+	)
+	SELECT dt.`date`, IFNULL(odt.pdt_name,#{pdt_name}) pdt_name, IFNULL(SUM(odt.odt_count) ,0) odt_count
+	FROM date2 dt LEFT OUTER JOIN 
+	(SELECT 
+	<choose>
+		 <when test="dateType == 1">
+		 DATE_FORMAT(ord.ord_date, '%Y-%c')
+		 </when>
+		 <when test="dateType == 2">
+		 DATE_FORMAT(ord.ord_date, '%Y')
+		 </when>
+		 <otherwise>
+		 DATE(ord.ord_date)
+		 </otherwise>
+	</choose>
+	AS ord_date, odt.pdt_name, SUM(odt.odt_count) AS odt_count
+	FROM `order` ord JOIN orderdetail odt
+	ON ord.ord_id = odt.ord_id
+	WHERE odt.pdt_name = #{pdt_name}
+	Group by 
+	<choose>
+		 <when test="dateType == 1">
+		 DATE_FORMAT(ord.ord_date, '%Y-%c')
+		 </when>
+		 <when test="dateType == 2">
+		 DATE_FORMAT(ord.ord_date, '%Y')
+		 </when>
+		 <otherwise>
+		 DATE(ord.ord_date)
+		 </otherwise>
+	</choose>
+	) odt
+	ON dt.`date` = odt.ord_date
+	GROUP BY dt.`date`;
+	</select>
+	
+	<select id="getOdtList" parameterType="int" resultType="orderDetailBean">
+		SELECT * FROM orderdetail odt 
+		JOIN product pdt
+		ON odt.pdt_id = pdt.pdt_id
+		WHERE odt.ord_id = #{ord_id};
+	</select>
+	
+	<select id="getOrdList" parameterType="int" resultType="orderBean">
+		SELECT * FROM `order` ord JOIN staff stf ON ord.stf_id = stf.stf_id WHERE ord.ord_id = #{ord_id} 
+	</select>
+		
+	<update id="updateMemo" parameterType="orderBean">
+		UPDATE `order` SET ord_memo = #{ord_memo} WHERE ord_id = #{ord_id}
+	</update>
+	
+	
+</mapper>

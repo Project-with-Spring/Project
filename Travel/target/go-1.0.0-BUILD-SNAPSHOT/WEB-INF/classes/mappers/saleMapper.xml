@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.Travel.mapper.SaleMapper">
+	
+	<select id="getCategoryList" resultType="com.Travel.domain.CategoryBean">
+		select * from category where ctg_type=#{ctg_type}
+	</select>
+	
+	<select id="getProductList" resultType="com.Travel.domain.ProductBean">
+		select * from product 
+	</select>
+	
+	<insert id="insertOrder">
+		insert into `order`(ord_date,ord_total,pmt_name,stf_id,ord_memo,ord_discount)
+		values(#{ord_date},#{ord_total},#{pmt_name},#{stf_id},#{ord_memo},#{ord_discount})
+	</insert>
+	
+	<select id="getOrderId" resultType="java.lang.String">
+		select max(ord_id) from `order` where ord_total=#{ord_total} and pmt_name=#{pmt_name} and stf_id=#{stf_id}
+	</select>
+	
+	<insert id="insertOrderDetail">
+		insert into orderdetail(odt_count,ord_id,pdt_id,pdt_name,dt_price,odt_memo)
+		values(#{odt_count},#{ord_id},#{pdt_id},#{pdt_name},#{dt_price},#{odt_memo})
+	</insert>
+	
+	<select id="getPoint" resultType="java.lang.String">
+		select pot_point from point where pot_id = #{pot_id}
+	</select>
+	
+	<select id="insertPointId">
+		insert into point(pot_id,pot_point)
+		values(#{pot_id},#{pot_point})
+	</select>
+	
+	<update id="updatePoint">
+		update point SET pot_point = #{pot_point} where pot_id = #{pot_id}
+	</update>
+	
+	<update id="updateOrdPoint">
+		update `order` set pot_id = #{pot_id} where ord_id = #{ord_id}
+	</update>
+	
+	<insert id="insertSaveOrder">
+		insert into `order`(ord_date,ord_total,pmt_name,stf_id,ord_memo,ord_cancel)
+		values(#{ord_date},#{ord_total},#{pmt_name},#{stf_id},#{ord_memo},#{ord_cancel})
+	</insert>
+	
+	<select id="getSaveOrderList" resultType="orderBean">
+		select * from `order` where ord_cancel='1' order by ord_id desc
+	</select>
+	
+	<select id="deleteOrder">
+		delete from `order` where ord_id=#{ord_id}
+	</select>
+	
+	<select id="getSaveOrder" resultType="orderBean">
+		select * from `order` where ord_id=#{ord_id}
+	</select>
+	
+	<select id="getSaveOrderDetail" resultType="com.Travel.domain.OrderDetailBean">
+		SELECT * FROM orderdetail odt JOIN product pdt ON odt.pdt_id = pdt.pdt_id WHERE odt.ord_id = #{ord_id};
+	</select>
+	
+</mapper>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.Travel.mapper.CommuteMapper">
+
+	<select id="selectCommutList" parameterType="hashMap" resultType="commuteBean">
+		SELECT sf.stf_name stf_name , ps.pst_name pst_name, cm.* 
+		FROM  staff sf JOIN commute cm on cm.stf_id=sf.stf_id 
+		join position ps on sf.pst_id = ps.pst_id 
+		where date_format(cmt_go,'%Y-%m-%d') 
+		between #{from} and #{to} 
+		and sf.stf_id 
+		like concat('%',#{search},'%') order by cmt_go desc
+		LIMIT #{pageBean.startRow},#{pageBean.pageSize}
+	</select>
+	<select id="countCommute" parameterType="hashMap" resultType="int">
+		SELECT count(*) 
+		FROM commute
+		where date_format(cmt_go,'%Y-%m-%d') 
+		between #{from} and #{to} 
+		and stf_id 
+		like concat('%',#{search},'%') order by cmt_go desc;
+	</select>
+	
+	<select id="getStaffCommutOnetotal" parameterType="hashMap" resultType="staffBean">
+		select st.*, ps.pst_name pst_name , cm.cnt_go cnt_go, cm.total_time total_time from staff st 
+		join position ps on st.pst_id = ps.pst_id 
+		left join (
+			select stf_id, count(distinct(date_format(cmt_go,'%Y-%m-%d'))) cnt_go, sum(TIMESTAMPDIFF(MINUTE,cmt_go,cmt_leave)) AS total_time 
+			from commute where date_format(cmt_go,'%Y-%m-%d') 
+			between #{from} and #{to} 
+			<!-- between LAST_DAY(NOW() - interval 2 month) + interval 1 DAY and #{to}  -->
+			group by stf_id
+		) as cm 
+		on st.stf_id=cm.stf_id where  st.stf_id=#{stf_id} ;
+		
+	</select>
+	
+	<select id="selectCommute" parameterType="hashMap" resultType="commuteBean">
+		SELECT sf.stf_name stf_name , ps.pst_name pst_name, cm.* FROM  staff sf JOIN commute cm on cm.stf_id=sf.stf_id join position ps on sf.pst_id = ps.pst_id where sf.stf_id=#{stf_id} and date_format(cmt_go,'%Y-%m-%d') between #{from} and #{to} order by cmt_go desc;
+	</select>
+	
+	<select id="getStaffCommutOne" parameterType="hashMap" resultType="commuteBean">
+		SELECT * from commute where cmt_id=#{cmt_id} and stf_id =#{stf_id}
+	</select>
+	
+	<select id="getCountStaffCommutOne" parameterType="hashMap" resultType="int">
+		SELECT count(*) from commute where cmt_id=#{cmt_id} and stf_id =#{stf_id}
+	</select>
+	<!-- 출근 -->
+	<insert id="cmtgo" parameterType="int" keyProperty="seq">
+		insert into commute (cmt_go,stf_id) value(now(),#{stf_id}) 
+	</insert>
+	<!-- 퇴근리스트 -->
+	<update id="cmt_leave" parameterType="int" keyProperty="seq">
+		update commute set cmt_leave=now() where stf_id=#{stf_id} and cmt_id = (select cmt_id from (select max(cmt_id) cmt_id from commute where stf_id=#{stf_id}) cmt ); 
+		<!-- update commute set cmt_leave=now() where stf_id=#{stf_id}  and cmt_go in (select cmt_go from (select max(date_format(cmt_go,'%Y-%m-%d%H:%i')) cmt_go from commute where stf_id=#{stf_id} ) as a) ; -->
+	</update>
+	
+	<update id="updateCmt" parameterType="commuteBean" >
+		update commute set cmt_go=#{cmt_goS}, cmt_leave=#{cmt_leaveS} where  cmt_id = #{cmt_id} and stf_id=#{stf_id} 
+	</update>
+	
+	<delete  id="commuteDelete" parameterType="int" >
+		delete from commute where cmt_id = #{cmt_id}
+	</delete>
+	
+ 	<!-- 출근리스트 --> 
+ 	<select id="cmtgoChk" parameterType="int" resultType="int">
+		select count(*) from commuteGo where stf_id = #{stf_id}
+		<!-- SELECT count(*) FROM commute where stf_id=#{stf_id} and cmt_id = (select cmt_id from (select max(cmt_go),cmt_id from commute where stf_id=#{stf_id})  as cmt_go) ;; -->
+	</select>
+ 
+	<insert  id="insertcmtgoList" parameterType="int" >
+		insert into commuteGo (stf_id) value (#{stf_id})	
+	</insert>
+					
+	<delete  id="deletecmtgoList" parameterType="int" >
+		delete from commuteGo where stf_id = #{stf_id}
+	</delete>
+	
+	<!-- 퇴근리스트  -->
+	<select id="cmtleaveChk" parameterType="int" resultType="int">
+		select count(*) from commuteLeave where stf_id = #{stf_id}
+		<!-- SELECT count(*) FROM commute where stf_id=#{stf_id} and cmt_id = (select cmt_id from (select max(cmt_go),cmt_id from commute where stf_id=#{stf_id})  as cmt_go) ;; -->
+	</select>
+	
+	<insert  id="insertcmtleaveList" parameterType="int" >
+		insert into commuteLeave (stf_id) value (#{stf_id})	
+	</insert>
+	
+	<!-- 	<select id="cmtleaveChk" parameterType="int" resultType="int">
+		SELECT count(*) FROM commute where stf_id=#{stf_id} and date_format(cmt_leave, '%Y-%m-%d') = CURDATE();
+	</select> -->
+
+</mapper>
